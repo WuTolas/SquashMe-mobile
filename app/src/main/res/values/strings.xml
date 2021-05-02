@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SquashMe</string>
+    <string name="quick_match">Quick match</string>
+    <string name="tournament">Tournament</string>
+    <string name="match_history">Match history</string>
+    <string name="settings">Settings</string>
 </resources>
