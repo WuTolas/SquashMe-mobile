@@ -6,13 +6,97 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/main_line1_buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:baselineAligned="false">
+
+        <Button
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_squash_rackets_svgrepo_com_48"
+            android:drawableTint="@color/primary"
+            android:padding="15dp"
+            android:maxHeight="120dp"
+            android:minHeight="120dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/quick_match"
+            android:textSize="12sp"
+            android:textColor="@color/text_dark_primary"/>
+
+        <Button
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_trophy_svgrepo_com_48"
+            android:drawableTint="@color/primary"
+            android:padding="15dp"
+            android:backgroundTint="#FFF"
+            android:maxHeight="120dp"
+            android:minHeight="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tournament"
+            android:textSize="12sp"
+            android:textColor="@color/text_dark_primary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_line2_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/main_line1_buttons"
+        android:baselineAligned="false">
+
+        <Button
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_outline_bar_chart_48"
+            android:drawableTint="@color/primary"
+            android:padding="15dp"
+            android:backgroundTint="#FFF"
+            android:maxHeight="120dp"
+            android:minHeight="120dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/match_history"
+            android:textSize="12sp"
+            android:textColor="@color/text_dark_primary"/>
+
+        <Button
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_baseline_settings_48"
+            android:drawableTint="@color/primary"
+            android:padding="15dp"
+            android:backgroundTint="#FFF"
+            android:maxHeight="120dp"
+            android:minHeight="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/settings"
+            android:textSize="12sp"
+            android:textColor="@color/text_dark_primary"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
