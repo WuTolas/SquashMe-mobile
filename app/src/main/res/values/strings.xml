@@ -13,4 +13,8 @@
     <string name="referee_mode">Referee mode</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="error_name_empty">Name can not be empty</string>
+    <string name="error_best_of_games">Best of games number should be positive or empty</string>
+    <string name="error_not_a_number">Provided input is not a number</string>
+    <string name="error_max_length">Max length allowed: %1$d</string>
 </resources>

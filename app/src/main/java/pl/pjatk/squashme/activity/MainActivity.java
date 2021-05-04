@@ -1,10 +1,12 @@
-package pl.pjatk.squashme;
+package pl.pjatk.squashme.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import pl.pjatk.squashme.R;
 
 public class MainActivity extends AppCompatActivity {
 
