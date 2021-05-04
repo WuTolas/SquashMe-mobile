@@ -16,6 +16,7 @@
         android:baselineAligned="false">
 
         <Button
+            android:id="@+id/quick_match"
             style="@style/SquashMeOutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

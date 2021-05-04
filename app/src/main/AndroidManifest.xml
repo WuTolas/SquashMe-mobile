@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SquashMe">
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".QuickMatchActivity"
+            android:label="@string/quick_match"/>
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +23,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/main_page"/>
+            android:label="@string/main_page" />
     </application>
 
 </manifest>
