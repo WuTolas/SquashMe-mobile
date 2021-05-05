@@ -5,19 +5,24 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.dao.MatchDao;
-import pl.pjatk.squashme.database.AppDatabase;
+import pl.pjatk.squashme.di.component.DaggerQuickMatchActivityComponent;
+import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.CreateQuickMatchFragment;
 import pl.pjatk.squashme.fragment.QuickScoreModeFragment;
 import pl.pjatk.squashme.fragment.RefereeModeFragment;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.service.MatchService;
 
 public class QuickMatchActivity extends AppCompatActivity {
 
+    @Inject
+    public MatchService matchService;
     private CompositeDisposable disposables;
 
     @Override
@@ -25,9 +30,13 @@ public class QuickMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_match);
 
+        DaggerQuickMatchActivityComponent.builder()
+                .roomModule(new RoomModule(getApplication()))
+                .build()
+                .inject(this);
+
         disposables = new CompositeDisposable();
-        MatchDao matchDao = AppDatabase.getInstance(getApplicationContext()).matchDao();
-        disposables.add(Observable.fromCallable(matchDao::getCurrentQuickMatch)
+        disposables.add(Observable.fromCallable(matchService::getCurrentActiveQuickMatch)
                 .subscribeOn(Schedulers.io())
                 .subscribe(m -> {
                     prepareFragment(m.orElse(null));

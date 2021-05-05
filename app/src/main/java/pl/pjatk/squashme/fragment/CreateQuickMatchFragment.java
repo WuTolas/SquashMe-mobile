@@ -1,6 +1,5 @@
 package pl.pjatk.squashme.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,20 +12,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import java.lang.ref.WeakReference;
-import java.util.concurrent.ThreadPoolExecutor;
 
-import io.reactivex.rxjava3.core.Observable;
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.dao.MatchDao;
-import pl.pjatk.squashme.database.AppDatabase;
+import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
+import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.di.module.ServiceModule;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.service.MatchService;
 
 public class CreateQuickMatchFragment extends Fragment {
 
+    @Inject
+    public MatchService matchService;
     private CompositeDisposable disposables;
 
     private EditText p1FullName;
@@ -37,13 +39,13 @@ public class CreateQuickMatchFragment extends Fragment {
     private Button createButton;
     private Button cancelButton;
 
-    private MatchDao matchDao;
-    private Match savedMatch;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        matchDao = AppDatabase.getInstance(requireContext()).matchDao();
+        DaggerCreateQuickMatchFragmentComponent.builder()
+                .roomModule(new RoomModule(getActivity().getApplication()))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -60,12 +62,11 @@ public class CreateQuickMatchFragment extends Fragment {
     private void handleCreateQuickMatch() {
         if (isValidated()) {
             Match match = prepareMatch();
-            disposables.add(Single.just(matchDao)
+            disposables.add(Single.just(match)
                     .subscribeOn(Schedulers.io())
-                    .subscribe(mDao -> {
-                       long savedId = matchDao.insert(match);
-                       match.setId(savedId);
-                       prepareFragment(match);
+                    .subscribe(m -> {
+                       Match saved = matchService.saveMatch(m);
+                       prepareFragment(saved);
                     }));
         }
     }

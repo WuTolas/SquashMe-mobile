@@ -17,9 +17,6 @@ public interface MatchDao {
     @Query("SELECT * FROM `Match` WHERE finished = 0 ORDER BY id LIMIT 1")
     Optional<Match> getCurrentQuickMatch();
 
-    @Query("SELECT * FROM `Match` WHERE id = :id")
-    Match getMatchById(Long id);
-
     @Insert
     long insert(Match match);
 
