@@ -21,7 +21,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.di.module.ServiceModule;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.service.MatchService;
 

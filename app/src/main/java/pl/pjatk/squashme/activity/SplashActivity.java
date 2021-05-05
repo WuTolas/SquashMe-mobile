@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.activity.MainActivity;
 
 public class SplashActivity extends Activity {
 
