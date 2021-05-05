@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.model.Match;
 
-@Database(entities = {Match.class}, version = 2)
+@Database(entities = {Match.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "SquashMe.db";

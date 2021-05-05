@@ -14,13 +14,20 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ThreadPoolExecutor;
 
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.database.AppDatabase;
 import pl.pjatk.squashme.model.Match;
 
 public class CreateQuickMatchFragment extends Fragment {
+
+    private CompositeDisposable disposables;
 
     private EditText p1FullName;
     private EditText p2FullName;
@@ -44,6 +51,7 @@ public class CreateQuickMatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_quick_match, container, false);
         initializeComponents(view);
+        disposables = new CompositeDisposable();
         createButton.setOnClickListener(V -> handleCreateQuickMatch());
         cancelButton.setOnClickListener(V -> requireActivity().finish());
         return view;
@@ -52,17 +60,24 @@ public class CreateQuickMatchFragment extends Fragment {
     private void handleCreateQuickMatch() {
         if (isValidated()) {
             Match match = prepareMatch();
-            SaveQuickMatchTask saveTask = new SaveQuickMatchTask(this, matchDao, match);
-            saveTask.execute();
+            disposables.add(Single.just(matchDao)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(mDao -> {
+                       long savedId = matchDao.insert(match);
+                       match.setId(savedId);
+                       prepareFragment(match);
+                    }));
         }
     }
 
-    private void afterMatchSave(Match savedMatch) {
+    private void prepareFragment(Match savedMatch) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("match", savedMatch);
         if (savedMatch.isRefereeMode()) {
-            fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, null);
+            fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
         } else {
-            fragmentTransaction.replace(R.id.fragment_quick_match, QuickScoreModeFragment.class, null);
+            fragmentTransaction.replace(R.id.fragment_quick_match, QuickScoreModeFragment.class, bundle);
         }
         fragmentTransaction.commit();
     }
@@ -116,30 +131,9 @@ public class CreateQuickMatchFragment extends Fragment {
         return errorsCount == 0;
     }
 
-    private static class SaveQuickMatchTask extends AsyncTask<Void, Void, Match> {
-
-        private final WeakReference<CreateQuickMatchFragment> fragmentRef;
-        private final MatchDao matchDao;
-        private final Match matchToBeSaved;
-
-        public SaveQuickMatchTask(CreateQuickMatchFragment fragment, MatchDao matchDao, Match matchToBeSaved) {
-            this.fragmentRef = new WeakReference<>(fragment);
-            this.matchDao = matchDao;
-            this.matchToBeSaved = matchToBeSaved;
-        }
-
-        @Override
-        protected Match doInBackground(Void... voids) {
-            Long id = matchDao.insert(this.matchToBeSaved);
-            return matchDao.getMatchById(id);
-        }
-
-        @Override
-        protected void onPostExecute(Match match) {
-            super.onPostExecute(match);
-            if (fragmentRef != null) {
-                fragmentRef.get().afterMatchSave(match);
-            }
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
     }
 }

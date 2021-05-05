@@ -6,13 +6,16 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.Optional;
+
+import io.reactivex.rxjava3.core.Maybe;
 import pl.pjatk.squashme.model.Match;
 
 @Dao
 public interface MatchDao {
 
     @Query("SELECT * FROM `Match` WHERE finished = 0 ORDER BY id LIMIT 1")
-    Match getCurrentQuickMatch();
+    Optional<Match> getCurrentQuickMatch();
 
     @Query("SELECT * FROM `Match` WHERE id = :id")
     Match getMatchById(Long id);

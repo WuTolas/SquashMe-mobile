@@ -4,11 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Match {
+public class Match implements Serializable {
+
+    private static final long serialVersionUID = -5707926154973431429L;
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
     @ColumnInfo(name = "player1")
     private String player1;
     @ColumnInfo(name = "player2")
@@ -22,11 +26,11 @@ public class Match {
     @ColumnInfo(name = "finished")
     private boolean finished;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
