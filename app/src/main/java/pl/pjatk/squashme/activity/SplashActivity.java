@@ -1,9 +1,11 @@
-package pl.pjatk.squashme;
+package pl.pjatk.squashme.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import pl.pjatk.squashme.R;
 
 public class SplashActivity extends Activity {
 
