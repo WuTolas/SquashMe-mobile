@@ -19,6 +19,7 @@
             android:weightSum="2">
 
             <Button
+                android:id="@+id/player_one_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -28,6 +29,7 @@
                 android:textSize="20sp" />
 
             <Button
+                android:id="@+id/player_two_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,6 +47,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/player_one_set"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/transparent_squared"
@@ -52,6 +55,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/player_two_set"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
