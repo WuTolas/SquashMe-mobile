@@ -9,4 +9,8 @@ public interface MatchService {
     Optional<Match> getCurrentActiveQuickMatch();
 
     Match saveMatch(Match match);
+
+    void updateMatch(Match match);
+
+    void addPoint();
 }
