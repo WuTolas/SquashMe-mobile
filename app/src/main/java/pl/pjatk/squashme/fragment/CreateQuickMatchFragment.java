@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
@@ -23,11 +22,14 @@ import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.service.MatchService;
+import pl.pjatk.squashme.service.PlayerService;
 
 public class CreateQuickMatchFragment extends Fragment {
 
     @Inject
     public MatchService matchService;
+    @Inject
+    public PlayerService playerService;
     private CompositeDisposable disposables;
 
     private EditText p1FullName;
@@ -64,8 +66,12 @@ public class CreateQuickMatchFragment extends Fragment {
             disposables.add(Single.just(match)
                     .subscribeOn(Schedulers.io())
                     .subscribe(m -> {
-                       Match saved = matchService.saveMatch(m);
-                       prepareFragment(saved);
+                        String p1Name = p1FullName.getText().toString().trim();
+                        String p2Name = p2FullName.getText().toString().trim();
+                        m.setPlayer1(playerService.getIdOrSave(p1Name));
+                        m.setPlayer2(playerService.getIdOrSave(p2Name));
+                        Match saved = matchService.saveMatch(m);
+                        prepareFragment(saved);
                     }));
         }
     }
@@ -94,8 +100,6 @@ public class CreateQuickMatchFragment extends Fragment {
 
     private Match prepareMatch() {
         Match match = new Match();
-        match.setPlayer1(p1FullName.getText().toString());
-        match.setPlayer2(p2FullName.getText().toString());
         match.setBestOf(bestOf.getText().toString().isEmpty() ? null : Integer.parseInt(bestOf.getText().toString()));
         match.setTwoPointsAdvantage(twoPointsAdvantage.isChecked());
         match.setRefereeMode(refereeMode.isChecked());

@@ -14,9 +14,9 @@ public class Match implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo(name = "player1")
-    private String player1;
+    private long player1;
     @ColumnInfo(name = "player2")
-    private String player2;
+    private long player2;
     @ColumnInfo(name = "best_of")
     private Integer bestOf;
     @ColumnInfo(name = "two_points_advantage")
@@ -34,19 +34,19 @@ public class Match implements Serializable {
         this.id = id;
     }
 
-    public String getPlayer1() {
+    public long getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(String player1) {
+    public void setPlayer1(long player1) {
         this.player1 = player1;
     }
 
-    public String getPlayer2() {
+    public long getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(String player2) {
+    public void setPlayer2(long player2) {
         this.player2 = player2;
     }
 
