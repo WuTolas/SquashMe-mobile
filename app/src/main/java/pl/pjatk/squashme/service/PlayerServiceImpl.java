@@ -15,13 +15,14 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public long getIdOrSave(String name) {
-        Player player = playerDao.getPlayer(name).orElseGet(Player::new);
-        if (player.getId() == 0) {
+    public long getIdWithSave(String name) {
+        long id = playerDao.getId(name);
+        if (id == 0) {
+            Player player = new Player();
             player.setName(name);
             return playerDao.insert(player);
         } else {
-            return player.getId();
+            return id;
         }
     }
 }

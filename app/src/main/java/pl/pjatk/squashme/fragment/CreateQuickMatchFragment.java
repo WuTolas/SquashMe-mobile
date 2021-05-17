@@ -21,6 +21,8 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.Player;
 import pl.pjatk.squashme.service.MatchService;
 import pl.pjatk.squashme.service.PlayerService;
 
@@ -68,19 +70,21 @@ public class CreateQuickMatchFragment extends Fragment {
                     .subscribe(m -> {
                         String p1Name = p1FullName.getText().toString().trim();
                         String p2Name = p2FullName.getText().toString().trim();
-                        m.setPlayer1(playerService.getIdOrSave(p1Name));
-                        m.setPlayer2(playerService.getIdOrSave(p2Name));
-                        Match saved = matchService.saveMatch(m);
-                        prepareFragment(saved);
+                        long p1Id = playerService.getIdWithSave(p1Name);
+                        long p2Id = playerService.getIdWithSave(p2Name);
+                        m.setPlayer1Id(p1Id);
+                        m.setPlayer2Id(p2Id);
+                        MatchWithPlayers mwp = matchService.saveWithPlayersReturn(m);
+                        prepareFragment(mwp);
                     }));
         }
     }
 
-    private void prepareFragment(Match savedMatch) {
+    private void prepareFragment(MatchWithPlayers match) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("match", savedMatch);
-        if (savedMatch.isRefereeMode()) {
+        bundle.putSerializable("match", match);
+        if (match.getMatch().isRefereeMode()) {
             fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
         } else {
             fragmentTransaction.replace(R.id.fragment_quick_match, QuickScoreModeFragment.class, bundle);

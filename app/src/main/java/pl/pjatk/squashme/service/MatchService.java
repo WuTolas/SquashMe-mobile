@@ -3,10 +3,11 @@ package pl.pjatk.squashme.service;
 import java.util.Optional;
 
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithPlayers;
 
 public interface MatchService {
 
-    Optional<Match> getCurrentActiveQuickMatch();
+    Optional<MatchWithPlayers> getCurrentQuickMatchWithPlayers();
 
-    Match saveMatch(Match match);
+    MatchWithPlayers saveWithPlayersReturn(Match match);
 }
