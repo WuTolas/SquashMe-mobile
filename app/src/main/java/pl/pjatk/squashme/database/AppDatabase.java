@@ -9,7 +9,7 @@ import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.Player;
 
-@Database(entities = {Match.class, Player.class}, version = 5mian )
+@Database(entities = {Match.class, Player.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "SquashMe.db";
