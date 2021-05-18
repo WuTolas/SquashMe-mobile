@@ -22,7 +22,6 @@ import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.MatchWithPlayers;
-import pl.pjatk.squashme.model.Player;
 import pl.pjatk.squashme.service.MatchService;
 import pl.pjatk.squashme.service.PlayerService;
 

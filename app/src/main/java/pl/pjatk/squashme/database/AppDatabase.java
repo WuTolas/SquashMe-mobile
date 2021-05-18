@@ -6,10 +6,16 @@ import androidx.room.RoomDatabase;
 
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.dao.PlayerDao;
+import pl.pjatk.squashme.dao.TournamentDao;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.Player;
+import pl.pjatk.squashme.model.Tournament;
 
-@Database(entities = {Match.class, Player.class}, version = 8)
+@Database(entities = {
+        Match.class,
+        Player.class,
+        Tournament.class,
+}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "SquashMe.db";
@@ -17,4 +23,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract MatchDao getMatchDao();
 
     public abstract PlayerDao getPlayerDao();
+
+    public abstract TournamentDao getTournamentDao();
 }

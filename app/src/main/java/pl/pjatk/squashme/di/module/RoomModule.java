@@ -10,6 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.dao.PlayerDao;
+import pl.pjatk.squashme.dao.TournamentDao;
 import pl.pjatk.squashme.database.AppDatabase;
 
 @Module
@@ -39,5 +40,11 @@ public class RoomModule {
     @Provides
     public PlayerDao providesPlayerDao(AppDatabase appDatabase) {
         return appDatabase.getPlayerDao();
+    }
+
+    @Singleton
+    @Provides
+    public TournamentDao providesTournamentDao(AppDatabase appDatabase) {
+        return appDatabase.getTournamentDao();
     }
 }

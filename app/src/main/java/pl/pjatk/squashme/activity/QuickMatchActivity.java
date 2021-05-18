@@ -16,7 +16,6 @@ import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.CreateQuickMatchFragment;
 import pl.pjatk.squashme.fragment.QuickScoreModeFragment;
 import pl.pjatk.squashme.fragment.RefereeModeFragment;
-import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
 

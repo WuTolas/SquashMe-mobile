@@ -34,6 +34,7 @@
             android:textColor="@color/text_dark_primary"/>
 
         <Button
+            android:id="@+id/tournament"
             style="@style/SquashMeOutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
