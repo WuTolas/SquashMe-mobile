@@ -17,4 +17,10 @@
     <string name="error_best_of_games">Best of games number should be positive or empty</string>
     <string name="error_not_a_number">Provided input is not a number</string>
     <string name="error_max_length">Max length allowed: %1$d</string>
+    <string name="referee_view">Referee view</string>
+    <string name="left_side">L</string>
+    <string name="right_side">R</string>
+    <string name="end_game">End game</string>
+    <string name="revert_point">Revert point</string>
+    <string name="close_protocol">Close protocol</string>
 </resources>

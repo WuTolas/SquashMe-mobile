@@ -17,6 +17,7 @@ import pl.pjatk.squashme.fragment.CreateQuickMatchFragment;
 import pl.pjatk.squashme.fragment.QuickScoreModeFragment;
 import pl.pjatk.squashme.fragment.RefereeModeFragment;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithResults;
 import pl.pjatk.squashme.service.MatchService;
 
 public class QuickMatchActivity extends AppCompatActivity {
@@ -43,14 +44,14 @@ public class QuickMatchActivity extends AppCompatActivity {
                 }));
     }
 
-    private void prepareFragment(Match currentMatch) {
+    private void prepareFragment(MatchWithResults currentMatch) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (currentMatch == null) {
             fragmentTransaction.add(R.id.fragment_quick_match, CreateQuickMatchFragment.class, null);
         } else {
             Bundle bundle = new Bundle();
             bundle.putSerializable("match", currentMatch);
-            if (currentMatch.isRefereeMode()) {
+            if (currentMatch.getMatch().isRefereeMode()) {
                 fragmentTransaction.add(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
             } else {
                 fragmentTransaction.add(R.id.fragment_quick_match, QuickScoreModeFragment.class, bundle);

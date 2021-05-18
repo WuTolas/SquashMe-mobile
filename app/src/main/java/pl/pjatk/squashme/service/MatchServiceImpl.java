@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithResults;
 
 public class MatchServiceImpl implements MatchService {
 
@@ -17,7 +18,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Optional<Match> getCurrentActiveQuickMatch() {
+    public Optional<MatchWithResults> getCurrentActiveQuickMatch() {
         return matchDao.getCurrentQuickMatch();
     }
 
@@ -26,5 +27,10 @@ public class MatchServiceImpl implements MatchService {
         long id = matchDao.insert(match);
         match.setId(id);
         return match;
+    }
+
+    @Override
+    public void updateMatch(Match match) {
+        matchDao.update(match);
     }
 }
