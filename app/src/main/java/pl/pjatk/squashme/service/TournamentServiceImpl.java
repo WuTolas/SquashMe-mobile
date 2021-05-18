@@ -21,4 +21,11 @@ public class TournamentServiceImpl implements TournamentService {
     public Optional<Tournament> getCurrentTournament() {
         return tournamentDao.getCurrentTournament();
     }
+
+    @Override
+    public Tournament save(Tournament tournament) {
+        long id = tournamentDao.insert(tournament);
+        tournament.setId(id);
+        return tournament;
+    }
 }

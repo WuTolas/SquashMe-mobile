@@ -16,6 +16,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UselessParent">
 
+        <TextView
+            android:id="@+id/text_tournament_spinner_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:labelFor="@id/spinner_tournament_type"
+            android:text="@string/tournament_type" />
+
         <Spinner
             android:id="@+id/spinner_tournament_type"
             android:layout_width="match_parent"
@@ -24,7 +32,7 @@
 
 
         <TextView
-            android:id="@+id/text_match_bestOf"
+            android:id="@+id/text_tournament_bestOf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"

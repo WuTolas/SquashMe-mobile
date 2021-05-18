@@ -20,4 +20,6 @@
     <string name="error_max_length">Max length allowed: %1$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="best_of_not_null_hint">Type number of max sets</string>
+    <string name="tournament_type">Tournament type</string>
+    <string name="error_best_of_must_be_odd">Draws are not allowed - best of should be odd number</string>
 </resources>

@@ -10,7 +10,7 @@ public class TournamentTypeConverter {
 
     @TypeConverter
     public String fromTournamentType(TournamentType tournamentType) {
-        return tournamentType != null ? tournamentType.toString() : null;
+        return tournamentType != null ? tournamentType.name() : null;
     }
 
     @TypeConverter

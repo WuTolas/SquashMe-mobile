@@ -7,4 +7,6 @@ import pl.pjatk.squashme.model.Tournament;
 public interface TournamentService {
 
     Optional<Tournament> getCurrentTournament();
+
+    Tournament save(Tournament tournament);
 }
