@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import pl.pjatk.squashme.dao.MatchDao;
+import pl.pjatk.squashme.dao.ResultDao;
 import pl.pjatk.squashme.database.AppDatabase;
 
 @Module
@@ -32,5 +33,11 @@ public class RoomModule {
     @Provides
     public MatchDao providesMatchDao(AppDatabase appDatabase) {
         return appDatabase.getMatchDao();
+    }
+
+    @Singleton
+    @Provides
+    public ResultDao providesResultDao(AppDatabase appDatabase) {
+        return appDatabase.getResultDao();
     }
 }

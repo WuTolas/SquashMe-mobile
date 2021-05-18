@@ -1,11 +1,18 @@
 package pl.pjatk.squashme.service
 
-class ResultServiceImpl :  ResultService{
-    override fun addPoint() {
-        TODO("Not yet implemented")
+import android.util.Log
+import pl.pjatk.squashme.dao.ResultDao
+import pl.pjatk.squashme.model.Result
+import javax.inject.Inject
+
+class ResultServiceImpl @Inject constructor(private val resultDao: ResultDao) :  ResultService {
+    override fun addPoint(result: Result) {
+        resultDao.insert(result)
+        Log.i("ResultService", "point added")
     }
 
-    override fun revertPoint() {
-        TODO("Not yet implemented")
+    override fun revertPoint(result: Result) {
+        resultDao.delete(result)
+        Log.i("ResultService", "point reverted")
     }
 }

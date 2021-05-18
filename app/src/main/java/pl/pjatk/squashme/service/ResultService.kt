@@ -1,6 +1,8 @@
 package pl.pjatk.squashme.service
 
+import pl.pjatk.squashme.model.Result
+
 interface ResultService {
-    fun addPoint()
-    fun revertPoint()
+    fun addPoint(result: Result)
+    fun revertPoint(result: Result)
 }

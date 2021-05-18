@@ -22,4 +22,5 @@
     <string name="right_side">R</string>
     <string name="end_game">End game</string>
     <string name="revert_point">Revert point</string>
+    <string name="close_protocol">Close protocol</string>
 </resources>

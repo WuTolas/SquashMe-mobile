@@ -1,10 +1,6 @@
 package pl.pjatk.squashme.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +8,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,6 +24,7 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithResults;
 import pl.pjatk.squashme.service.MatchService;
 
 public class CreateQuickMatchFragment extends Fragment {
@@ -64,8 +67,8 @@ public class CreateQuickMatchFragment extends Fragment {
             disposables.add(Single.just(match)
                     .subscribeOn(Schedulers.io())
                     .subscribe(m -> {
-                       Match saved = matchService.saveMatch(m);
-                       prepareFragment(saved);
+                        Match saved = matchService.saveMatch(m);
+                        prepareFragment(saved);
                     }));
         }
     }
@@ -73,7 +76,7 @@ public class CreateQuickMatchFragment extends Fragment {
     private void prepareFragment(Match savedMatch) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("match", savedMatch);
+        bundle.putSerializable("match", new MatchWithResults(savedMatch, new ArrayList<>()));
         if (savedMatch.isRefereeMode()) {
             fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
         } else {
