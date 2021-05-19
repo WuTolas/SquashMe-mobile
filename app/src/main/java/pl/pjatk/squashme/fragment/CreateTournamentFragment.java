@@ -75,7 +75,13 @@ public class CreateTournamentFragment extends Fragment {
     }
 
     private void prepareFragment(Tournament tournament) {
-
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putLong("tournamentId", tournament.getId());
+        bundle.putSerializable("tournamentType", tournament.getType());
+        bundle.putInt("maxPlayers", tournament.getMaxPlayers());
+        fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
+        fragmentTransaction.commit();
     }
 
     private Tournament prepareTournament() {

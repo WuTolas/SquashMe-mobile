@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.stream.Stream;
 
 public enum TournamentType {
+
     ROUND_ROBIN("Round robin"),
     PLAYOFFS_ONLY("Playoffs only");
 

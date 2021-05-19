@@ -14,7 +14,9 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerTournamentActivityComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.CreateTournamentFragment;
+import pl.pjatk.squashme.fragment.SignPlayersFragment;
 import pl.pjatk.squashme.model.Tournament;
+import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
 
 public class TournamentActivity extends AppCompatActivity {
@@ -44,6 +46,14 @@ public class TournamentActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (currentTournament == null) {
             fragmentTransaction.add(R.id.fragment_tournament, CreateTournamentFragment.class, null);
+        } else {
+            Bundle bundle = new Bundle();
+            if (currentTournament.getStatus() == TournamentStatus.PICKING_PLAYERS) {
+                bundle.putLong("tournamentId", currentTournament.getId());
+                bundle.putSerializable("tournamentType", currentTournament.getType());
+                bundle.putInt("maxPlayers", currentTournament.getMaxPlayers());
+                fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
+            }
         }
         fragmentTransaction.commit();
     }
