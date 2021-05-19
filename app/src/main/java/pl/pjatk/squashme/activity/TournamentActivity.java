@@ -15,6 +15,7 @@ import pl.pjatk.squashme.di.component.DaggerTournamentActivityComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.CreateTournamentFragment;
 import pl.pjatk.squashme.fragment.SignPlayersFragment;
+import pl.pjatk.squashme.fragment.TournamentHubFragment;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
@@ -53,6 +54,8 @@ public class TournamentActivity extends AppCompatActivity {
                 bundle.putSerializable("tournamentType", currentTournament.getType());
                 bundle.putInt("maxPlayers", currentTournament.getMaxPlayers());
                 fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
+            } else {
+                fragmentTransaction.replace(R.id.fragment_tournament, TournamentHubFragment.class, null);
             }
         }
         fragmentTransaction.commit();

@@ -3,6 +3,7 @@ package pl.pjatk.squashme.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -78,9 +79,16 @@ public class SignPlayersFragment extends Fragment {
                     .subscribeOn(Schedulers.io())
                     .subscribe(players -> {
                         tournamentService.generateRoundRobinMatches(tournamentId, players);
+                        prepareFragment();
                     })
             );
         }
+    }
+
+    private void prepareFragment() {
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_tournament, TournamentHubFragment.class, null);
+        fragmentTransaction.commit();
     }
 
     private void initializeComponents(View view) {
@@ -90,7 +98,7 @@ public class SignPlayersFragment extends Fragment {
     }
 
     private void addPlayerInputs(View view) {
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.sign_players_container);
+        LinearLayout layout = view.findViewById(R.id.sign_players_container);
         TextView nameLabel;
         EditText nameInput;
 
