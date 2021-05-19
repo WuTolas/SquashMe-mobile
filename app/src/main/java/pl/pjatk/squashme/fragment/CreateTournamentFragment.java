@@ -35,6 +35,7 @@ public class CreateTournamentFragment extends Fragment {
     private CompositeDisposable disposables;
 
     private Spinner tournamentType;
+    private EditText maxPlayers;
     private EditText bestOf;
     private CheckBox twoPointsAdvantage;
     private Button createButton;
@@ -80,6 +81,7 @@ public class CreateTournamentFragment extends Fragment {
     private Tournament prepareTournament() {
         Tournament tournament = new Tournament();
         tournament.setType(TournamentType.getByName(tournamentType.getSelectedItem().toString()));
+        tournament.setMaxPlayers(Integer.parseInt(maxPlayers.getText().toString()));
         tournament.setBestOf(Integer.parseInt(bestOf.getText().toString()));
         tournament.setTwoPointsAdvantage(twoPointsAdvantage.isChecked());
         tournament.setStatus(TournamentStatus.PICKING_PLAYERS);
@@ -89,6 +91,7 @@ public class CreateTournamentFragment extends Fragment {
     private void initializeComponents(View view) {
         tournamentType = view.findViewById(R.id.spinner_tournament_type);
         tournamentType.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, TournamentType.values()));
+        maxPlayers = view.findViewById(R.id.inp_tournament_max_players);
         bestOf = view.findViewById(R.id.inp_tournament_bestOf);
         twoPointsAdvantage = view.findViewById(R.id.chk_tournament_twoPointsAdvantage);
         createButton = view.findViewById(R.id.btn_tournament_create);
@@ -107,13 +110,22 @@ public class CreateTournamentFragment extends Fragment {
 
         try {
             if (bestOf.getText().toString().isEmpty()) {
-                bestOf .setError(getString(R.string.error_field_empty));
+                bestOf.setError(getString(R.string.error_field_empty));
                 errorsCount++;
             } else if (Integer.parseInt(bestOf.getText().toString()) <= 0) {
                 bestOf.setError(getString(R.string.error_best_of_games));
                 errorsCount++;
             } else if (type == TournamentType.PLAYOFFS_ONLY && Integer.parseInt(bestOf.getText().toString()) % 2 == 0) {
                 bestOf.setError(getString(R.string.error_best_of_must_be_odd));
+                errorsCount++;
+            }
+
+            if (maxPlayers.getText().toString().isEmpty()) {
+                maxPlayers.setError(getString(R.string.error_field_empty));
+                errorsCount++;
+            } else if (Integer.parseInt(maxPlayers.getText().toString()) < 3) {
+                maxPlayers.setError(getString(R.string.error_min_players));
+                errorsCount++;
             }
         } catch (NumberFormatException ex) {
             bestOf.setError(getString(R.string.error_not_a_number));

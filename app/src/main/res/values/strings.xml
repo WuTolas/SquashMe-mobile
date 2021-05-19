@@ -28,4 +28,6 @@
     <string name="best_of_not_null_hint">Type number of max sets</string>
     <string name="tournament_type">Tournament type</string>
     <string name="error_best_of_must_be_odd">Draws are not allowed - best of should be odd number</string>
+    <string name="player_number">Number of players</string>
+    <string name="error_min_players">Should be at least 3 players</string>
 </resources>
