@@ -111,16 +111,27 @@ public class CreateQuickMatchFragment extends Fragment {
     private boolean isValidated() {
         int errorsCount = 0;
 
-        if (p1FullName.getText().toString().isEmpty()) {
+        String p1Name = p1FullName.getText().toString().trim();
+        String p2Name = p2FullName.getText().toString().trim();
+
+        if (p1Name.isEmpty()) {
             p1FullName.setError(getString(R.string.error_name_empty));
             errorsCount++;
-        } else if (p1FullName.getText().toString().length() > 128) {
-            p1FullName.setError(getString(R.string.error_max_length, 128));
+        } else if (p1Name.length() > 64) {
+            p1FullName.setError(getString(R.string.error_max_length, 64));
             errorsCount++;
         }
 
-        if (p2FullName.getText().toString().isEmpty()) {
+        if (p2Name.isEmpty()) {
             p2FullName.setError(getString(R.string.error_name_empty));
+            errorsCount++;
+        } else if (p2Name.length() > 64) {
+            p2FullName.setError(getString(R.string.error_max_length, 64));
+            errorsCount++;
+        }
+
+        if (!p1Name.isEmpty() && !p2Name.isEmpty() && p1Name.equals(p2Name)) {
+            p2FullName.setError(getString(R.string.error_player_exists));
             errorsCount++;
         }
 
