@@ -27,6 +27,8 @@ public class Tournament implements Serializable {
     @ColumnInfo(name = "tournament_type")
     @TypeConverters(TournamentTypeConverter.class)
     private TournamentType type;
+    @ColumnInfo(name = "max_players")
+    private int maxPlayers;
 
     public long getId() {
         return id;
@@ -66,5 +68,13 @@ public class Tournament implements Serializable {
 
     public void setType(TournamentType type) {
         this.type = type;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }

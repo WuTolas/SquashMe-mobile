@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import pl.pjatk.squashme.dao.MatchDao;
+import pl.pjatk.squashme.dao.PlayerTournamentDao;
 import pl.pjatk.squashme.dao.ResultDao;
 import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.dao.TournamentDao;
@@ -40,7 +41,11 @@ public class ServiceModule {
 
     @Singleton
     @Provides
-    public TournamentService providesTournamentService(TournamentDao tournamentDao) {
-        return new TournamentServiceImpl(tournamentDao);
+    public TournamentService providesTournamentService(
+            TournamentDao tournamentDao,
+            PlayerTournamentDao playerTournamentDao,
+            PlayerService playerService,
+            MatchService matchService) {
+        return new TournamentServiceImpl(tournamentDao, playerTournamentDao, playerService, matchService);
     }
 }

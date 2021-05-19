@@ -22,9 +22,13 @@ public class Match implements Serializable {
     @ColumnInfo(name = "two_points_advantage")
     private boolean twoPointsAdvantage;
     @ColumnInfo(name = "referee_mode")
-    private boolean refereeMode;
+    private Boolean refereeMode;
     @ColumnInfo(name = "finished")
     private boolean finished;
+    @ColumnInfo(name = "tournament_id")
+    private Long tournament_id;
+    @ColumnInfo(name = "tournament_round")
+    private Integer tournament_round;
 
     public long getId() {
         return id;
@@ -66,11 +70,11 @@ public class Match implements Serializable {
         this.twoPointsAdvantage = twoPointsAdvantage;
     }
 
-    public boolean isRefereeMode() {
+    public Boolean isRefereeMode() {
         return refereeMode;
     }
 
-    public void setRefereeMode(boolean refereeMode) {
+    public void setRefereeMode(Boolean refereeMode) {
         this.refereeMode = refereeMode;
     }
 
@@ -80,5 +84,21 @@ public class Match implements Serializable {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public Long getTournament_id() {
+        return tournament_id;
+    }
+
+    public void setTournament_id(Long tournament_id) {
+        this.tournament_id = tournament_id;
+    }
+
+    public Integer getTournament_round() {
+        return tournament_round;
+    }
+
+    public void setTournament_round(Integer tournament_round) {
+        this.tournament_round = tournament_round;
     }
 }

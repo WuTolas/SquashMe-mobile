@@ -11,5 +11,7 @@ public interface MatchService {
 
     MatchWithPlayers saveWithPlayersReturn(Match match);
 
+    void saveMatch(Match match);
+
     void updateMatch(Match match);
 }

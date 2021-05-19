@@ -30,6 +30,25 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp" />
 
+        <TextView
+            android:id="@+id/text_tournament_players_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:labelFor="@id/inp_tournament_max_players"
+            android:text="@string/player_number" />
+
+        <EditText
+            android:id="@+id/inp_tournament_max_players"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0"
+            android:ems="10"
+            android:gravity="start"
+            android:inputType="number"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
 
         <TextView
             android:id="@+id/text_tournament_bestOf"
