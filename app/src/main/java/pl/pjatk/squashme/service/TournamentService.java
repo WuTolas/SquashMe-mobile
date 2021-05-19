@@ -11,7 +11,5 @@ public interface TournamentService {
 
     Tournament save(Tournament tournament);
 
-    void savePlayers(long tournamentId, List<String> players);
-
-    void generateRoundRobinMatches();
+    void generateRoundRobinMatches(long tournamentId, List<String> players);
 }

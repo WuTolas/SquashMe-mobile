@@ -12,4 +12,7 @@ public interface TournamentDao extends BaseDao<Tournament> {
 
     @Query("SELECT * FROM `Tournament` WHERE tournament_status != 'FINISHED'")
     Optional<Tournament> getCurrentTournament();
+
+    @Query("SELECT * FROM `Tournament` WHERE id = :id")
+    Optional<Tournament> getTournament(long id);
 }

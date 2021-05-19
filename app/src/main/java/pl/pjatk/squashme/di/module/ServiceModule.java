@@ -41,7 +41,11 @@ public class ServiceModule {
 
     @Singleton
     @Provides
-    public TournamentService providesTournamentService(TournamentDao tournamentDao, PlayerTournamentDao playerTournamentDao, PlayerService playerService) {
-        return new TournamentServiceImpl(tournamentDao, playerTournamentDao, playerService);
+    public TournamentService providesTournamentService(
+            TournamentDao tournamentDao,
+            PlayerTournamentDao playerTournamentDao,
+            PlayerService playerService,
+            MatchService matchService) {
+        return new TournamentServiceImpl(tournamentDao, playerTournamentDao, playerService, matchService);
     }
 }

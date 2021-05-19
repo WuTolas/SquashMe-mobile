@@ -29,6 +29,11 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public void saveMatch(Match match) {
+        matchDao.insert(match);
+    }
+
+    @Override
     public void updateMatch(Match match) {
         matchDao.update(match);
     }

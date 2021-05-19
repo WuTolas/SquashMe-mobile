@@ -77,7 +77,7 @@ public class SignPlayersFragment extends Fragment {
             disposables.add(Single.just(playerNames)
                     .subscribeOn(Schedulers.io())
                     .subscribe(players -> {
-                        tournamentService.savePlayers(tournamentId, players);
+                        tournamentService.generateRoundRobinMatches(tournamentId, players);
                     })
             );
         }
