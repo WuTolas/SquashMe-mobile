@@ -19,7 +19,7 @@ public class MatchWithPlayers implements Serializable {
     )
     private Player player1;
     @Relation(
-            parentColumn = "player1",
+            parentColumn = "player2",
             entityColumn = "id"
     )
     private Player player2;
