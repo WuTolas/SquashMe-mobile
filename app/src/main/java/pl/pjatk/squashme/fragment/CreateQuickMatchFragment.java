@@ -11,10 +11,6 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
@@ -24,13 +20,16 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Match;
-import pl.pjatk.squashme.model.MatchWithResults;
+import pl.pjatk.squashme.model.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
+import pl.pjatk.squashme.service.PlayerService;
 
 public class CreateQuickMatchFragment extends Fragment {
 
     @Inject
     public MatchService matchService;
+    @Inject
+    public PlayerService playerService;
     private CompositeDisposable disposables;
 
     private EditText p1FullName;
@@ -67,17 +66,23 @@ public class CreateQuickMatchFragment extends Fragment {
             disposables.add(Single.just(match)
                     .subscribeOn(Schedulers.io())
                     .subscribe(m -> {
-                        Match saved = matchService.saveMatch(m);
-                        prepareFragment(saved);
+                        String p1Name = p1FullName.getText().toString().trim();
+                        String p2Name = p2FullName.getText().toString().trim();
+                        long p1Id = playerService.getIdWithSave(p1Name);
+                        long p2Id = playerService.getIdWithSave(p2Name);
+                        m.setPlayer1Id(p1Id);
+                        m.setPlayer2Id(p2Id);
+                        MatchWithPlayers mwp = matchService.saveWithPlayersReturn(m);
+                        prepareFragment(mwp);
                     }));
         }
     }
 
-    private void prepareFragment(Match savedMatch) {
+    private void prepareFragment(MatchWithPlayers match) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("match", new MatchWithResults(savedMatch, new ArrayList<>()));
-        if (savedMatch.isRefereeMode()) {
+        bundle.putSerializable("match", match);
+        if (match.getMatch().isRefereeMode()) {
             fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
         } else {
             fragmentTransaction.replace(R.id.fragment_quick_match, QuickScoreModeFragment.class, bundle);
@@ -97,8 +102,6 @@ public class CreateQuickMatchFragment extends Fragment {
 
     private Match prepareMatch() {
         Match match = new Match();
-        match.setPlayer1(p1FullName.getText().toString());
-        match.setPlayer2(p2FullName.getText().toString());
         match.setBestOf(bestOf.getText().toString().isEmpty() ? null : Integer.parseInt(bestOf.getText().toString()));
         match.setTwoPointsAdvantage(twoPointsAdvantage.isChecked());
         match.setRefereeMode(refereeMode.isChecked());

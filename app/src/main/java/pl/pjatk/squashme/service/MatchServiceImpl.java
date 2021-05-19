@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.model.Match;
-import pl.pjatk.squashme.model.MatchWithResults;
+import pl.pjatk.squashme.model.MatchWithPlayers;
 
 public class MatchServiceImpl implements MatchService {
 
@@ -18,15 +18,14 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Optional<MatchWithResults> getCurrentActiveQuickMatch() {
-        return matchDao.getCurrentQuickMatch();
+    public Optional<MatchWithPlayers> getCurrentQuickMatchWithPlayers() {
+        return matchDao.getCurrentQuickMatchWithPlayers();
     }
 
     @Override
-    public Match saveMatch(Match match) {
-        long id = matchDao.insert(match);
-        match.setId(id);
-        return match;
+    public MatchWithPlayers saveWithPlayersReturn(Match match) {
+        matchDao.insert(match);
+        return getCurrentQuickMatchWithPlayers().orElseThrow(() -> new RuntimeException("Match not found"));
     }
 
     @Override

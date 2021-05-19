@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button quickMatchButton = findViewById(R.id.quick_match);
         quickMatchButton.setOnClickListener(V -> launchActivity(QuickMatchActivity.class));
+
+        Button tournamentButton = findViewById(R.id.tournament);
+        tournamentButton.setOnClickListener(V -> launchActivity(TournamentActivity.class));
     }
 
     private void launchActivity(Class<? extends AppCompatActivity> activity) {

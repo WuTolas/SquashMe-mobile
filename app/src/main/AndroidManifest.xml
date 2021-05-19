@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SquashMe">
         <activity
+            android:name=".activity.TournamentActivity"
+            android:label="@string/tournament"/>
+        <activity
             android:name=".activity.QuickMatchActivity"
-            android:label="@string/quick_match"/>
+            android:label="@string/quick_match" />
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/Theme.Transparent">

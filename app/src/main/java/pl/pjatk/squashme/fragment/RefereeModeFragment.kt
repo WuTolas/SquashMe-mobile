@@ -13,9 +13,7 @@ import kotlinx.coroutines.runBlocking
 import pl.pjatk.squashme.R
 import pl.pjatk.squashme.di.component.DaggerRefereeFragmentComponent
 import pl.pjatk.squashme.di.module.RoomModule
-import pl.pjatk.squashme.model.Match
-import pl.pjatk.squashme.model.MatchWithResults
-import pl.pjatk.squashme.model.Result
+import pl.pjatk.squashme.model.*
 import pl.pjatk.squashme.service.MatchService
 import pl.pjatk.squashme.service.ResultService
 import javax.inject.Inject
@@ -34,9 +32,11 @@ class RefereeModeFragment : Fragment() {
     @Inject
     lateinit var resultService: ResultService
 
+    private lateinit var matchWithPlayers: MatchWithPlayers
     private lateinit var match: Match
-    private lateinit var matchWithResults: MatchWithResults
     private lateinit var results: MutableList<Result>
+    private lateinit var playerOne: Player
+    private lateinit var playerTwo: Player
 
     private var setsToWin: Int = 0
     private var playerOneScore: Int = 0
@@ -55,9 +55,11 @@ class RefereeModeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            matchWithResults = it.getSerializable(MATCH_PARAM) as MatchWithResults
-            match = matchWithResults.match
-            results = matchWithResults.results
+            matchWithPlayers = it.getSerializable(MATCH_PARAM) as MatchWithPlayers
+            match = matchWithPlayers.match
+            results = matchWithPlayers.results
+            playerOne = matchWithPlayers.player1
+            playerTwo = matchWithPlayers.player2
         }
         DaggerRefereeFragmentComponent.builder()
                 .roomModule(RoomModule(requireActivity().application))
@@ -76,8 +78,8 @@ class RefereeModeFragment : Fragment() {
         loadSavedResults()
 
         setsToWin = (match.bestOf + 1) / 2
-        playerOneNameHolder.text = match.player1
-        playerTwoNameHolder.text = match.player2
+        playerOneNameHolder.text = playerOne.name
+        playerTwoNameHolder.text = playerTwo.name
         playerOneScoreBtn.text = playerOneScore.toString()
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerOneSetNumber.text = playerOneSet.toString()

@@ -10,18 +10,19 @@ import android.view.ViewGroup;
 
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.MatchWithPlayers;
 
 public class QuickScoreModeFragment extends Fragment {
 
     private static final String MATCH_PARAM = "match";
 
-    private Match match;
+    private MatchWithPlayers match;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            match = (Match) getArguments().getSerializable(MATCH_PARAM);
+            match = (MatchWithPlayers) getArguments().getSerializable(MATCH_PARAM);
         }
     }
 
