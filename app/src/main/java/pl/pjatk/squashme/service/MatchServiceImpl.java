@@ -27,4 +27,9 @@ public class MatchServiceImpl implements MatchService {
         matchDao.insert(match);
         return getCurrentQuickMatchWithPlayers().orElseThrow(() -> new RuntimeException("Match not found"));
     }
+
+    @Override
+    public void updateMatch(Match match) {
+        matchDao.update(match);
+    }
 }

@@ -4,6 +4,8 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MatchWithPlayers implements Serializable {
 
@@ -21,6 +23,11 @@ public class MatchWithPlayers implements Serializable {
             entityColumn = "id"
     )
     private Player player2;
+    @Relation(
+            parentColumn = "id",
+            entityColumn = "match_id"
+    )
+    private List<Result> results = new ArrayList<>();
 
     public Match getMatch() {
         return match;
@@ -44,5 +51,13 @@ public class MatchWithPlayers implements Serializable {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 }

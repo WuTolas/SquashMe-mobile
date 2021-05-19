@@ -10,4 +10,6 @@ public interface MatchService {
     Optional<MatchWithPlayers> getCurrentQuickMatchWithPlayers();
 
     MatchWithPlayers saveWithPlayersReturn(Match match);
+
+    void updateMatch(Match match);
 }
