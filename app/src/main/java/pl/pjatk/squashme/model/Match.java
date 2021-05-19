@@ -26,9 +26,9 @@ public class Match implements Serializable {
     @ColumnInfo(name = "finished")
     private boolean finished;
     @ColumnInfo(name = "tournament_id")
-    private long tournament_id;
+    private Long tournament_id;
     @ColumnInfo(name = "tournament_round")
-    private int tournament_round;
+    private Integer tournament_round;
 
     public long getId() {
         return id;
@@ -86,19 +86,19 @@ public class Match implements Serializable {
         this.finished = finished;
     }
 
-    public long getTournament_id() {
+    public Long getTournament_id() {
         return tournament_id;
     }
 
-    public void setTournament_id(long tournament_id) {
+    public void setTournament_id(Long tournament_id) {
         this.tournament_id = tournament_id;
     }
 
-    public int getTournament_round() {
+    public Integer getTournament_round() {
         return tournament_round;
     }
 
-    public void setTournament_round(int tournament_round) {
+    public void setTournament_round(Integer tournament_round) {
         this.tournament_round = tournament_round;
     }
 }

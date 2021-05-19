@@ -13,6 +13,6 @@ import pl.pjatk.squashme.model.MatchWithPlayers;
 public interface MatchDao extends BaseDao<Match> {
 
     @Transaction
-    @Query("SELECT * FROM `Match` WHERE finished = 0 ORDER BY id LIMIT 1")
+    @Query("SELECT * FROM `Match` WHERE finished = 0 AND tournament_id IS NULL ORDER BY id LIMIT 1")
     Optional<MatchWithPlayers> getCurrentQuickMatchWithPlayers();
 }
