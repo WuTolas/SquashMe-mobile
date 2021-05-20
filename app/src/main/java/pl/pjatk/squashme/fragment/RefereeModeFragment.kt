@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import pl.pjatk.squashme.R
 import pl.pjatk.squashme.di.component.DaggerRefereeFragmentComponent
 import pl.pjatk.squashme.di.module.RoomModule
-import pl.pjatk.squashme.model.*
+import pl.pjatk.squashme.model.Match
+import pl.pjatk.squashme.model.MatchWithPlayers
+import pl.pjatk.squashme.model.Player
+import pl.pjatk.squashme.model.Result
 import pl.pjatk.squashme.service.MatchService
 import pl.pjatk.squashme.service.ResultService
 import javax.inject.Inject
@@ -32,9 +36,12 @@ class RefereeModeFragment : Fragment() {
     @Inject
     lateinit var resultService: ResultService
 
+    private lateinit var model: RefereeModel
+
     private lateinit var matchWithPlayers: MatchWithPlayers
     private lateinit var match: Match
-    private lateinit var results: MutableList<Result>
+
+    //    private lateinit var results: MutableList<Result>
     private lateinit var playerOne: Player
     private lateinit var playerTwo: Player
 
@@ -57,7 +64,7 @@ class RefereeModeFragment : Fragment() {
         arguments?.let {
             matchWithPlayers = it.getSerializable(MATCH_PARAM) as MatchWithPlayers
             match = matchWithPlayers.match
-            results = matchWithPlayers.results
+//            results = matchWithPlayers.results
             playerOne = matchWithPlayers.player1
             playerTwo = matchWithPlayers.player2
         }
@@ -69,39 +76,61 @@ class RefereeModeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        model = ViewModelProvider(this).get(RefereeModel::class.java)
+
+        model.results.value = matchWithPlayers.results
+        model.results.observe(viewLifecycleOwner, { results ->
+            val playerOneResult = loadPlayerResult(results, 1)
+            val playerTwoResult = loadPlayerResult(results, 2)
+
+            playerOneScore = playerOneResult?.point ?: 0
+            playerOneScoreBtn.text = playerOneScore.toString()
+            playerOneSet = playerOneResult?.set ?: 0
+            playerOneSetNumber.text = playerOneSet.toString()
+
+            playerTwoScore = playerTwoResult?.point ?: 0
+            playerTwoScoreBtn.text = playerTwoScore.toString()
+            playerTwoSet = playerTwoResult?.set ?: 0
+            playerTwoSetNumber.text = playerTwoSet.toString()
+        })
         return inflater.inflate(R.layout.fragment_referee, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init(view)
-        loadSavedResults()
+//        loadSavedResults()
 
         setsToWin = (match.bestOf + 1) / 2
         playerOneNameHolder.text = playerOne.name
         playerTwoNameHolder.text = playerTwo.name
-        playerOneScoreBtn.text = playerOneScore.toString()
-        playerTwoScoreBtn.text = playerTwoScore.toString()
-        playerOneSetNumber.text = playerOneSet.toString()
-        playerTwoSetNumber.text = playerTwoSet.toString()
+//        playerOneScoreBtn.text = playerOneScore.toString()
+//        playerTwoScoreBtn.text = playerTwoScore.toString()
+//        playerOneSetNumber.text = playerOneSet.toString()
+//        playerTwoSetNumber.text = playerTwoSet.toString()
     }
 
     /**
     check saved results to display
      */
-    private fun loadSavedResults() {
-        if (results.isNotEmpty()) { // to refactor
-            val playerOneSavedResult = results
-                    .sortedByDescending { result -> result.id }
-                    .firstOrNull { result -> result.player == 1 }
-            playerOneScore = playerOneSavedResult?.point ?: 0
-            playerOneSet = playerOneSavedResult?.set ?: 0
-            val playerTwoSavedResult = results
-                    .sortedByDescending { result -> result.id }
-                    .firstOrNull { result -> result.player == 2 }
-            playerTwoScore = playerTwoSavedResult?.point ?: 0
-            playerTwoSet = playerTwoSavedResult?.set ?: 0
-        }
+//    private fun loadSavedResults(results: List<Result>) {
+//        if (results.isNotEmpty()) { // to refactor
+//            val playerOneSavedResult = results
+//                    .sortedByDescending { result -> result.id }
+//                    .firstOrNull { result -> result.player == 1 }
+//            playerOneScore = playerOneSavedResult?.point ?: 0
+//            playerOneSet = playerOneSavedResult?.set ?: 0
+//            val playerTwoSavedResult = results
+//                    .sortedByDescending { result -> result.id }
+//                    .firstOrNull { result -> result.player == 2 }
+//            playerTwoScore = playerTwoSavedResult?.point ?: 0
+//            playerTwoSet = playerTwoSavedResult?.set ?: 0
+//        }
+//    }
+
+    private fun loadPlayerResult(results: List<Result>, player: Int): Result? {
+        return results
+                .lastOrNull { result -> result.player == player }
     }
 
     private fun init(view: View) {
@@ -123,20 +152,21 @@ class RefereeModeFragment : Fragment() {
     private fun scoreButtonListener(player: Int) {
         val result = if (player == 1) {
             Result(player, 'L', ++playerOneScore, playerOneSet, match.id).also {
-                playerOneScoreBtn.text = it.point.toString()
+//                playerOneScoreBtn.text = it.point.toString()
                 checkIfWon(playerOneScore, player)
             }
         } else {
             Result(player, 'L', ++playerTwoScore, playerTwoSet, match.id).also {
-                playerTwoScoreBtn.text = it.point.toString()
+//                playerTwoScoreBtn.text = it.point.toString()
                 checkIfWon(playerTwoScore, player)
             }
         }
         saveResult(result)
-        results.add(result)
+//        results.add(result)
     }
 
     private fun saveResult(result: Result) {
+        model.addPoint(result)
         runBlocking {
             launch(Dispatchers.IO) {
                 resultService.addPoint(result)
@@ -158,12 +188,14 @@ class RefereeModeFragment : Fragment() {
 
     private fun endSet(player: Int) {
         if (player == 1) {
-            playerOneSetNumber.text = (++playerOneSet).toString()
+            playerOneSet++
+//            playerOneSetNumber.text = (++playerOneSet).toString()
             if (playerOneSet == setsToWin) {
                 endGame()
             }
         } else {
-            playerTwoSetNumber.text = (++playerTwoSet).toString()
+//            playerTwoSetNumber.text = (++playerTwoSet).toString()
+            playerTwoSet++
             if (playerTwoSet == setsToWin) {
                 endGame()
             }
@@ -172,8 +204,8 @@ class RefereeModeFragment : Fragment() {
             PopupDialogFragment().show(parentFragmentManager, TAG)
             playerOneScore = 0
             playerTwoScore = 0
-            playerOneScoreBtn.text = playerOneScore.toString()
-            playerTwoScoreBtn.text = playerTwoScore.toString()
+//            playerOneScoreBtn.text = playerOneScore.toString()
+//            playerTwoScoreBtn.text = playerTwoScore.toString()
         }
     }
 
@@ -203,21 +235,22 @@ class RefereeModeFragment : Fragment() {
             playerTwoScoreBtn.isEnabled = true
             finishedMatch(false)
         }
+        val deletedPoint = model.revertPoint()
 
-        if (results.isNotEmpty()) {
-            val lastResult = results.last()
-            if (lastResult.player == 1) {
-                playerOneScoreBtn.text = lastResult.point.minus(1).toString()
-            } else {
-                playerTwoScoreBtn.text = lastResult.point.minus(1).toString()
-            }
-            results.remove(lastResult)
+//        if (results.isNotEmpty()) {
+//            val lastResult = results.last()
+//            if (lastResult.player == 1) {
+//                playerOneScoreBtn.text = lastResult.point.minus(1).toString()
+//            } else {
+//                playerTwoScoreBtn.text = lastResult.point.minus(1).toString()
+//            }
+//            results.remove(lastResult)
 
-            runBlocking {
-                launch(Dispatchers.IO) {
-                    resultService.revertPoint(lastResult)
-                }
+        runBlocking {
+            launch(Dispatchers.IO) {
+                resultService.revertPoint(deletedPoint)
             }
         }
     }
 }
+
