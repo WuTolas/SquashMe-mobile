@@ -1,35 +1,36 @@
 package pl.pjatk.squashme.fragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pl.pjatk.squashme.model.Result
 
-class RefereeModel : ViewModel() {
-    val results: MutableLiveData<MutableList<Result>> = MutableLiveData()
-//    val results: LiveData<MutableList<Result>>
-//        get() = _results
+class RefereeModel(savedResults: MutableList<Result>) : ViewModel() {
+    private val _results: MutableLiveData<MutableList<Result>> = MutableLiveData()
+    val results: LiveData<MutableList<Result>>
+        get() = _results
 
     init {
-        results.value = mutableListOf()
+        _results.value = savedResults
     }
 
     fun addPoint(result: Result) {
-        results.value?.add(result)
+        _results.value?.add(result)
         updateList()
     }
 
     fun revertPoint(): Result? {
-        return results.value?.removeLast().also {
-            updateList()
-        }
+        return _results.value?.removeLastOrNull()
+                .also {
+                    updateList()
+                }
     }
 
-//    fun finishSet() {
-//        results.value?.add(result)
-//
-//    }
+    fun getLastResult(): Result? {
+        return _results.value?.lastOrNull()
+    }
 
     private fun updateList() {
-        results.value = results.value
+        _results.value = _results.value
     }
 }
