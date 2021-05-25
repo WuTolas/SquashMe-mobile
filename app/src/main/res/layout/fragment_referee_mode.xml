@@ -1,14 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.RefereeModeFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello referee mode fragment" />
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/player_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/player_one_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/transparent_squared"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/player_two_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/transparent_squared"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ste_counter_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player_one_set"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/transparent_squared"
+                android:gravity="center"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/player_two_set"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/transparent_squared"
+                android:gravity="center"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+
+            <Button
+                android:id="@+id/end_game_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_squared"
+                android:text="@string/end_game"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/next_set_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_squared"
+                android:text="@string/next_set"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/revert_point_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_squared"
+                android:text="@string/revert_point"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/players_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/player_one_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/player_one_sides"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/player_one_left_side_radio"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/left_side"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/player_one_right_side_radio"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/right_side"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/player_one_add_point_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/transparent_rounded"
+                    android:textColor="@color/black"
+                    android:textSize="100sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/player_two_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/player_two_sides"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/player_two_left_side_btn"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/left_side"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/player_two_right_side_btn"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/right_side"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/player_two_add_point_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/transparent_rounded"
+                    android:textColor="@color/black"
+                    android:textSize="100sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

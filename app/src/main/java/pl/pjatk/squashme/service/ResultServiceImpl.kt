@@ -11,8 +11,10 @@ class ResultServiceImpl @Inject constructor(private val resultDao: ResultDao) : 
         Log.i("ResultService", "point added")
     }
 
-    override fun revertPoint(result: Result) {
-        resultDao.delete(result)
-        Log.i("ResultService", "point reverted")
+    override fun revertPoint(result: Result?) {
+        result?.also {
+        resultDao.delete(it)
+            Log.i("ResultService", "point reverted")
+        }
     }
 }
