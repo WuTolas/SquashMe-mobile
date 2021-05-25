@@ -150,7 +150,7 @@ class RefereeModeFragment : Fragment() {
         } else {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
-        saveResult(result).run { checkIfSetEnded() }
+        saveResult(result).run { checkIfSetEnded(result) }
     }
 
     private fun setSide(player: Int): String {
@@ -185,24 +185,24 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
-    private fun checkIfSetEnded() {
+    private fun checkIfSetEnded(result: Result) {
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
             if (match.isTwoPointsAdvantage) {
                 if (abs(playerOneScore - playerTwoScore) >= 2) {
-                    endSet()
+                    endSet(result)
                 }
             } else {
-                endSet()
+                endSet(result)
             }
         }
     }
 
-    private fun endSet() {
-        if (playerOneSet.plus(1) == setsToWin
-                || playerTwoSet.plus(1) == setsToWin) {
+    private fun endSet(result: Result) {
+        if ((result.serve == 1 && playerOneSet.plus(1) == setsToWin)
+                || (result.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
-            val popupDialogFragment = PopupDialogFragment()
+            val popupDialogFragment = PopupDialogFragment("Set ended", "90 sec countdown will be somewhere here")
             popupDialogFragment.show(parentFragmentManager, TAG)
             changeFinishedSetVisibility()
         }
@@ -225,15 +225,17 @@ class RefereeModeFragment : Fragment() {
     private fun endGame() {
         playerOneScoreBtn.isEnabled = false
         playerTwoScoreBtn.isEnabled = false
-        finishedMatch(true)
+        finishMatch(true)
+        val popupDialogFragment = PopupDialogFragment("Match ended")
+        popupDialogFragment.show(parentFragmentManager, TAG)
     }
 
     private fun endGameListener() {
-        finishedMatch(true)
+        finishMatch(true)
         requireActivity().finish()
     }
 
-    private fun finishedMatch(finished: Boolean) {
+    private fun finishMatch(finished: Boolean) {
         match.isFinished = finished
         runBlocking {
             launch(Dispatchers.IO) {
@@ -246,7 +248,7 @@ class RefereeModeFragment : Fragment() {
         if (match.isFinished) {
             playerOneScoreBtn.isEnabled = true
             playerTwoScoreBtn.isEnabled = true
-            finishedMatch(false)
+            finishMatch(false)
         }
         revertPoint()?.also {
             if (it.playerOneScore == 0
