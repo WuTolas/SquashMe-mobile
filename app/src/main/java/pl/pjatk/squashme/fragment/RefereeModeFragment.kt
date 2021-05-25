@@ -150,7 +150,7 @@ class RefereeModeFragment : Fragment() {
         } else {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
-        saveResult(result).run { checkIfWon() }
+        saveResult(result).run { checkIfSetEnded() }
     }
 
     private fun setSide(player: Int): String {
@@ -185,7 +185,7 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
-    private fun checkIfWon() {
+    private fun checkIfSetEnded() {
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
             if (match.isTwoPointsAdvantage) {
                 if (abs(playerOneScore - playerTwoScore) >= 2) {
@@ -204,11 +204,22 @@ class RefereeModeFragment : Fragment() {
         } else {
             val popupDialogFragment = PopupDialogFragment()
             popupDialogFragment.show(parentFragmentManager, TAG)
-            endGameButton.visibility = View.GONE
-            nextSetButton.visibility = View.VISIBLE
-            playerOneScoreBtn.isEnabled = false
-            playerTwoScoreBtn.isEnabled = false
+            changeFinishedSetVisibility()
         }
+    }
+
+    private fun changeFinishedSetVisibility() {
+        endGameButton.visibility = View.GONE
+        nextSetButton.visibility = View.VISIBLE
+        playerOneScoreBtn.isEnabled = false
+        playerTwoScoreBtn.isEnabled = false
+    }
+
+    private fun changeToStandardVisibility() {
+        endGameButton.visibility = View.VISIBLE
+        nextSetButton.visibility = View.GONE
+        playerOneScoreBtn.isEnabled = true
+        playerTwoScoreBtn.isEnabled = true
     }
 
     private fun endGame() {
@@ -237,11 +248,18 @@ class RefereeModeFragment : Fragment() {
             playerTwoScoreBtn.isEnabled = true
             finishedMatch(false)
         }
-        revertPoint()
+        revertPoint()?.also {
+            if (it.playerOneScore == 0
+                    && it.playerTwoScore == 0) {
+                changeFinishedSetVisibility()
+            } else {
+                changeToStandardVisibility()
+            }
+        }
     }
 
-    private fun revertPoint() {
-        model.revertPoint().also {
+    private fun revertPoint(): Result? {
+        return model.revertPoint().also {
             runBlocking {
                 launch(Dispatchers.IO) {
                     resultService.revertPoint(it)
@@ -279,10 +297,7 @@ class RefereeModeFragment : Fragment() {
             Result(0, 0, "L", 1, playerOneSet, ++playerTwoSet, match.id)
         }
         saveResult(result)
-        endGameButton.visibility = View.VISIBLE
-        nextSetButton.visibility = View.GONE
-        playerOneScoreBtn.isEnabled = true
-        playerTwoScoreBtn.isEnabled = true
+        changeToStandardVisibility()
     }
 
     private fun getLastResult(): Result? {
