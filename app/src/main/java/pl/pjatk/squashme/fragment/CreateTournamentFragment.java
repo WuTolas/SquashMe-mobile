@@ -121,7 +121,7 @@ public class CreateTournamentFragment extends Fragment {
             } else if (Integer.parseInt(bestOf.getText().toString()) <= 0) {
                 bestOf.setError(getString(R.string.error_best_of_games));
                 errorsCount++;
-            } else if (type == TournamentType.PLAYOFFS_ONLY && Integer.parseInt(bestOf.getText().toString()) % 2 == 0) {
+            } else if (Integer.parseInt(bestOf.getText().toString()) % 2 == 0) {
                 bestOf.setError(getString(R.string.error_best_of_must_be_odd));
                 errorsCount++;
             }
