@@ -11,6 +11,7 @@
         android:theme="@style/Theme.SquashMe">
         <activity
             android:name=".activity.TournamentActivity"
+            android:screenOrientation="landscape"
             android:label="@string/tournament"/>
         <activity
             android:name=".activity.QuickMatchActivity"

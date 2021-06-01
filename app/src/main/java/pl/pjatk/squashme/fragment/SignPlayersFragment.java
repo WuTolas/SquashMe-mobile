@@ -87,7 +87,9 @@ public class SignPlayersFragment extends Fragment {
 
     private void prepareFragment() {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_tournament, TournamentHubFragment.class, null);
+        Bundle bundle = new Bundle();
+        bundle.putLong("tournamentId", tournamentId);
+        fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, bundle);
         fragmentTransaction.commit();
     }
 
@@ -135,5 +137,11 @@ public class SignPlayersFragment extends Fragment {
         });
 
         return errorCount.get() == 0;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
     }
 }
