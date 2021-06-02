@@ -79,8 +79,8 @@ public class TournamentServiceImpl implements TournamentService {
             }
 
             Match match = new Match();
-            match.setTournament_id(tournament.getId());
-            match.setTournament_round(round);
+            match.setTournamentId(tournament.getId());
+            match.setTournamentRound(round);
             match.setTwoPointsAdvantage(tournament.isTwoPointsAdvantage());
             match.setBestOf(tournament.getBestOf());
             match.setPlayer1Id(firstPlayerId);
