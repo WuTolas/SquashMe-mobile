@@ -36,7 +36,6 @@ public class TournamentMatchesFragment extends Fragment {
 
     private static final String ARG_TOURNAMENT_ID = "tournamentId";
     private long tournamentId;
-    private int currentRound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
