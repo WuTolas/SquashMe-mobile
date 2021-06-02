@@ -8,4 +8,7 @@
         <item name="strokeWidth">2dp</item>
     </style>
 
+    <style name="SquashMeActionButton" parent="Widget.MaterialComponents.Button.TextButton">
+    </style>
+
 </resources>

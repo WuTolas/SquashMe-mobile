@@ -34,4 +34,7 @@
     <string name="add_players">Add players</string>
     <string name="error_player_exists">Player name already exists</string>
     <string name="next_set">Next set</string>
+    <string name="playerOne">Player 1</string>
+    <string name="playerTwo">Player 2</string>
+    <string name="round">Round</string>
 </resources>

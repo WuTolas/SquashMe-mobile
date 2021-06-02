@@ -40,7 +40,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.fragment:fragment:$fragment_version"
+    implementation "androidx.room:room-rxjava3:$room_version"
     implementation "io.reactivex.rxjava3:rxjava:3.0.12"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
 
