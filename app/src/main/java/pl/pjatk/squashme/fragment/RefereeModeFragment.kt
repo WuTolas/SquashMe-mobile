@@ -232,7 +232,11 @@ class RefereeModeFragment : Fragment() {
 
     private fun endGameListener() {
         finishMatch(true)
-        requireActivity().finish()
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStackImmediate()
+        } else {
+            requireActivity().finish()
+        }
     }
 
     private fun finishMatch(finished: Boolean) {
