@@ -37,4 +37,7 @@
     <string name="playerOne">Player 1</string>
     <string name="playerTwo">Player 2</string>
     <string name="round">Round</string>
+    <string name="confirm">Confirm</string>
+    <string name="provide_score_mode">Provide score mode</string>
+    <string name="vs">\" vs \"</string>
 </resources>

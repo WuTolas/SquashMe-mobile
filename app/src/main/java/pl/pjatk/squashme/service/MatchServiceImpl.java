@@ -45,4 +45,14 @@ public class MatchServiceImpl implements MatchService {
     public Single<List<TournamentMatchSimple>> searchTournamentMatches(Long tournamentId) {
         return matchDao.searchTournamentMatches(tournamentId);
     }
+
+    @Override
+    public void updateRefereeMode(long matchId, boolean refereeMode) {
+        matchDao.updateRefereeMode(refereeMode, matchId);
+    }
+
+    @Override
+    public MatchWithPlayers getMatchWithResults(long id) {
+        return matchDao.getMatchWithResults(id).orElseGet(null);
+    }
 }

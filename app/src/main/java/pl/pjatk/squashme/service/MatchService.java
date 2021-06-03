@@ -19,4 +19,8 @@ public interface MatchService {
     void updateMatch(Match match);
 
     Single<List<TournamentMatchSimple>> searchTournamentMatches(Long tournamentId);
+
+    void updateRefereeMode(long matchId, boolean refereeMode);
+
+    MatchWithPlayers getMatchWithResults(long id);
 }
