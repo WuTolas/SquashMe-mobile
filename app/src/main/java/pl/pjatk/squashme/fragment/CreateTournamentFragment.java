@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
+import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
 import pl.pjatk.squashme.di.component.DaggerCreateTournamentFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.Tournament;
@@ -45,7 +46,7 @@ public class CreateTournamentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerCreateTournamentFragmentComponent.builder()
-                .roomModule(new RoomModule(getActivity().getApplication()))
+                .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()
                 .inject(this);
     }

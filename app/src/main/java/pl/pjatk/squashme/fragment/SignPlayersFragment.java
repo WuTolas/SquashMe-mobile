@@ -24,6 +24,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
+import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerSignPlayersFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.TournamentType;
@@ -36,11 +37,9 @@ public class SignPlayersFragment extends Fragment {
     private CompositeDisposable disposables;
 
     private static final String ARG_TOURNAMENT_ID = "tournamentId";
-    private static final String ARG_TOURNAMENT_TYPE = "tournamentType";
     private static final String ARG_MAX_PLAYERS = "maxPlayers";
 
     private long tournamentId;
-    private TournamentType tournamentType;
     private int maxPlayers;
 
     private final List<EditText> playerNameEditList = new ArrayList<>();
@@ -53,11 +52,10 @@ public class SignPlayersFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tournamentId = getArguments().getLong(ARG_TOURNAMENT_ID);
-            tournamentType = (TournamentType) getArguments().getSerializable(ARG_TOURNAMENT_TYPE);
             maxPlayers = getArguments().getInt(ARG_MAX_PLAYERS);
         }
         DaggerSignPlayersFragmentComponent.builder()
-                .roomModule(new RoomModule(getActivity().getApplication()))
+                .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()
                 .inject(this);
     }
@@ -79,6 +77,7 @@ public class SignPlayersFragment extends Fragment {
                     .subscribeOn(Schedulers.io())
                     .subscribe(players -> {
                         tournamentService.generateRoundRobinMatches(tournamentId, players);
+                        ((TournamentInfo) requireActivity()).setTournamentId(tournamentId);
                         prepareFragment();
                     })
             );
@@ -87,9 +86,7 @@ public class SignPlayersFragment extends Fragment {
 
     private void prepareFragment() {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putLong("tournamentId", tournamentId);
-        fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, bundle);
+        fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, null);
         fragmentTransaction.commit();
     }
 

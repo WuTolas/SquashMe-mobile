@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +33,8 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
+import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
+import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentMatchesFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.MatchWithPlayers;
@@ -45,16 +49,13 @@ public class TournamentMatchesFragment extends Fragment {
     public MatchService matchService;
     private CompositeDisposable disposables;
 
-    private static final String ARG_TOURNAMENT_ID = "tournamentId";
     private List<TournamentMatchSimple> matches;
     private long tournamentId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            tournamentId = getArguments().getLong(ARG_TOURNAMENT_ID);
-        }
+        tournamentId = ((TournamentInfo) requireActivity()).getTournamentId();
         DaggerTournamentMatchesFragmentComponent.builder()
                 .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()
@@ -63,8 +64,11 @@ public class TournamentMatchesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (requireActivity() instanceof TournamentDashboardNavigation) {
+            ((TournamentDashboardNavigation) requireActivity()).showBottomNavigation();
+        }
         return inflater.inflate(R.layout.fragment_tournament_matches, container, false);
     }
 
@@ -167,7 +171,7 @@ public class TournamentMatchesFragment extends Fragment {
                 TournamentMatchSimple selectedMatch = getMatchFromRow(v);
                 CharSequence[] choices = {getString(R.string.provide_score_mode), getString(R.string.referee_mode)};
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(selectedMatch.getPlayer1().getName() + getString(R.string.vs) + selectedMatch.getPlayer2().getName())
+                        .setTitle(getString(R.string.vs, selectedMatch.getPlayer1().getName(), selectedMatch.getPlayer2().getName()))
                         .setSingleChoiceItems(choices, 1, null)
                         .setNeutralButton(R.string.cancel, null)
                         .setPositiveButton(R.string.confirm, (dialog, which) -> {

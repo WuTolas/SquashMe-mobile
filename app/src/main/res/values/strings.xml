@@ -39,5 +39,11 @@
     <string name="round">Round</string>
     <string name="confirm">Confirm</string>
     <string name="provide_score_mode">Provide score mode</string>
-    <string name="vs">\" vs \"</string>
+    <string name="vs">%1$s vs %2$s</string>
+    <string name="title_activity_x_d">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="games">Games</string>
+    <string name="leaderboard">Leaderboard</string>
 </resources>

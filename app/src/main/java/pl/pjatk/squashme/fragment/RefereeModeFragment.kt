@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import pl.pjatk.squashme.R
+import pl.pjatk.squashme.activity.TournamentDashboardNavigation
 import pl.pjatk.squashme.di.component.DaggerRefereeFragmentComponent
 import pl.pjatk.squashme.di.module.RoomModule
 import pl.pjatk.squashme.model.Match
@@ -69,6 +70,9 @@ class RefereeModeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (requireActivity() is TournamentDashboardNavigation) {
+            (requireActivity() as TournamentDashboardNavigation).hideBottomNavigation()
+        }
         arguments?.let {
             matchWithPlayers = it.getSerializable(MATCH_PARAM) as MatchWithPlayers
             match = matchWithPlayers.match
