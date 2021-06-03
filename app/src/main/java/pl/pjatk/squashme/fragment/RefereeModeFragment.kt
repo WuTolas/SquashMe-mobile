@@ -309,8 +309,4 @@ class RefereeModeFragment : Fragment() {
     private fun getLastResult(): Result? {
         return model.getLastResult()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }
