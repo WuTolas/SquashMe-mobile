@@ -20,6 +20,14 @@ public interface MatchDao extends BaseDao<Match> {
     Optional<MatchWithPlayers> getCurrentQuickMatchWithPlayers();
 
     @Transaction
+    @Query("SELECT * FROM `Match` WHERE id = :id")
+    Optional<MatchWithPlayers> getMatchWithResults(long id);
+
+    @Transaction
     @Query("SELECT * FROM `Match` WHERE tournament_id = :tournamentId ORDER BY tournament_round ASC")
     Single<List<TournamentMatchSimple>> searchTournamentMatches(Long tournamentId);
+
+    @Transaction
+    @Query("UPDATE `Match` SET referee_mode = :refereeMode WHERE id = :id")
+    void updateRefereeMode(boolean refereeMode, long id);
 }
