@@ -206,7 +206,7 @@ class RefereeModeFragment : Fragment() {
                 || (result.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
-            val popupDialogFragment = PopupDialogFragment("Set ended", "90 sec countdown will be somewhere here")
+            val popupDialogFragment = PopupDialogFragment(false)
             popupDialogFragment.show(parentFragmentManager, TAG)
             changeFinishedSetVisibility()
         }
@@ -230,7 +230,7 @@ class RefereeModeFragment : Fragment() {
         playerOneScoreBtn.isEnabled = false
         playerTwoScoreBtn.isEnabled = false
         finishMatch(true)
-        val popupDialogFragment = PopupDialogFragment("Match ended")
+        val popupDialogFragment = PopupDialogFragment(true)
         popupDialogFragment.show(parentFragmentManager, TAG)
     }
 
