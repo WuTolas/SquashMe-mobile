@@ -47,4 +47,5 @@
     <string name="games">Games</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="close">Close</string>
+    <string name="end_tournament">End tournament</string>
 </resources>
