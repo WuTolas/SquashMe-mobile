@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Tournament;
-import pl.pjatk.squashme.model.complex.TournamentMatchSimple;
 import pl.pjatk.squashme.model.complex.TournamentResults;
 
 @Dao
