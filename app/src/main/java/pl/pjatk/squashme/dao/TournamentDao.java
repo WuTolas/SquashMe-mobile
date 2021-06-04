@@ -15,4 +15,7 @@ public interface TournamentDao extends BaseDao<Tournament> {
 
     @Query("SELECT * FROM `Tournament` WHERE id = :id")
     Optional<Tournament> getTournament(long id);
+
+    @Query("UPDATE `Tournament` SET tournament_status = 'FINISHED' WHERE id = :tournamentId")
+    void finishTournament(long tournamentId);
 }

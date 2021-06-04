@@ -68,6 +68,11 @@ public class TournamentServiceImpl implements TournamentService {
         tournamentDao.update(tournament);
     }
 
+    @Override
+    public void endTournament(long tournamentId) {
+        tournamentDao.finishTournament(tournamentId);
+    }
+
     private void generateOneRobinRound(Tournament tournament, int round, List<Long> playerIds) {
         for (int i = 0; i < playerIds.size() / 2; i++) {
             int secondHalfPos = playerIds.size() - 1 - i;

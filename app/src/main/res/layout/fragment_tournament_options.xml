@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TournamentOptionsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/btn_tournament_end"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HELLO OPTIONS FRAGMENT" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:text="@string/end_tournament"
+        tools:ignore="ButtonStyle" />
 
 </FrameLayout>

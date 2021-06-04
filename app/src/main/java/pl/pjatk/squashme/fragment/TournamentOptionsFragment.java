@@ -6,25 +6,71 @@ import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.jetbrains.annotations.NotNull;
+
+import javax.inject.Inject;
+
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
+import pl.pjatk.squashme.activity.TournamentInfo;
+import pl.pjatk.squashme.di.component.DaggerTournamentOptionsFragmentComponent;
+import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.service.TournamentService;
 
 public class TournamentOptionsFragment extends Fragment {
+
+    @Inject
+    public TournamentService tournamentService;
+    private CompositeDisposable disposables;
+
+    private long tournamentId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (requireActivity() instanceof TournamentDashboardNavigation) {
-            ((TournamentDashboardNavigation) requireActivity()).showBottomNavigation();
-        }
+        tournamentId = ((TournamentInfo) requireActivity()).getTournamentId();
+        DaggerTournamentOptionsFragmentComponent.builder()
+                .roomModule(new RoomModule((requireActivity().getApplication())))
+                .build()
+                .inject(this);
+        disposables = new CompositeDisposable();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournament_options, container, false);
+        View view = inflater.inflate(R.layout.fragment_tournament_options, container, false);
+        if (requireActivity() instanceof TournamentDashboardNavigation) {
+            ((TournamentDashboardNavigation) requireActivity()).showBottomNavigation();
+        }
+        initializeComponents(view);
+        return view;
     }
+
+    private void initializeComponents(View view) {
+        Button endTournamentButton = view.findViewById(R.id.btn_tournament_end);
+        endTournamentButton.setOnClickListener(endTournamentDialogListener);
+    }
+
+    private final OnClickListener endTournamentDialogListener = v -> new MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.end_tournament)
+            .setMessage("Are you sure you want to end the tournament?")
+            .setNeutralButton(R.string.cancel, null)
+            .setPositiveButton(R.string.confirm, (dialog, which) -> disposables.add(Single.just(tournamentId)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(tournamentId -> {
+                        tournamentService.endTournament(tournamentId);
+                        requireActivity().finish();
+                    })))
+            .show();
+
 }
