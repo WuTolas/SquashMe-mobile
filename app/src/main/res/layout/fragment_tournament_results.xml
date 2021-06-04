@@ -6,7 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:id="@+id/tournament_matches_container"
-    tools:context=".fragment.TournamentMatchesFragment">
+    tools:context=".fragment.TournamentResultsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,8 +18,9 @@
             android:layout_height="wrap_content" >
 
             <TableLayout
-                android:id="@+id/tbl_tournament_matches"
-                android:layout_width="0dp"
+                android:id="@+id/tbl_tournament_results"
+                android:layout_width="wrap_content"
+                android:stretchColumns="*"
                 android:layout_height="wrap_content">
             </TableLayout>
         </HorizontalScrollView>

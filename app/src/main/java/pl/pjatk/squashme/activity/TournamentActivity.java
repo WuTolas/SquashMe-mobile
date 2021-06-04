@@ -23,6 +23,7 @@ import pl.pjatk.squashme.fragment.CreateTournamentFragment;
 import pl.pjatk.squashme.fragment.SignPlayersFragment;
 import pl.pjatk.squashme.fragment.TournamentMatchesFragment;
 import pl.pjatk.squashme.fragment.TournamentOptionsFragment;
+import pl.pjatk.squashme.fragment.TournamentResultsFragment;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
@@ -97,7 +98,7 @@ public class TournamentActivity extends AppCompatActivity implements TournamentI
         if (item.getItemId() == R.id.navigation_tournament_matches) {
             fragment = new TournamentMatchesFragment();
         } else if (item.getItemId() == R.id.navigation_tournament_leaderboard) {
-            fragment = null;
+            fragment = new TournamentResultsFragment();
         } else if (item.getItemId() == R.id.navigation_tournament_options) {
             fragment = new TournamentOptionsFragment();
         }

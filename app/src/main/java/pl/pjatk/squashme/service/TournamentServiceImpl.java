@@ -7,12 +7,14 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.dao.PlayerTournamentDao;
 import pl.pjatk.squashme.dao.TournamentDao;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.PlayerTournament;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
+import pl.pjatk.squashme.model.complex.TournamentResults;
 
 public class TournamentServiceImpl implements TournamentService {
 
@@ -71,6 +73,11 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void endTournament(long tournamentId) {
         tournamentDao.finishTournament(tournamentId);
+    }
+
+    @Override
+    public Single<List<TournamentResults>> searchTournamentResults(long tournamentId) {
+        return tournamentDao.searchTournamentResults(tournamentId);
     }
 
     private void generateOneRobinRound(Tournament tournament, int round, List<Long> playerIds) {

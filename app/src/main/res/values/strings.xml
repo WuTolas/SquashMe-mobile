@@ -40,6 +40,7 @@
     <string name="confirm">Confirm</string>
     <string name="provide_score_mode">Provide score mode</string>
     <string name="vs">%1$s vs %2$s</string>
+    <string name="slash">%1$d/%2$d</string>
     <string name="title_activity_x_d">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -48,4 +49,7 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="close">Close</string>
     <string name="end_tournament">End tournament</string>
+    <string name="name">Name</string>
+    <string name="sets">Sets</string>
+    <string name="points">Points</string>
 </resources>
