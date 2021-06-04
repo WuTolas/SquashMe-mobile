@@ -1,9 +1,15 @@
 package pl.pjatk.squashme.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import javax.inject.Inject;
 
@@ -16,20 +22,27 @@ import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.CreateTournamentFragment;
 import pl.pjatk.squashme.fragment.SignPlayersFragment;
 import pl.pjatk.squashme.fragment.TournamentMatchesFragment;
+import pl.pjatk.squashme.fragment.TournamentOptionsFragment;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
 
-public class TournamentActivity extends AppCompatActivity {
+public class TournamentActivity extends AppCompatActivity implements TournamentInfo, BottomNavigationView.OnNavigationItemSelectedListener, TournamentDashboardNavigation {
 
     @Inject
     public TournamentService tournamentService;
     private CompositeDisposable disposables;
+    private BottomNavigationView bottomNavigationView;
+    private long tournamentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament);
+
+        bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setVisibility(View.GONE);
 
         DaggerTournamentActivityComponent.builder()
                 .roomModule(new RoomModule(getApplication()))
@@ -39,7 +52,13 @@ public class TournamentActivity extends AppCompatActivity {
         disposables = new CompositeDisposable();
         disposables.add(Observable.fromCallable(tournamentService::getCurrentTournament)
                 .subscribeOn(Schedulers.io())
-                .subscribe(t -> prepareFragment(t.orElse(null)))
+                .subscribe(t -> {
+                    Tournament tournament = t.orElse(null);
+                    if (tournament != null) {
+                        tournamentId = tournament.getId();
+                    }
+                    prepareFragment(tournament);
+                })
         );
     }
 
@@ -51,15 +70,59 @@ public class TournamentActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             if (currentTournament.getStatus() == TournamentStatus.PICKING_PLAYERS) {
                 bundle.putLong("tournamentId", currentTournament.getId());
-                bundle.putSerializable("tournamentType", currentTournament.getType());
                 bundle.putInt("maxPlayers", currentTournament.getMaxPlayers());
                 fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
             } else {
-                bundle.putLong("tournamentId", currentTournament.getId());
-                fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, bundle);
+                fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, null);
             }
         }
         fragmentTransaction.commit();
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_tournament, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+
+        if (item.getItemId() == R.id.navigation_tournament_matches) {
+            fragment = new TournamentMatchesFragment();
+        } else if (item.getItemId() == R.id.navigation_tournament_leaderboard) {
+            fragment = null;
+        } else if (item.getItemId() == R.id.navigation_tournament_options) {
+            fragment = new TournamentOptionsFragment();
+        }
+
+        return loadFragment(fragment);
+    }
+
+    @Override
+    public void showBottomNavigation() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public long getTournamentId() {
+        return tournamentId;
+    }
+
+    @Override
+    public void setTournamentId(long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 
     @Override
