@@ -20,7 +20,7 @@ import pl.pjatk.squashme.model.Tournament;
         Tournament.class,
         Result.class,
         PlayerTournament.class
-}, version = 24)
+}, version = 26)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "SquashMe.db";

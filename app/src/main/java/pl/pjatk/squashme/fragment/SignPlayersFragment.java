@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +28,6 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerSignPlayersFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.model.TournamentType;
 import pl.pjatk.squashme.service.TournamentService;
 
 public class SignPlayersFragment extends Fragment {
@@ -67,7 +67,7 @@ public class SignPlayersFragment extends Fragment {
         initializeComponents(view);
         disposables = new CompositeDisposable();
         addButton.setOnClickListener(V -> handleAddPlayers());
-        cancelButton.setOnClickListener(V -> requireActivity().finish());
+        cancelButton.setOnClickListener(cancelTournament);
         return view;
     }
 
@@ -135,6 +135,18 @@ public class SignPlayersFragment extends Fragment {
 
         return errorCount.get() == 0;
     }
+
+    private final View.OnClickListener cancelTournament = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            disposables.add(Single.just(tournamentId)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(tId -> {
+                        tournamentService.removeTournament(tId);
+                        requireActivity().finish();
+                    }));
+        }
+    };
 
     @Override
     public void onDestroy() {
