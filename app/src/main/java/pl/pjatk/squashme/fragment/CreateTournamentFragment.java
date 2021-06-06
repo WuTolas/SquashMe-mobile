@@ -116,23 +116,35 @@ public class CreateTournamentFragment extends Fragment {
         }
 
         try {
-            if (bestOf.getText().toString().isEmpty()) {
+            if (!bestOf.getText().toString().isEmpty()) {
+                int bestOfValue = Integer.parseInt(bestOf.getText().toString());
+                if (bestOfValue <= 0) {
+                    bestOf.setError(getString(R.string.error_best_of_games));
+                    errorsCount++;
+                } else if (bestOfValue % 2 == 0) {
+                    bestOf.setError(getString(R.string.error_best_of_must_be_odd));
+                    errorsCount++;
+                } else if (bestOfValue > 11) {
+                    bestOf.setError(getString(R.string.error_max_number, 11));
+                    errorsCount++;
+                }
+            } else {
                 bestOf.setError(getString(R.string.error_field_empty));
-                errorsCount++;
-            } else if (Integer.parseInt(bestOf.getText().toString()) <= 0) {
-                bestOf.setError(getString(R.string.error_best_of_games));
-                errorsCount++;
-            } else if (Integer.parseInt(bestOf.getText().toString()) % 2 == 0) {
-                bestOf.setError(getString(R.string.error_best_of_must_be_odd));
                 errorsCount++;
             }
 
             if (maxPlayers.getText().toString().isEmpty()) {
                 maxPlayers.setError(getString(R.string.error_field_empty));
                 errorsCount++;
-            } else if (Integer.parseInt(maxPlayers.getText().toString()) < 3) {
-                maxPlayers.setError(getString(R.string.error_min_players));
-                errorsCount++;
+            } else {
+                int playersValue = Integer.parseInt(maxPlayers.getText().toString());
+                if (playersValue < 3) {
+                    maxPlayers.setError(getString(R.string.error_min_players, 3));
+                    errorsCount++;
+                } else if (playersValue > 32) {
+                    maxPlayers.setError(getString(R.string.error_max_number, 32));
+                    errorsCount++;
+                }
             }
         } catch (NumberFormatException ex) {
             bestOf.setError(getString(R.string.error_not_a_number));

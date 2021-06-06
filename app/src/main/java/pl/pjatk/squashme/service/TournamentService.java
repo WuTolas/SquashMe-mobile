@@ -19,4 +19,6 @@ public interface TournamentService {
     void endTournament(long tournamentId);
 
     Single<List<TournamentResults>> searchTournamentResults(long tournamentId);
+
+    void removeTournament(long tournamentId);
 }
