@@ -136,9 +136,15 @@ public class CreateQuickMatchFragment extends Fragment {
         }
 
         try {
-            if (!bestOf.getText().toString().isEmpty() && Integer.parseInt(bestOf.getText().toString()) <= 0) {
-                bestOf.setError(getString(R.string.error_best_of_games));
-                errorsCount++;
+            if (!bestOf.getText().toString().isEmpty()) {
+                int bestOfValue = Integer.parseInt(bestOf.getText().toString());
+                if (bestOfValue <= 0) {
+                    bestOf.setError(getString(R.string.error_best_of_games));
+                    errorsCount++;
+                } else if (bestOfValue > 64) {
+                    bestOf.setError(getString(R.string.error_max_number, 64));
+                    errorsCount++;
+                }
             }
         } catch (NumberFormatException ex) {
             bestOf.setError(getString(R.string.error_not_a_number));
