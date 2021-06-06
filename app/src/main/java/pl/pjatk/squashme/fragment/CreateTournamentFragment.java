@@ -124,8 +124,8 @@ public class CreateTournamentFragment extends Fragment {
                 } else if (bestOfValue % 2 == 0) {
                     bestOf.setError(getString(R.string.error_best_of_must_be_odd));
                     errorsCount++;
-                } else if (bestOfValue > 65) {
-                    bestOf.setError(getString(R.string.error_max_number, 65));
+                } else if (bestOfValue > 11) {
+                    bestOf.setError(getString(R.string.error_max_number, 11));
                     errorsCount++;
                 }
             } else {
@@ -141,8 +141,8 @@ public class CreateTournamentFragment extends Fragment {
                 if (playersValue < 3) {
                     maxPlayers.setError(getString(R.string.error_min_players, 3));
                     errorsCount++;
-                } else if (playersValue > 128) {
-                    maxPlayers.setError(getString(R.string.error_max_number, 128));
+                } else if (playersValue > 32) {
+                    maxPlayers.setError(getString(R.string.error_max_number, 32));
                     errorsCount++;
                 }
             }
