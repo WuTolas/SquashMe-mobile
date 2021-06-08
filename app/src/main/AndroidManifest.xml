@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SquashMe">
+        <activity android:name=".activity.SettingsActivity"
+            android:label="@string/settings"/>
         <activity
             android:name=".activity.TournamentActivity"
-            android:label="@string/tournament"/>
+            android:label="@string/tournament" />
         <activity
             android:name=".activity.QuickMatchActivity"
             android:label="@string/quick_match" />

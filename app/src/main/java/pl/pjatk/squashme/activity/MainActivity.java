@@ -1,14 +1,14 @@
 package pl.pjatk.squashme.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import pl.pjatk.squashme.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button tournamentButton = findViewById(R.id.tournament);
         tournamentButton.setOnClickListener(V -> launchActivity(TournamentActivity.class));
+
+        Button settingsButton = findViewById(R.id.settings);
+        settingsButton.setOnClickListener(v -> launchActivity(SettingsActivity.class));
     }
 
     private void launchActivity(Class<? extends AppCompatActivity> activity) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="SquashMeOutlinedButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:paddingLeft">@dimen/mtrl_btn_padding_left</item>
+        <item name="android:paddingRight">@dimen/mtrl_btn_padding_right</item>
+        <item name="strokeColor">@color/primary_light_border</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="SquashMeActionButton" parent="Widget.MaterialComponents.Button.TextButton">
+    </style>
+
+</resources>

@@ -53,4 +53,11 @@
     <string name="name">Name</string>
     <string name="sets">Sets</string>
     <string name="points">Points</string>
+    <string name="tester">english</string>
+    <string name="languages_prompt">dunno</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Polski</item>
+    </string-array>
 </resources>
