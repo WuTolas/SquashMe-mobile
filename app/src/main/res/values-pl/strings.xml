@@ -6,7 +6,6 @@
     <string name="settings">Ustawienia</string>
     <string name="player1_full_name_nick_name">Imię / pseudonim - zawodnik 1</string>
     <string name="player2_full_name_nick_name">Imię / pseudonim - zawodnik 2</string>
-    <string name="best_of">Best of</string>
     <string name="best_of_hint">Wpisz liczbę setów lub pozostaw puste</string>
     <string name="two_points_advantage_rule">Gra do 2 punktów przewagi</string>
     <string name="referee_mode">Tryb sędziowania</string>
@@ -17,6 +16,7 @@
     <string name="error_best_of_games">Liczba setów powinna być dodatnia lub pusta</string>
     <string name="error_not_a_number">Podana wartość nie jest liczbą</string>
     <string name="error_max_length">Maksymalna liczba znaków: %1$d</string>
+    <string name="error_max_number">Maksymalna dozwolona liczba: %1$d</string>
     <string name="referee_view">Widok sędziego</string>
     <string name="left_side">L</string>
     <string name="right_side">P</string>
@@ -38,8 +38,15 @@
     <string name="round">Round</string>
     <string name="confirm">Potwierdź</string>
     <string name="provide_score_mode">Tryb ręcznego wprowadzania</string>
-    <string name="vs">\" vs \"</string>
-    <string name="close">Zamknij</string>
+    <string name="title_home">Strona główna</string>
+    <string name="title_notifications">Powiadomienia</string>
+    <string name="games">Mecze</string>
+    <string name="leaderboard">Tablica wyników</string>
+    <string name="close">Close</string>
+    <string name="end_tournament">Zakończ turniej</string>
+    <string name="name">Imię</string>
+    <string name="sets">Sety</string>
+    <string name="points">Punkty</string>
     <string name="language">Język</string>
     <string name="languages_prompt">Wybierz język</string>
 </resources>
