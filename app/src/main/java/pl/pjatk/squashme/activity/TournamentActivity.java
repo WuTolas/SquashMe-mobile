@@ -28,7 +28,7 @@ import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
 
-public class TournamentActivity extends AppCompatActivity implements TournamentInfo, BottomNavigationView.OnNavigationItemSelectedListener, TournamentDashboardNavigation {
+public class TournamentActivity extends BaseActivity implements TournamentInfo, BottomNavigationView.OnNavigationItemSelectedListener, TournamentDashboardNavigation {
 
     @Inject
     public TournamentService tournamentService;

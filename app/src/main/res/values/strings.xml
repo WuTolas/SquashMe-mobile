@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SquashMe</string>
+    <string name="app_name" translatable="false">SquashMe</string>
     <string name="main_page">Main page</string>
     <string name="quick_match">Quick match</string>
     <string name="tournament">Tournament</string>
@@ -54,8 +54,9 @@
     <string name="sets">Sets</string>
     <string name="points">Points</string>
     <string name="tester">english</string>
-    <string name="languages_prompt">dunno</string>
-
+<!--    <string name="languages_prompt">dunno</string>-->
+    <string name="hello_world">Hello world</string>
+    <string name="phone_language">Phone\'s language (%s)</string>
     <string-array name="languages">
         <item>English</item>
         <item>Polski</item>

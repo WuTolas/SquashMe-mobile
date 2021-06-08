@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">SquashMe</string>
     <string name="main_page">Stron główna</string>
     <string name="quick_match">Szybki mecz</string>
     <string name="tournament">Turniej</string>
@@ -42,4 +41,6 @@
     <string name="vs">\" vs \"</string>
     <string name="close">Zamknij</string>
     <string name="tester">polski</string>
+    <string name="hello_world">Witaj swiecie</string>
+    <string name="phone_language">Jezyk systemu (%s)</string>
 </resources>
