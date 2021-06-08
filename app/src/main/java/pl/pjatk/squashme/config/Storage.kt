@@ -7,7 +7,7 @@ class Storage(context: Context) {
     private var preferences: SharedPreferences = context.getSharedPreferences("sp", Context.MODE_PRIVATE)
 
     fun getPreferredLocale(): String {
-        return preferences.getString("preferred_locale", LocaleUtil.OPTION_PHONE_LANGUAGE)!!
+        return preferences.getString("preferred_locale", "en")!!
     }
 
     fun setPreferredLocale(localeCode: String) {

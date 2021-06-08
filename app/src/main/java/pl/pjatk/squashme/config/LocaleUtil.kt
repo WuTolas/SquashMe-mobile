@@ -3,34 +3,14 @@ package pl.pjatk.squashme.config
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
 import android.os.LocaleList
-import androidx.core.os.ConfigurationCompat
 import java.util.*
 
-class LocaleUtil(base: Context): ContextWrapper(base)  {
+class LocaleUtil(base: Context) : ContextWrapper(base) {
     companion object {
-        val supportedLocales = listOf("en", "pl")
-        const val OPTION_PHONE_LANGUAGE = "sys_def"
 
-        /**
-         * returns the locale to use depending on the preference value
-         * when preference value = "sys_def" returns the locale of current system
-         * else it returns the locale code e.g. "en", "pl" etc.
-         */
-        private fun getLocaleFromPrefCode(prefCode: String): Locale{
-            val localeCode = if(prefCode != OPTION_PHONE_LANGUAGE) {
-                prefCode
-            } else {
-                val systemLang = ConfigurationCompat.getLocales(Resources.getSystem().configuration).get(0).language
-                if(systemLang in supportedLocales){
-                    systemLang
-                } else {
-                    "en"
-                }
-            }
-            return Locale(localeCode)
+        private fun getLocaleFromPrefCode(prefCode: String): Locale {
+            return Locale(prefCode)
         }
 
         fun getLocalizedConfiguration(prefLocaleCode: String): Configuration {

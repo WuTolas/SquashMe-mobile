@@ -15,16 +15,18 @@ open class BaseActivity : AppCompatActivity() {
         (application as SquashMe).storage
     }
 
-    /**
-     * updates the toolbar text locale if it set from the android:label property of Manifest
-     */
-    private fun resetTitle() {
+    companion object {
+        private const val TAG = "BaseActivity"
+    }
+
+    private fun resetTitleBar() {
         try {
             val label = packageManager.getActivityInfo(componentName, PackageManager.GET_META_DATA).labelRes;
             if (label != 0) {
                 setTitle(label);
             }
         } catch (e: PackageManager.NameNotFoundException) {
+            Log.e(TAG, "Package name not found")
         }
     }
 
@@ -37,7 +39,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        resetTitle()
+        resetTitleBar()
     }
 
     override fun onResume() {

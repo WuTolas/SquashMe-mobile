@@ -1,9 +1,8 @@
 package pl.pjatk.squashme.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentTransaction;
 
 import javax.inject.Inject;
 

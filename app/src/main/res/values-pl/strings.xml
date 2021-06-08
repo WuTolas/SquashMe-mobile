@@ -40,7 +40,6 @@
     <string name="provide_score_mode">Tryb ręcznego wprowadzania</string>
     <string name="vs">\" vs \"</string>
     <string name="close">Zamknij</string>
-    <string name="tester">polski</string>
-    <string name="hello_world">Witaj swiecie</string>
-    <string name="phone_language">Jezyk systemu (%s)</string>
+    <string name="language">Język</string>
+    <string name="languages_prompt">Wybierz język</string>
 </resources>

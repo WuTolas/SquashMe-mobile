@@ -57,8 +57,10 @@
 <!--    <string name="languages_prompt">dunno</string>-->
     <string name="hello_world">Hello world</string>
     <string name="phone_language">Phone\'s language (%s)</string>
+    <string name="language">Language</string>
+    <string name="languages_prompt">Choose language</string>
     <string-array name="languages">
-        <item>English</item>
-        <item>Polski</item>
+        <item>en</item>
+        <item>pl</item>
     </string-array>
 </resources>
