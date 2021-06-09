@@ -56,7 +56,7 @@
     <string name="language">Language</string>
     <string name="languages_prompt">Choose language</string>
     <string-array name="languages">
-        <item>en</item>
-        <item>pl</item>
+        <item>English</item>
+        <item>Polski</item>
     </string-array>
 </resources>
