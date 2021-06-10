@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import pl.pjatk.squashme.SquashMe
 import pl.pjatk.squashme.config.LocaleUtil
 import pl.pjatk.squashme.config.Storage
@@ -39,6 +40,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(storage.getTheme())
         resetTitleBar()
     }
 

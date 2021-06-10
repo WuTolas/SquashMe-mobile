@@ -1,5 +1,5 @@
 <resources>
-    <string name="main_page">Stron główna</string>
+    <string name="main_page">Strona główna</string>
     <string name="quick_match">Szybki mecz</string>
     <string name="tournament">Turniej</string>
     <string name="match_history">Historia</string>
@@ -38,7 +38,6 @@
     <string name="round">Round</string>
     <string name="confirm">Potwierdź</string>
     <string name="provide_score_mode">Tryb ręcznego wprowadzania</string>
-    <string name="title_home">Strona główna</string>
     <string name="title_notifications">Powiadomienia</string>
     <string name="games">Mecze</string>
     <string name="leaderboard">Tablica wyników</string>
@@ -49,4 +48,9 @@
     <string name="points">Punkty</string>
     <string name="language">Język</string>
     <string name="languages_prompt">Wybierz język</string>
+    <string name="darkMode">Ciemny motyw</string>
+    <string name="lightMode">Jasny motyw</string>
+    <string name="systemSetting">Motyw systemu</string>
+    <string name="theme">Motyw</string>
+    <string name="theme_prompt">Wybierz motyw</string>
 </resources>
