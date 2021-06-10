@@ -1,9 +1,8 @@
 package pl.pjatk.squashme.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentTransaction;
 
 import javax.inject.Inject;
 
@@ -19,7 +18,7 @@ import pl.pjatk.squashme.fragment.RefereeModeFragment;
 import pl.pjatk.squashme.model.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
 
-public class QuickMatchActivity extends AppCompatActivity {
+public class QuickMatchActivity extends BaseActivity {
 
     @Inject
     public MatchService matchService;

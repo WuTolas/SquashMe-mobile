@@ -8,6 +8,7 @@ class RefereeModelFactory(param: MutableList<Result>) : ViewModelProvider.Factor
     private var mParam: MutableList<Result> = param
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return RefereeModel(mParam) as T
     }
 }
