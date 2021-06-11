@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HistoryOptionsFragment">
+
+        <Button
+            android:id="@+id/btn_quickmatch_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/quick_match_history"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_tournament_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:enabled="false"
+            android:text="@string/tournament_history"
+            tools:ignore="ButtonStyle" />
+
+</FrameLayout>

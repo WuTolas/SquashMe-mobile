@@ -47,6 +47,7 @@ public interface MatchDao extends BaseDao<Match> {
             "WHERE " +
             "   m.finished = 1 " +
             "   AND m.tournament_id IS NULL " +
-            "   AND r.id IN (SELECT MAX(ID) FROM Result GROUP BY match_id)")
+            "   AND r.id IN (SELECT MAX(ID) FROM Result GROUP BY match_id) " +
+            "ORDER BY m.id DESC")
     Single<List<MatchHistory>> searchMatchHistory();
 }

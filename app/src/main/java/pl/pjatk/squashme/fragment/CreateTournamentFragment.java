@@ -119,7 +119,7 @@ public class CreateTournamentFragment extends Fragment {
             if (!bestOf.getText().toString().isEmpty()) {
                 int bestOfValue = Integer.parseInt(bestOf.getText().toString());
                 if (bestOfValue <= 0) {
-                    bestOf.setError(getString(R.string.error_best_of_games));
+                    bestOf.setError(getString(R.string.error_best_of_games_positive));
                     errorsCount++;
                 } else if (bestOfValue % 2 == 0) {
                     bestOf.setError(getString(R.string.error_best_of_must_be_odd));

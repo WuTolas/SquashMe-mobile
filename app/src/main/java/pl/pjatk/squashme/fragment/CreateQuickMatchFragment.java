@@ -141,8 +141,11 @@ public class CreateQuickMatchFragment extends Fragment {
                 if (bestOfValue <= 0) {
                     bestOf.setError(getString(R.string.error_best_of_games));
                     errorsCount++;
-                } else if (bestOfValue > 65) {
-                    bestOf.setError(getString(R.string.error_max_number, 65));
+                } else if (bestOfValue % 2 == 0) {
+                    bestOf.setError(getString(R.string.error_best_of_must_be_odd));
+                    errorsCount++;
+                } else if (bestOfValue > 11) {
+                    bestOf.setError(getString(R.string.error_max_number, 11));
                     errorsCount++;
                 }
             }
