@@ -3,15 +3,18 @@
     package="pl.pjatk.squashme">
 
     <application
+        android:name=".SquashMe"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SquashMe">
+        <activity android:name=".activity.SettingsActivity"
+            android:label="@string/settings"/>
         <activity
             android:name=".activity.TournamentActivity"
-            android:label="@string/tournament"/>
+            android:label="@string/tournament" />
         <activity
             android:name=".activity.QuickMatchActivity"
             android:label="@string/quick_match" />
