@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.dao.MatchDao;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.complex.MatchHistory;
 import pl.pjatk.squashme.model.complex.TournamentMatchSimple;
 
 public class MatchServiceImpl implements MatchService {
@@ -54,5 +55,10 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public MatchWithPlayers getMatchWithResults(long id) {
         return matchDao.getMatchWithResults(id).orElseGet(null);
+    }
+
+    @Override
+    public Single<List<MatchHistory>> searchMatchHistory() {
+        return matchDao.searchMatchHistory();
     }
 }

@@ -59,6 +59,7 @@ public interface TournamentDao extends BaseDao<Tournament> {
             "            , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN ri1.playerTwoSet + 1 ELSE ri1.playerTwoSet END AS sets_losing " +
             "    FROM Result ri1 " +
             "    INNER JOIN `Match` mi1 ON mi1.id = ri1.match_id " +
+            "    WHERE mi1.tournament_id =:tournamentId " +
             "    AND ri1.id IN ( " +
             "        SELECT MAX(ID) FROM Result WHERE tournament_id =:tournamentId GROUP BY match_id " +
             "    ) " +
