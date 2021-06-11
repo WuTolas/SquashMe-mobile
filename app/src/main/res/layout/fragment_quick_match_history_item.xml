@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cell_shape"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/quick_match_history_sets1"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textSize="32sp"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/quick_match_history_player1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:text="@string/versus_shortcut"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/quick_match_history_player2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/quick_match_history_sets2"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textSize="32sp"
+        android:textAppearance="?attr/textAppearanceListItem" />
+</LinearLayout>

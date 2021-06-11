@@ -65,6 +65,7 @@
         android:baselineAligned="false">
 
         <Button
+            android:id="@+id/history"
             style="@style/SquashMeOutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

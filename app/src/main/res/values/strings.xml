@@ -59,6 +59,11 @@
     <string name="systemSetting">System theme</string>
     <string name="theme">Theme</string>
     <string name="theme_prompt">Choose theme</string>
+    <string name="quick_match_history">Quick match history</string>
+    <string name="tournament_history">Tournament history</string>
+    <string name="history">History</string>
+    <string name="versus_shortcut">vs</string>
+    <string name="error_best_of_games_positive">Best of games should be positive number</string>
 
     <string-array name="languages">
         <item>English</item>

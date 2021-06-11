@@ -6,7 +6,9 @@ import java.util.Optional;
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.complex.MatchHistory;
 import pl.pjatk.squashme.model.complex.TournamentMatchSimple;
+import pl.pjatk.squashme.model.complex.TournamentResults;
 
 public interface MatchService {
 
@@ -23,4 +25,6 @@ public interface MatchService {
     void updateRefereeMode(long matchId, boolean refereeMode);
 
     MatchWithPlayers getMatchWithResults(long id);
+
+    Single<List<MatchHistory>> searchMatchHistory();
 }

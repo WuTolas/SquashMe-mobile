@@ -23,6 +23,9 @@ public class MainActivity extends BaseActivity {
 
         Button settingsButton = findViewById(R.id.settings);
         settingsButton.setOnClickListener(v -> launchActivity(SettingsActivity.class));
+
+        Button historyButton = findViewById(R.id.history);
+        historyButton.setOnClickListener(v -> launchActivity(HistoryActivity.class));
     }
 
     private void launchActivity(Class<? extends AppCompatActivity> activity) {

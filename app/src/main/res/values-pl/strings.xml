@@ -28,7 +28,7 @@
     <string name="tournament_type">Typ turnieju</string>
     <string name="error_best_of_must_be_odd">Liczba setów musi być liczbą nieparzystą</string>
     <string name="player_number">Liczba graczy</string>
-    <string name="error_min_players">Powinno być co najmniej 3 graczy</string>
+    <string name="error_min_players">Powinno być co najmniej %1$d graczy</string>
     <string name="player">Zawodnik</string>
     <string name="add_players">Dodaj zawodników</string>
     <string name="error_player_exists">Zawodnik już został wprowadzony</string>
@@ -53,4 +53,10 @@
     <string name="systemSetting">Motyw systemu</string>
     <string name="theme">Motyw</string>
     <string name="theme_prompt">Wybierz motyw</string>
+    <string name="quick_match_history">Historia szybkich meczy</string>
+    <string name="tournament_history">Historia turniejów</string>
+    <string name="history">Historia</string>
+    <string name="versus_shortcut">vs</string>
+    <string name="error_best_of_games_positive">Liczba setów musi być liczbą dodatnią</string>
+
 </resources>
