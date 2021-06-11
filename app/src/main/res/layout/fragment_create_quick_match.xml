@@ -1,123 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.CreateQuickMatchFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UselessParent">
 
-        <TextView
-            android:id="@+id/text_player1_fullName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:labelFor="@id/inp_player1_fullName"
-            android:text="@string/player1_full_name_nick_name" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="UselessParent">
 
-        <EditText
-            android:id="@+id/inp_player1_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:gravity="start"
-            android:inputType="textPersonName"
-            android:importantForAutofill="no" />
+            <TextView
+                android:id="@+id/text_player1_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:labelFor="@id/inp_player1_fullName"
+                android:text="@string/player1_full_name_nick_name" />
 
-        <TextView
-            android:id="@+id/text_player2_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:labelFor="@id/inp_player2_fullName"
-            android:text="@string/player2_full_name_nick_name" />
+            <EditText
+                android:id="@+id/inp_player1_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0"
+                android:ems="10"
+                android:gravity="start"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/inp_player2_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:gravity="start"
-            android:inputType="textPersonName"
-            android:importantForAutofill="no" />
+            <TextView
+                android:id="@+id/text_player2_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:labelFor="@id/inp_player2_fullName"
+                android:text="@string/player2_full_name_nick_name" />
 
-        <TextView
-            android:id="@+id/text_match_bestOf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:labelFor="@id/inp_match_bestOf"
-            android:text="@string/best_of" />
+            <EditText
+                android:id="@+id/inp_player2_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0"
+                android:ems="10"
+                android:gravity="start"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/inp_match_bestOf"
-            android:hint="@string/best_of_hint"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:gravity="start"
-            android:inputType="number"
-            android:importantForAutofill="no"
-            tools:ignore="LabelFor" />
+            <TextView
+                android:id="@+id/text_match_bestOf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:labelFor="@id/inp_match_bestOf"
+                android:text="@string/best_of" />
 
-        <CheckBox
-            android:id="@+id/chk_match_twoPointsAdvantage"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/two_points_advantage_rule"
-            android:checked="false"
-            android:button="@null"
-            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:gravity="start|center_vertical"/>
+            <EditText
+                android:id="@+id/inp_match_bestOf"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="@string/best_of_hint"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                tools:ignore="LabelFor" />
 
-        <CheckBox
-            android:id="@+id/chk_match_refereeMode"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:text="@string/referee_mode"
-            android:checked="false"
-            android:button="@null"
-            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:gravity="start|center_vertical"/>
+            <CheckBox
+                android:id="@+id/chk_match_twoPointsAdvantage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:button="@null"
+                android:checked="false"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:gravity="start|center_vertical"
+                android:text="@string/two_points_advantage_rule" />
 
-        <Button
-            android:id="@+id/btn_match_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:text="@string/create"
-            tools:ignore="ButtonStyle" />
+            <CheckBox
+                android:id="@+id/chk_match_refereeMode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:button="@null"
+                android:checked="false"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:gravity="start|center_vertical"
+                android:text="@string/referee_mode" />
 
-        <Button
-            android:id="@+id/btn_match_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_gravity="center"
-            android:text="@string/cancel"
-            tools:ignore="ButtonStyle" />
+            <Button
+                android:id="@+id/btn_match_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/create"
+                tools:ignore="ButtonStyle" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_match_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:text="@string/cancel"
+                tools:ignore="ButtonStyle" />
 
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

@@ -286,13 +286,13 @@ class RefereeModeFragment : Fragment() {
         playerTwoSidesGroup.clearCheck()
 
         if (lastResult?.serve == 1) {
-            if (lastResult.side == "R") {
+            if (lastResult.side == getString(R.string.right_side)) {
                 playerOneRightSide.isChecked = true
             } else {
                 playerOneLeftSide.isChecked = true
             }
         } else {
-            if (lastResult?.side == "R") {
+            if (lastResult?.side == getString(R.string.right_side)) {
                 playerTwoRightSide.isChecked = true
             } else {
                 playerTwoLeftSide.isChecked = true
