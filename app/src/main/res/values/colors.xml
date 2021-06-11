@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#97FF80</color>
+    <color name="dark_green">#1D9A00</color>
+    <color name="blue">#0052D8</color>
 
     <color name="primary">#070D59</color>
     <color name="primary_light_border">#6A6C8F</color>
@@ -20,4 +22,5 @@
     <color name="transparent">#80FFFFFF</color>
     <color name="losing_score">#b81919</color>
     <color name="winning_score">#6b9f06</color>
+    <color name="main_color">#DE000000</color>
 </resources>
