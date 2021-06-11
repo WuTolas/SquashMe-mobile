@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Match implements Serializable {
@@ -100,5 +101,26 @@ public class Match implements Serializable {
 
     public void setTournamentRound(Integer tournamentRound) {
         this.tournamentRound = tournamentRound;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return id == match.id &&
+                player1Id == match.player1Id &&
+                player2Id == match.player2Id &&
+                twoPointsAdvantage == match.twoPointsAdvantage &&
+                finished == match.finished &&
+                Objects.equals(bestOf, match.bestOf) &&
+                Objects.equals(refereeMode, match.refereeMode) &&
+                Objects.equals(tournamentId, match.tournamentId) &&
+                Objects.equals(tournamentRound, match.tournamentRound);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, player1Id, player2Id, bestOf, twoPointsAdvantage, refereeMode, finished, tournamentId, tournamentRound);
     }
 }
