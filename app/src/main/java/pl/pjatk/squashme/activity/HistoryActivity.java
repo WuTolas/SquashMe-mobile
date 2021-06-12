@@ -8,7 +8,9 @@ import android.os.Bundle;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.fragment.HistoryOptionsFragment;
 
-public class HistoryActivity extends BaseActivity {
+public class HistoryActivity extends BaseActivity implements TournamentInfo {
+
+    private long tournamentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +22,15 @@ public class HistoryActivity extends BaseActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_history, fragment);
         ft.commit();
+    }
+
+    @Override
+    public long getTournamentId() {
+        return tournamentId;
+    }
+
+    @Override
+    public void setTournamentId(long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 }

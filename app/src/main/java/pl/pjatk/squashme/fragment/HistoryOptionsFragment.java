@@ -32,6 +32,7 @@ public class HistoryOptionsFragment extends Fragment {
         quickMatchHistoryButton.setOnClickListener(v -> loadFragment(new QuickMatchHistoryFragment()));
 
         Button tournamentHistoryButton = view.findViewById(R.id.btn_tournament_history);
+        tournamentHistoryButton.setOnClickListener(v -> loadFragment(new TournamentHistoryFragment()));
     }
 
     private void loadFragment(Fragment fragment) {

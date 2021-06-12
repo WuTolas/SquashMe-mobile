@@ -1,6 +1,10 @@
-package pl.pjatk.squashme.model.complex;
+package pl.pjatk.squashme.model.custom;
 
-public class TournamentResults {
+import java.io.Serializable;
+
+public class TournamentResults implements Serializable {
+
+    private static final long serialVersionUID = -8865573171543425183L;
 
     private long playerId;
     private String name;

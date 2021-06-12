@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Tournament;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentHistory;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 
 public interface TournamentService {
 
@@ -20,4 +21,6 @@ public interface TournamentService {
     Single<List<TournamentResults>> searchTournamentResults(long tournamentId);
 
     void removeTournament(long tournamentId);
+
+    Single<List<TournamentHistory>> searchTournamentHistory();
 }

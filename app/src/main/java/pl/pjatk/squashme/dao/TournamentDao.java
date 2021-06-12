@@ -9,7 +9,8 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Tournament;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentHistory;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 
 @Dao
 public interface TournamentDao extends BaseDao<Tournament> {
@@ -25,6 +26,16 @@ public interface TournamentDao extends BaseDao<Tournament> {
 
     @Query("DELETE FROM `Tournament` WHERE id = :tournamentId")
     void deleteTournament(long tournamentId);
+
+    @Transaction
+    @Query("SELECT " +
+            "   t.id        AS tournamentId " +
+            "   , t.name    AS tournamentName " +
+            "FROM Tournament t " +
+            "WHERE " +
+            "   t.tournament_status = 'FINISHED' " +
+            "ORDER BY t.id DESC")
+    Single<List<TournamentHistory>> searchTournamentHistory();
 
     @Transaction
     @Query("SELECT " +

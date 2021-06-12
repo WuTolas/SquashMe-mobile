@@ -14,7 +14,8 @@ import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.PlayerTournament;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentHistory;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 
 public class TournamentServiceImpl implements TournamentService {
 
@@ -83,6 +84,11 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void removeTournament(long tournamentId) {
         tournamentDao.deleteTournament(tournamentId);
+    }
+
+    @Override
+    public Single<List<TournamentHistory>> searchTournamentHistory() {
+        return tournamentDao.searchTournamentHistory();
     }
 
     private void generateOneRobinRound(Tournament tournament, int round, List<Long> playerIds) {

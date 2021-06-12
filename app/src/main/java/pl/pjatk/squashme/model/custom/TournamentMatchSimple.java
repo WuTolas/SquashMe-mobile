@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.model.complex;
+package pl.pjatk.squashme.model.custom;
 
 import java.io.Serializable;
 

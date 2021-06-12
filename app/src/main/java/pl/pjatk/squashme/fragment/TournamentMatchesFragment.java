@@ -38,7 +38,7 @@ import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentMatchesFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.MatchWithPlayers;
-import pl.pjatk.squashme.model.complex.TournamentMatchSimple;
+import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 import pl.pjatk.squashme.service.MatchService;
 
 public class TournamentMatchesFragment extends Fragment {

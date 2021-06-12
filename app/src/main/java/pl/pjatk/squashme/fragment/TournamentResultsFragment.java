@@ -28,7 +28,7 @@ import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
 import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentResultsFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 import pl.pjatk.squashme.service.TournamentService;
 
 public class TournamentResultsFragment extends Fragment {
@@ -138,5 +138,11 @@ public class TournamentResultsFragment extends Fragment {
     private ViewGroup getRootContainer() {
         int rootId = ((ViewGroup) requireView().getParent()).getId();
         return (ViewGroup) requireView().findViewById(rootId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
     }
 }

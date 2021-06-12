@@ -73,4 +73,9 @@ public class TournamentOptionsFragment extends Fragment {
                     })))
             .show();
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
+    }
 }
