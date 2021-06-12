@@ -13,8 +13,8 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.fragment.RefereeModeFragment;
-import pl.pjatk.squashme.fragment.TournamentHistoryMatchesFragment;
+import pl.pjatk.squashme.activity.HistoryActivity;
+import pl.pjatk.squashme.fragment.TournamentResultsFragment;
 import pl.pjatk.squashme.model.custom.TournamentHistory;
 
 import java.util.List;
@@ -22,11 +22,13 @@ import java.util.List;
 public class MyTournamentHistoryRecyclerViewAdapter extends RecyclerView.Adapter<MyTournamentHistoryRecyclerViewAdapter.ViewHolder> {
 
     private final FragmentManager fragmentManager;
+    private final HistoryActivity activity;
     private final List<TournamentHistory> mValues;
 
-    public MyTournamentHistoryRecyclerViewAdapter(List<TournamentHistory> items, FragmentManager fragmentManager) {
+    public MyTournamentHistoryRecyclerViewAdapter(List<TournamentHistory> items, FragmentManager fragmentManager, HistoryActivity activity) {
         mValues = items;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
     }
 
     @NotNull
@@ -41,14 +43,17 @@ public class MyTournamentHistoryRecyclerViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mTournamentNameView.setText(mValues.get(position).getTournamentName());
-        holder.mView.setOnClickListener(V -> prepareTournamentDetailsFragment(mValues.get(position).getTournamentId()));
+        holder.mView.setOnClickListener(V -> {
+            activity.setTournamentId(mValues.get(position).getTournamentId());
+            prepareTournamentDetailsFragment(mValues.get(position).getTournamentId());
+        });
     }
 
     private void prepareTournamentDetailsFragment(long tournamentId) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putLong("tournamentId", tournamentId);
-        fragmentTransaction.replace(R.id.fragment_history, TournamentHistoryMatchesFragment.class, bundle);
+        fragmentTransaction.replace(R.id.fragment_history, TournamentResultsFragment.class, bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
