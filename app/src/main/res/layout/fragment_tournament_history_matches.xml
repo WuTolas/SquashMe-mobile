@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    tools:context=".fragment.TournamentHistoryMatchesFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <TableLayout
+            android:id="@+id/tbl_tournament_matches_history"
+            android:layout_width="wrap_content"
+            android:stretchColumns="*"
+            android:shrinkColumns="1,2"
+            android:layout_height="wrap_content">
+        </TableLayout>
+    </ScrollView>
+
+</FrameLayout>
