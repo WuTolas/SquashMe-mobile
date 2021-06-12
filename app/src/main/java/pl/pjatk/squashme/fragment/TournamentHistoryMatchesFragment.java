@@ -22,14 +22,13 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
+import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentHistoryMatchesFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 import pl.pjatk.squashme.service.MatchService;
 
 public class TournamentHistoryMatchesFragment extends Fragment {
-
-    private static final String ARG_PARAM1 = "tournamentId";
 
     private long tournamentId;
 
@@ -40,10 +39,7 @@ public class TournamentHistoryMatchesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            tournamentId = getArguments().getLong(ARG_PARAM1);
-        }
-        System.out.println("ID TURNIEJU " + tournamentId);
+        tournamentId = ((TournamentInfo) requireActivity()).getTournamentId();
         DaggerTournamentHistoryMatchesFragmentComponent.builder()
                 .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()

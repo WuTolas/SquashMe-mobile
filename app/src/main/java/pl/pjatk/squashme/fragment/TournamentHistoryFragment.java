@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +19,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import pl.pjatk.squashme.activity.HistoryActivity;
 import pl.pjatk.squashme.adapter.MyTournamentHistoryRecyclerViewAdapter;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerTournamentHistoryFragmentComponent;
@@ -63,7 +63,7 @@ public class TournamentHistoryFragment extends Fragment {
         disposables.add(Observable.fromSingle(tournamentService.searchTournamentHistory())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(items -> recyclerView.setAdapter(new MyTournamentHistoryRecyclerViewAdapter(items, getParentFragmentManager()))));
+                .subscribe(items -> recyclerView.setAdapter(new MyTournamentHistoryRecyclerViewAdapter(items, getParentFragmentManager(), (HistoryActivity) requireActivity()))));
     }
 
     @Override
