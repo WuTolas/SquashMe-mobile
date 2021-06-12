@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Tournament;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 
 @Dao
 public interface TournamentDao extends BaseDao<Tournament> {

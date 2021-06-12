@@ -14,7 +14,7 @@ import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.PlayerTournament;
 import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.TournamentResults;
 
 public class TournamentServiceImpl implements TournamentService {
 

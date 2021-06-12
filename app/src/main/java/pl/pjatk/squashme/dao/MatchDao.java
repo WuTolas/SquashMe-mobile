@@ -10,9 +10,8 @@ import java.util.Optional;
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.MatchWithPlayers;
-import pl.pjatk.squashme.model.complex.MatchHistory;
-import pl.pjatk.squashme.model.complex.TournamentMatchSimple;
-import pl.pjatk.squashme.model.complex.TournamentResults;
+import pl.pjatk.squashme.model.custom.MatchHistory;
+import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 
 @Dao
 public interface MatchDao extends BaseDao<Match> {

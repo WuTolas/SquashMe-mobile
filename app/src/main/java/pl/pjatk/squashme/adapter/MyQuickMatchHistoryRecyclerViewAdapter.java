@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.model.complex.MatchHistory;
+import pl.pjatk.squashme.model.custom.MatchHistory;
 
 import java.util.List;
 
