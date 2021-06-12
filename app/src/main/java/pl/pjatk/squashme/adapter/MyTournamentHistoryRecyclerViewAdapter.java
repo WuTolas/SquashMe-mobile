@@ -19,6 +19,9 @@ import pl.pjatk.squashme.model.custom.TournamentHistory;
 
 import java.util.List;
 
+/**
+ * Adapter for tournament history list.
+ */
 public class MyTournamentHistoryRecyclerViewAdapter extends RecyclerView.Adapter<MyTournamentHistoryRecyclerViewAdapter.ViewHolder> {
 
     private final FragmentManager fragmentManager;

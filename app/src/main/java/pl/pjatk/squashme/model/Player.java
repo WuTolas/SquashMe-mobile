@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+/**
+ * Entity class which defines player structure in the database.
+ */
 @Entity(indices = {
         @Index(value = {"name"}, unique = true)
 })

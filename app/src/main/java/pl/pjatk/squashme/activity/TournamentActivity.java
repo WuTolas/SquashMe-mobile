@@ -27,6 +27,9 @@ import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Quick match activity class - decides which fragment should be visible based on tournament data.
+ */
 public class TournamentActivity extends BaseActivity implements TournamentInfo, BottomNavigationView.OnNavigationItemSelectedListener, TournamentDashboardNavigation {
 
     @Inject
@@ -35,6 +38,13 @@ public class TournamentActivity extends BaseActivity implements TournamentInfo, 
     private BottomNavigationView bottomNavigationView;
     private long tournamentId;
 
+    /**
+     * Instantiates bottom navigation view and hides it by default.
+     *
+     * Gets current tournament from the tournament service.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +72,16 @@ public class TournamentActivity extends BaseActivity implements TournamentInfo, 
         );
     }
 
+    /**
+     * Prepares and puts new fragment in the container.
+     *
+     * If there is no ongoing tournament then it's forwarded to create tournament form.
+     * If there is tournament with picking players status then it's forwarded to picking
+     * players form.
+     * If there is ongoing tournament then it's forwarded to tournament matches fragment.
+     *
+     * @param currentTournament current tournament - can be null
+     */
     private void prepareFragment(Tournament currentTournament) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (currentTournament == null) {
@@ -79,6 +99,12 @@ public class TournamentActivity extends BaseActivity implements TournamentInfo, 
         fragmentTransaction.commit();
     }
 
+    /**
+     * Puts new fragment in the container.
+     *
+     * @param fragment Fragment
+     * @return boolean
+     */
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
@@ -105,21 +131,33 @@ public class TournamentActivity extends BaseActivity implements TournamentInfo, 
         return loadFragment(fragment);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showBottomNavigation() {
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hideBottomNavigation() {
         bottomNavigationView.setVisibility(View.GONE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getTournamentId() {
         return tournamentId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTournamentId(long tournamentId) {
         this.tournamentId = tournamentId;

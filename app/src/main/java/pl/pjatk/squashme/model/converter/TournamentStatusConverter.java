@@ -6,6 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.pjatk.squashme.model.TournamentStatus;
 
+/**
+ * Converter class needed for tournament status conversion between database string and enum class.
+ */
 public class TournamentStatusConverter {
 
     @TypeConverter

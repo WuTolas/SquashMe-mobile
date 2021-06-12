@@ -2,6 +2,9 @@ package pl.pjatk.squashme.model.custom;
 
 import java.io.Serializable;
 
+/**
+ * Custom match history class for SQL data result.
+ */
 public class MatchHistory implements Serializable {
 
     private static final long serialVersionUID = 2116965914859367539L;

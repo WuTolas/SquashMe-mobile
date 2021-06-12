@@ -5,6 +5,9 @@ import androidx.room.Entity;
 
 import java.io.Serializable;
 
+/**
+ * Entity class which defines player in the tournament structure in the database.
+ */
 @Entity(primaryKeys = {"player_id", "tournament_id"})
 public class PlayerTournament implements Serializable {
 

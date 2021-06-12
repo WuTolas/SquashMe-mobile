@@ -8,8 +8,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import pl.pjatk.squashme.R;
 
+/**
+ * Main activity class for holding main menu buttons and starting selected activities.
+ */
 public class MainActivity extends BaseActivity {
 
+    /**
+     * Defines buttons and activities that will be started on click.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +36,11 @@ public class MainActivity extends BaseActivity {
         historyButton.setOnClickListener(v -> launchActivity(HistoryActivity.class));
     }
 
+    /**
+     * Starts provided activity.
+     *
+     * @param activity Activity to be started
+     */
     private void launchActivity(Class<? extends AppCompatActivity> activity) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);

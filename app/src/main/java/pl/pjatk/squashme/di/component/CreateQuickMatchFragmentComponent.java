@@ -8,6 +8,9 @@ import pl.pjatk.squashme.fragment.CreateQuickMatchFragment;
 import pl.pjatk.squashme.service.MatchService;
 import pl.pjatk.squashme.service.PlayerService;
 
+/**
+ * Handles services injection in CreateQuickMatchFragment.
+ */
 @Singleton
 @Component(modules = {ServiceModule.class})
 public interface CreateQuickMatchFragmentComponent {

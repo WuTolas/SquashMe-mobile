@@ -7,6 +7,9 @@ import pl.pjatk.squashme.di.module.ServiceModule;
 import pl.pjatk.squashme.fragment.QuickMatchHistoryFragment;
 import pl.pjatk.squashme.service.MatchService;
 
+/**
+ * Handles services injection in QuickMatchHistoryFragment.
+ */
 @Singleton
 @Component(modules = {ServiceModule.class})
 public interface QuickMatchHistoryFragmentComponent {

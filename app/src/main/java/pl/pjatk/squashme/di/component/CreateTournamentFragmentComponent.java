@@ -7,6 +7,9 @@ import pl.pjatk.squashme.di.module.ServiceModule;
 import pl.pjatk.squashme.fragment.CreateTournamentFragment;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Handles services injection in CreateTournamentFragment.
+ */
 @Singleton
 @Component(modules = {ServiceModule.class})
 public interface CreateTournamentFragmentComponent {

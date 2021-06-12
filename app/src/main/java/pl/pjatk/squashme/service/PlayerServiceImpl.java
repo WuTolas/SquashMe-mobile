@@ -5,6 +5,9 @@ import javax.inject.Inject;
 import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.model.Player;
 
+/**
+ * Implementation class for PlayersService interface.
+ */
 public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerDao playerDao;
@@ -14,6 +17,9 @@ public class PlayerServiceImpl implements PlayerService {
         this.playerDao = playerDao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getIdWithSave(String name) {
         long id = playerDao.getId(name);

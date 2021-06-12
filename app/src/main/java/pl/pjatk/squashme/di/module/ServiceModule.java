@@ -18,6 +18,9 @@ import pl.pjatk.squashme.service.PlayerServiceImpl;
 import pl.pjatk.squashme.service.TournamentService;
 import pl.pjatk.squashme.service.TournamentServiceImpl;
 
+/**
+ * Handles constructor injection in services.
+ */
 @Module(includes = {RoomModule.class})
 public class ServiceModule {
 

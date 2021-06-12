@@ -12,6 +12,9 @@ import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.custom.TournamentHistory;
 import pl.pjatk.squashme.model.custom.TournamentResults;
 
+/**
+ * Tournament data access object for operations related to Tournament entity and alike data.
+ */
 @Dao
 public interface TournamentDao extends BaseDao<Tournament> {
 

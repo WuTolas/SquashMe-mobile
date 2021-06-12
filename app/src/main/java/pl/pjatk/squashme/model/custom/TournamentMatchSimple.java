@@ -2,6 +2,9 @@ package pl.pjatk.squashme.model.custom;
 
 import java.io.Serializable;
 
+/**
+ * Custom tournament with match class for SQL data result.
+ */
 public class TournamentMatchSimple implements Serializable {
 
     private static final long serialVersionUID = -5449914392080224255L;

@@ -5,6 +5,9 @@ import androidx.room.Query;
 
 import pl.pjatk.squashme.model.Player;
 
+/**
+ * Player data access object for operations related to Player entity and alike data.
+ */
 @Dao
 public interface PlayerDao extends BaseDao<Player> {
 

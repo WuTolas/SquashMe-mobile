@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Entity class which defines match structure in the database.
+ */
 @Entity
 public class Match implements Serializable {
 

@@ -37,7 +37,7 @@ import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
 import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentMatchesFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 import pl.pjatk.squashme.service.MatchService;
 
@@ -177,18 +177,15 @@ public class TournamentMatchesFragment extends Fragment {
         public void onClick(View v) {
             try {
                 TournamentMatchSimple selectedMatch = getMatchFromRow(v);
-                CharSequence[] choices = {getString(R.string.provide_score_mode), getString(R.string.referee_mode)};
                 new MaterialAlertDialogBuilder(requireContext())
                         .setTitle(getString(R.string.vs, selectedMatch.getPlayer1(), selectedMatch.getPlayer2()))
-                        .setSingleChoiceItems(choices, 1, null)
+                        .setMessage(R.string.start_match_prompt)
                         .setNeutralButton(R.string.cancel, null)
                         .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                            ListView lv = ((AlertDialog) dialog).getListView();
                             disposables.add(Single.just(selectedMatch)
                                     .subscribeOn(Schedulers.io())
                                     .subscribe(tournamentMatch -> {
-                                        boolean refereeMode = lv.getCheckedItemPosition() == 1;
-                                        matchService.updateRefereeMode(tournamentMatch.getMatchId(), refereeMode);
+                                        matchService.updateRefereeMode(tournamentMatch.getMatchId(), true);
                                         MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatchId());
                                         if (matchWithPlayers != null) {
                                             prepareMatchFragment(matchWithPlayers);
@@ -234,8 +231,6 @@ public class TournamentMatchesFragment extends Fragment {
         bundle.putSerializable("match", match);
         if (match.getMatch().isRefereeMode()) {
             fragmentTransaction.replace(R.id.fragment_tournament, RefereeModeFragment.class, bundle);
-        } else {
-            fragmentTransaction.replace(R.id.fragment_tournament, QuickScoreModeFragment.class, bundle);
         }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

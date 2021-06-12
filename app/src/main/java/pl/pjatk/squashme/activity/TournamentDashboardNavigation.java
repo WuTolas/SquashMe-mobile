@@ -1,10 +1,14 @@
 package pl.pjatk.squashme.activity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public interface TournamentDashboardNavigation {
 
+    /**
+     * Sets bottom navigation to visible.
+     */
     void showBottomNavigation();
 
+    /**
+     * Hides bottom navigation.
+     */
     void hideBottomNavigation();
 }

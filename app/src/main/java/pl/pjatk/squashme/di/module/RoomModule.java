@@ -15,6 +15,9 @@ import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.dao.TournamentDao;
 import pl.pjatk.squashme.database.AppDatabase;
 
+/**
+ * Handles data access objects injection needed in services layer.
+ */
 @Module
 public class RoomModule {
 
