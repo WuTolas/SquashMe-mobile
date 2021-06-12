@@ -58,5 +58,5 @@
     <string name="history">Historia</string>
     <string name="versus_shortcut">vs</string>
     <string name="error_best_of_games_positive">Liczba setów musi być liczbą dodatnią</string>
-
+    <string name="result">Wynik</string>
 </resources>

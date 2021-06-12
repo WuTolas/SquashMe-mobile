@@ -88,7 +88,7 @@ public class TournamentMatchesFragment extends Fragment {
         TableLayout tl = view.findViewById(R.id.tbl_tournament_matches);
         ViewGroup container = getRootContainer();
         addTableHeader(tl, container);
-        Integer currentRound = matches.stream().filter(m -> !m.getMatch().isFinished()).map(m -> m.getMatch().getTournamentRound()).findFirst().orElse(null);
+        Integer currentRound = matches.stream().filter(m -> !m.isFinished()).map(TournamentMatchSimple::getTournamentRound).findFirst().orElse(null);
         for (int i = 0; i < matches.size(); i++) {
             addTableRow(tl, matches.get(i), i, container, currentRound);
         }
@@ -113,6 +113,10 @@ public class TournamentMatchesFragment extends Fragment {
         tv3.setText(R.string.round);
         headerRow.addView(tv3);
 
+        TextView tv4 = (TextView) getLayoutInflater().inflate(R.layout.header_col, container, false);
+        tv4.setText(R.string.result);
+        headerRow.addView(tv4);
+
         tableLayout.addView(headerRow);
     }
 
@@ -130,27 +134,31 @@ public class TournamentMatchesFragment extends Fragment {
         tr.addView(tv0);
 
         TextView tv1 = (TextView) getLayoutInflater().inflate(R.layout.normal_col, container, false);
-        tv1.setText(match.getPlayer1().getName());
+        tv1.setText(match.getPlayer1());
         tr.addView(tv1);
 
         TextView tv2 = (TextView) getLayoutInflater().inflate(R.layout.normal_col, container, false);
-        tv2.setText(match.getPlayer2().getName());
+        tv2.setText(match.getPlayer2());
         tr.addView(tv2);
 
         TextView tv3 = (TextView) getLayoutInflater().inflate(R.layout.normal_col, container, false);
-        tv3.setText(String.valueOf(match.getMatch().getTournamentRound()));
+        tv3.setText(String.valueOf(match.getTournamentRound()));
         tr.addView(tv3);
+
+        TextView tv4 = (TextView) getLayoutInflater().inflate(R.layout.normal_col, container, false);
+        tv4.setText(getString(R.string.colon, match.getSets1(), match.getSets2()));
+        tr.addView(tv4);
 
         Button btn;
 
-        if (match.getMatch().isFinished()) {
+        if (match.isFinished()) {
             btn = (Button) getLayoutInflater().inflate(R.layout.ok_button_col, container, false);
             tr.addView(btn);
-        } else if (!match.getMatch().isFinished() && match.getMatch().isRefereeMode() != null) {
+        } else if (!match.isFinished() && match.isRefereeMode() != null) {
             btn = (Button) getLayoutInflater().inflate(R.layout.continue_botton_col, container, false);
             btn.setOnClickListener(resumeMatchListener);
             tr.addView(btn);
-        } else if (!match.getMatch().isFinished() && currentRound.equals(match.getMatch().getTournamentRound())) {
+        } else if (!match.isFinished() && currentRound.equals(match.getTournamentRound())) {
             btn = (Button) getLayoutInflater().inflate(R.layout.play_button_col, container, false);
             btn.setOnClickListener(startMatchDialogListener);
             tr.addView(btn);
@@ -171,7 +179,7 @@ public class TournamentMatchesFragment extends Fragment {
                 TournamentMatchSimple selectedMatch = getMatchFromRow(v);
                 CharSequence[] choices = {getString(R.string.provide_score_mode), getString(R.string.referee_mode)};
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(getString(R.string.vs, selectedMatch.getPlayer1().getName(), selectedMatch.getPlayer2().getName()))
+                        .setTitle(getString(R.string.vs, selectedMatch.getPlayer1(), selectedMatch.getPlayer2()))
                         .setSingleChoiceItems(choices, 1, null)
                         .setNeutralButton(R.string.cancel, null)
                         .setPositiveButton(R.string.confirm, (dialog, which) -> {
@@ -180,8 +188,8 @@ public class TournamentMatchesFragment extends Fragment {
                                     .subscribeOn(Schedulers.io())
                                     .subscribe(tournamentMatch -> {
                                         boolean refereeMode = lv.getCheckedItemPosition() == 1;
-                                        matchService.updateRefereeMode(tournamentMatch.getMatch().getId(), refereeMode);
-                                        MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatch().getId());
+                                        matchService.updateRefereeMode(tournamentMatch.getMatchId(), refereeMode);
+                                        MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatchId());
                                         if (matchWithPlayers != null) {
                                             prepareMatchFragment(matchWithPlayers);
                                         }
@@ -202,7 +210,7 @@ public class TournamentMatchesFragment extends Fragment {
                 disposables.add(Single.just(selectedMatch)
                         .subscribeOn(Schedulers.io())
                         .subscribe(tournamentMatch -> {
-                            MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatch().getId());
+                            MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatchId());
                             if (matchWithPlayers != null) {
                                 prepareMatchFragment(matchWithPlayers);
                             }
