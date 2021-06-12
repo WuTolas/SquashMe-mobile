@@ -139,4 +139,10 @@ public class TournamentResultsFragment extends Fragment {
         int rootId = ((ViewGroup) requireView().getParent()).getId();
         return (ViewGroup) requireView().findViewById(rootId);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
+    }
 }

@@ -13,13 +13,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/text_tournament_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:labelFor="@id/inp_tournament_name"
+                android:text="@string/tournament_name" />
+
+            <EditText
+                android:id="@+id/inp_tournament_name"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0"
+                android:ems="10"
+                android:gravity="start"
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/text_tournament_spinner_type"

@@ -17,6 +17,8 @@ public class Tournament implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+    @ColumnInfo
+    private String name;
     @ColumnInfo(name = "best_of")
     private Integer bestOf;
     @ColumnInfo(name = "two_points_advantage")
@@ -36,6 +38,14 @@ public class Tournament implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getBestOf() {
