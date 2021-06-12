@@ -1,6 +1,10 @@
 package pl.pjatk.squashme.model.custom;
 
-public class MatchHistory {
+import java.io.Serializable;
+
+public class MatchHistory implements Serializable {
+
+    private static final long serialVersionUID = 2116965914859367539L;
 
     private long id;
     private String player1;
