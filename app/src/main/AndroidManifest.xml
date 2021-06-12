@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SquashMe">
-        <activity android:name=".activity.HistoryActivity" android:label="@string/history"/>
+        <activity android:name=".activity.HistoryActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/history"/>
         <activity android:name=".activity.SettingsActivity"
             android:screenOrientation="landscape"
             android:label="@string/settings"/>
