@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.model;
+package pl.pjatk.squashme.model.custom;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
@@ -7,6 +7,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.pjatk.squashme.model.Match;
+import pl.pjatk.squashme.model.Player;
+import pl.pjatk.squashme.model.Result;
+
+/**
+ * Custom match with players class for SQL data result - uses Room joining relations for getting
+ * whole entity models.
+ */
 public class MatchWithPlayers implements Serializable {
 
     private static final long serialVersionUID = 8940991921376445226L;

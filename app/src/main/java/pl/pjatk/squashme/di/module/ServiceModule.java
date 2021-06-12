@@ -10,14 +10,17 @@ import pl.pjatk.squashme.dao.ResultDao;
 import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.dao.TournamentDao;
 import pl.pjatk.squashme.service.MatchService;
-import pl.pjatk.squashme.service.MatchServiceImpl;
+import pl.pjatk.squashme.service.implementation.MatchServiceImpl;
 import pl.pjatk.squashme.service.ResultService;
-import pl.pjatk.squashme.service.ResultServiceImpl;
+import pl.pjatk.squashme.service.implementation.ResultServiceImpl;
 import pl.pjatk.squashme.service.PlayerService;
-import pl.pjatk.squashme.service.PlayerServiceImpl;
+import pl.pjatk.squashme.service.implementation.PlayerServiceImpl;
 import pl.pjatk.squashme.service.TournamentService;
-import pl.pjatk.squashme.service.TournamentServiceImpl;
+import pl.pjatk.squashme.service.implementation.TournamentServiceImpl;
 
+/**
+ * Handles constructor injection in services.
+ */
 @Module(includes = {RoomModule.class})
 public class ServiceModule {
 

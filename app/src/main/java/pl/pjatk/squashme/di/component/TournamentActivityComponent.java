@@ -7,6 +7,9 @@ import pl.pjatk.squashme.activity.TournamentActivity;
 import pl.pjatk.squashme.di.module.ServiceModule;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Handles services injection in TournamentActivity.
+ */
 @Singleton
 @Component(modules = {ServiceModule.class})
 public interface TournamentActivityComponent {

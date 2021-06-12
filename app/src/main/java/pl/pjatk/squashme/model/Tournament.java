@@ -10,6 +10,9 @@ import java.io.Serializable;
 import pl.pjatk.squashme.model.converter.TournamentStatusConverter;
 import pl.pjatk.squashme.model.converter.TournamentTypeConverter;
 
+/**
+ * Entity class which defines tournament structure in the database.
+ */
 @Entity
 public class Tournament implements Serializable {
 

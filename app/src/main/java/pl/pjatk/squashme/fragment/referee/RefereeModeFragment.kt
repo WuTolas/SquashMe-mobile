@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment
+package pl.pjatk.squashme.fragment.referee
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ import pl.pjatk.squashme.activity.TournamentDashboardNavigation
 import pl.pjatk.squashme.di.component.DaggerRefereeFragmentComponent
 import pl.pjatk.squashme.di.module.RoomModule
 import pl.pjatk.squashme.model.Match
-import pl.pjatk.squashme.model.MatchWithPlayers
+import pl.pjatk.squashme.model.custom.MatchWithPlayers
 import pl.pjatk.squashme.model.Player
 import pl.pjatk.squashme.model.Result
 import pl.pjatk.squashme.service.MatchService

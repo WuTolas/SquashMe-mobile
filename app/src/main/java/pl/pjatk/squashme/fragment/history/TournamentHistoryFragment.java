@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.history;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,16 +19,20 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import pl.pjatk.squashme.activity.HistoryActivity;
+import pl.pjatk.squashme.adapter.MyTournamentHistoryRecyclerViewAdapter;
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.adapter.MyQuickMatchHistoryRecyclerViewAdapter;
-import pl.pjatk.squashme.di.component.DaggerQuickMatchHistoryFragmentComponent;
+import pl.pjatk.squashme.di.component.DaggerTournamentHistoryFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.service.MatchService;
+import pl.pjatk.squashme.service.TournamentService;
 
-public class QuickMatchHistoryFragment extends Fragment {
+/**
+ * Fragment class responsible for displaying finished tournaments.
+ */
+public class TournamentHistoryFragment extends Fragment {
 
     @Inject
-    public MatchService matchService;
+    public TournamentService tournamentService;
     private CompositeDisposable disposables;
 
     private RecyclerView recyclerView;
@@ -36,17 +40,25 @@ public class QuickMatchHistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerQuickMatchHistoryFragmentComponent.builder()
+        DaggerTournamentHistoryFragmentComponent.builder()
                 .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()
                 .inject(this);
         disposables = new CompositeDisposable();
     }
 
+    /**
+     * Instantiates recycler view for tournament history list.
+     *
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_quick_match_history_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_tournament_history_list, container, false);
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -56,13 +68,19 @@ public class QuickMatchHistoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Gets tournament history from the tournament service and puts result in recycler view.
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        disposables.add(Observable.fromSingle(matchService.searchMatchHistory())
+        disposables.add(Observable.fromSingle(tournamentService.searchTournamentHistory())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(items -> recyclerView.setAdapter(new MyQuickMatchHistoryRecyclerViewAdapter(items, getContext()))));
+                .subscribe(items -> recyclerView.setAdapter(new MyTournamentHistoryRecyclerViewAdapter(items, getParentFragmentManager(), (HistoryActivity) requireActivity()))));
     }
 
     @Override

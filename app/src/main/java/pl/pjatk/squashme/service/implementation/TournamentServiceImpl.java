@@ -1,5 +1,4 @@
-package pl.pjatk.squashme.service;
-
+package pl.pjatk.squashme.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,13 @@ import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.model.custom.TournamentHistory;
 import pl.pjatk.squashme.model.custom.TournamentResults;
+import pl.pjatk.squashme.service.MatchService;
+import pl.pjatk.squashme.service.PlayerService;
+import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Implementation class for TournamentService interface.
+ */
 public class TournamentServiceImpl implements TournamentService {
 
     private final TournamentDao tournamentDao;
@@ -36,11 +41,17 @@ public class TournamentServiceImpl implements TournamentService {
         this.matchService = matchService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Tournament> getCurrentTournament() {
         return tournamentDao.getCurrentTournament();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Tournament save(Tournament tournament) {
         long id = tournamentDao.insert(tournament);
@@ -48,6 +59,12 @@ public class TournamentServiceImpl implements TournamentService {
         return tournament;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Algorithm for generating round robin matches is based on Circle method:
+     * https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+     */
     @Override
     public void generateRoundRobinMatches(long tournamentId, List<String> players) {
         Tournament tournament = tournamentDao.getTournament(tournamentId)
@@ -71,21 +88,33 @@ public class TournamentServiceImpl implements TournamentService {
         tournamentDao.update(tournament);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void endTournament(long tournamentId) {
         tournamentDao.finishTournament(tournamentId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Single<List<TournamentResults>> searchTournamentResults(long tournamentId) {
         return tournamentDao.searchTournamentResults(tournamentId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeTournament(long tournamentId) {
         tournamentDao.deleteTournament(tournamentId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Single<List<TournamentHistory>> searchTournamentHistory() {
         return tournamentDao.searchTournamentHistory();

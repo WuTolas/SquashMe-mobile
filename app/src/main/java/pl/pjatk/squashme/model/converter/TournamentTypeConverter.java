@@ -6,6 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.pjatk.squashme.model.TournamentType;
 
+/**
+ * Converter class needed for tournament type conversion between database string and enum class.
+ */
 public class TournamentTypeConverter {
 
     @TypeConverter

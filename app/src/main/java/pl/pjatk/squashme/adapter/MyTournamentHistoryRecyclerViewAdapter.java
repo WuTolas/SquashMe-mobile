@@ -14,11 +14,14 @@ import org.jetbrains.annotations.NotNull;
 
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.activity.HistoryActivity;
-import pl.pjatk.squashme.fragment.TournamentResultsFragment;
+import pl.pjatk.squashme.fragment.common.TournamentResultsFragment;
 import pl.pjatk.squashme.model.custom.TournamentHistory;
 
 import java.util.List;
 
+/**
+ * Adapter for tournament history list.
+ */
 public class MyTournamentHistoryRecyclerViewAdapter extends RecyclerView.Adapter<MyTournamentHistoryRecyclerViewAdapter.ViewHolder> {
 
     private final FragmentManager fragmentManager;

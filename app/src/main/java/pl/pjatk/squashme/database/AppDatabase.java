@@ -14,6 +14,9 @@ import pl.pjatk.squashme.model.Result;
 import pl.pjatk.squashme.model.Player;
 import pl.pjatk.squashme.model.Tournament;
 
+/**
+ * Core class for defining entities and data access objects. Holds the database.
+ */
 @Database(entities = {
         Match.class,
         Player.class,

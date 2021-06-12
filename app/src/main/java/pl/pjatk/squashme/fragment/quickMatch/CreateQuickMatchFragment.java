@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.quickMatch;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,11 +19,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.fragment.referee.RefereeModeFragment;
 import pl.pjatk.squashme.model.Match;
-import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
 import pl.pjatk.squashme.service.PlayerService;
 
+/**
+ * Fragment class responsible for creating quick match.
+ */
 public class CreateQuickMatchFragment extends Fragment {
 
     @Inject
@@ -44,7 +48,7 @@ public class CreateQuickMatchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerCreateQuickMatchFragmentComponent.builder()
-                .roomModule(new RoomModule(getActivity().getApplication()))
+                .roomModule(new RoomModule(requireActivity().getApplication()))
                 .build()
                 .inject(this);
     }
@@ -60,6 +64,9 @@ public class CreateQuickMatchFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Handles quick match creation. Calls match service.
+     */
     private void handleCreateQuickMatch() {
         if (isValidated()) {
             Match match = prepareMatch();
@@ -78,18 +85,26 @@ public class CreateQuickMatchFragment extends Fragment {
         }
     }
 
+    /**
+     * Prepares and puts new fragment in the container.
+     *
+     * @param match match with players info
+     */
     private void prepareFragment(MatchWithPlayers match) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putSerializable("match", match);
         if (match.getMatch().isRefereeMode()) {
             fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
-        } else {
-            fragmentTransaction.replace(R.id.fragment_quick_match, QuickScoreModeFragment.class, bundle);
         }
         fragmentTransaction.commit();
     }
 
+    /**
+     * Initializes view components.
+     *
+     * @param view View
+     */
     private void initializeComponents(View view) {
         p1FullName = view.findViewById(R.id.inp_player1_fullName);
         p2FullName = view.findViewById(R.id.inp_player2_fullName);
@@ -100,6 +115,11 @@ public class CreateQuickMatchFragment extends Fragment {
         cancelButton = view.findViewById(R.id.btn_match_cancel);
     }
 
+    /**
+     * Prepares match based on provided inputs.
+     *
+     * @return Match
+     */
     private Match prepareMatch() {
         Match match = new Match();
         match.setBestOf(bestOf.getText().toString().isEmpty() ? null : Integer.parseInt(bestOf.getText().toString()));
@@ -108,6 +128,11 @@ public class CreateQuickMatchFragment extends Fragment {
         return match;
     }
 
+    /**
+     * Validates form.
+     *
+     * @return boolean
+     */
     private boolean isValidated() {
         int errorsCount = 0;
 

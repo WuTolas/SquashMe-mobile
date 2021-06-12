@@ -16,6 +16,9 @@ import pl.pjatk.squashme.model.custom.MatchHistory;
 
 import java.util.List;
 
+/**
+ * Adapter for quick matches list.
+ */
 public class MyQuickMatchHistoryRecyclerViewAdapter extends RecyclerView.Adapter<MyQuickMatchHistoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<MatchHistory> mValues;

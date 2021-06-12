@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.tournament;
 
 import android.os.Bundle;
 
@@ -28,6 +28,9 @@ import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.model.TournamentType;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Fragment class responsible for creating tournament.
+ */
 public class CreateTournamentFragment extends Fragment {
 
     @Inject
@@ -62,6 +65,9 @@ public class CreateTournamentFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Handles tournament creation. Calls tournament service.
+     */
     private void handleCreateTournament() {
         if (isValidated()) {
             Tournament tournament = prepareTournament();
@@ -75,6 +81,11 @@ public class CreateTournamentFragment extends Fragment {
         }
     }
 
+    /**
+     * Prepares and puts new fragment in the container.
+     *
+     * @param tournament tournament data
+     */
     private void prepareFragment(Tournament tournament) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
@@ -85,6 +96,11 @@ public class CreateTournamentFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Prepares tournament based on provided inputs.
+     *
+     * @return Tournament
+     */
     private Tournament prepareTournament() {
         Tournament tournament = new Tournament();
         tournament.setName(tournamentName.getText().toString());
@@ -96,6 +112,11 @@ public class CreateTournamentFragment extends Fragment {
         return tournament;
     }
 
+    /**
+     * Initializes view components.
+     *
+     * @param view View
+     */
     private void initializeComponents(View view) {
         tournamentName = view.findViewById(R.id.inp_tournament_name);
         tournamentType = view.findViewById(R.id.spinner_tournament_type);
@@ -107,6 +128,11 @@ public class CreateTournamentFragment extends Fragment {
         cancelButton = view.findViewById(R.id.btn_tournament_cancel);
     }
 
+    /**
+     * Validates form.
+     *
+     * @return boolean
+     */
     private boolean isValidated() {
         int errorsCount = 0;
 

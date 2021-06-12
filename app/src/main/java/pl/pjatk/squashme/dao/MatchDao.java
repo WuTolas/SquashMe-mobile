@@ -9,10 +9,13 @@ import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Single;
 import pl.pjatk.squashme.model.Match;
-import pl.pjatk.squashme.model.MatchWithPlayers;
+import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.model.custom.MatchHistory;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 
+/**
+ * Match data access object for operations related to Match entity and alike data.
+ */
 @Dao
 public interface MatchDao extends BaseDao<Match> {
 

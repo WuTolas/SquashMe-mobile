@@ -11,5 +11,5 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragment.QuickMatchHistoryFragment"
+    tools:context=".fragment.history.QuickMatchHistoryFragment"
     tools:listitem="@layout/fragment_quick_match_history_item" />

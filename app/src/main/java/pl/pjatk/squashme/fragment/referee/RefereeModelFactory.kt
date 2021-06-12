@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment
+package pl.pjatk.squashme.fragment.referee
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

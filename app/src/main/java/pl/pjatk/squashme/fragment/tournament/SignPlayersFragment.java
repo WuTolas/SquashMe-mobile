@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.tournament;
 
 import android.os.Bundle;
 
@@ -30,6 +30,9 @@ import pl.pjatk.squashme.di.component.DaggerSignPlayersFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Fragment class responsible for providing players in the tournament.
+ */
 public class SignPlayersFragment extends Fragment {
 
     @Inject
@@ -71,6 +74,9 @@ public class SignPlayersFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Handles adding players. Calls tournament service in order to generate matches.
+     */
     private void handleAddPlayers() {
         if (isValidated()) {
             disposables.add(Single.just(playerNames)
@@ -84,18 +90,31 @@ public class SignPlayersFragment extends Fragment {
         }
     }
 
+    /**
+     * Prepares and puts new fragment in the container.
+     */
     private void prepareFragment() {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, null);
         fragmentTransaction.commit();
     }
 
+    /**
+     * Initializes view components.
+     *
+     * @param view View
+     */
     private void initializeComponents(View view) {
         addButton = view.findViewById(R.id.btn_tournament_players_add);
         cancelButton = view.findViewById(R.id.btn_tournament_players_cancel);
         addPlayerInputs(view);
     }
 
+    /**
+     * Generates player name inputs - based on how many players are supposed to be in the tournament.
+     *
+     * @param view View
+     */
     private void addPlayerInputs(View view) {
         LinearLayout layout = view.findViewById(R.id.sign_players_container);
         TextView nameLabel;
@@ -112,6 +131,11 @@ public class SignPlayersFragment extends Fragment {
         }
     }
 
+    /**
+     * Validates form.
+     *
+     * @return boolean
+     */
     private boolean isValidated() {
         AtomicInteger errorCount = new AtomicInteger(0);
         playerNames.clear();
@@ -136,6 +160,9 @@ public class SignPlayersFragment extends Fragment {
         return errorCount.get() == 0;
     }
 
+    /**
+     * Listener responsible for removing tournament on cancel.
+     */
     private final View.OnClickListener cancelTournament = new OnClickListener() {
         @Override
         public void onClick(View v) {
