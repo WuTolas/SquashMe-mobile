@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.tournament;
 
 import android.os.Bundle;
 
@@ -35,6 +35,7 @@ import pl.pjatk.squashme.activity.TournamentDashboardNavigation;
 import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerTournamentMatchesFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.fragment.referee.RefereeModeFragment;
 import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 import pl.pjatk.squashme.service.MatchService;

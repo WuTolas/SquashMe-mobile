@@ -1,9 +1,10 @@
-package pl.pjatk.squashme.service;
+package pl.pjatk.squashme.service.implementation;
 
 import javax.inject.Inject;
 
 import pl.pjatk.squashme.dao.PlayerDao;
 import pl.pjatk.squashme.model.Player;
+import pl.pjatk.squashme.service.PlayerService;
 
 /**
  * Implementation class for PlayersService interface.

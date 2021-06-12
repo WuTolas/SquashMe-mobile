@@ -11,5 +11,5 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragment.TournamentHistoryFragment"
+    tools:context=".fragment.history.TournamentHistoryFragment"
     tools:listitem="@layout/fragment_tournament_history_item" />

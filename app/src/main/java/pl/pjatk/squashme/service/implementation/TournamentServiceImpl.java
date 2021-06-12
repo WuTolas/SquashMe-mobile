@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.service;
+package pl.pjatk.squashme.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ import pl.pjatk.squashme.model.Tournament;
 import pl.pjatk.squashme.model.TournamentStatus;
 import pl.pjatk.squashme.model.custom.TournamentHistory;
 import pl.pjatk.squashme.model.custom.TournamentResults;
+import pl.pjatk.squashme.service.MatchService;
+import pl.pjatk.squashme.service.PlayerService;
+import pl.pjatk.squashme.service.TournamentService;
 
 /**
  * Implementation class for TournamentService interface.

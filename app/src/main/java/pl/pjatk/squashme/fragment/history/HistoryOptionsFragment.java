@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.history;
 
 import android.os.Bundle;
 

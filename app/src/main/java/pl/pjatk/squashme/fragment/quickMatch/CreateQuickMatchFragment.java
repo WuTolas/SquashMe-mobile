@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.quickMatch;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.fragment.referee.RefereeModeFragment;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;

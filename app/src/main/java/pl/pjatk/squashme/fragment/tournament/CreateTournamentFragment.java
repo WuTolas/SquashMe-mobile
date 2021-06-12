@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.fragment;
+package pl.pjatk.squashme.fragment.tournament;
 
 import android.os.Bundle;
 

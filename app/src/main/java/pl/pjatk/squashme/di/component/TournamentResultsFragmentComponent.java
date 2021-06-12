@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import pl.pjatk.squashme.di.module.ServiceModule;
-import pl.pjatk.squashme.fragment.TournamentResultsFragment;
+import pl.pjatk.squashme.fragment.common.TournamentResultsFragment;
 import pl.pjatk.squashme.service.TournamentService;
 
 /**

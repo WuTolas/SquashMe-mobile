@@ -12,8 +12,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerQuickMatchActivityComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
-import pl.pjatk.squashme.fragment.CreateQuickMatchFragment;
-import pl.pjatk.squashme.fragment.RefereeModeFragment;
+import pl.pjatk.squashme.fragment.quickMatch.CreateQuickMatchFragment;
+import pl.pjatk.squashme.fragment.referee.RefereeModeFragment;
 import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
 

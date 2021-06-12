@@ -2,6 +2,7 @@ package pl.pjatk.squashme.service
 
 import pl.pjatk.squashme.dao.MatchDao
 import pl.pjatk.squashme.model.Match
+import pl.pjatk.squashme.service.implementation.MatchServiceImpl
 import spock.lang.Specification
 import spock.lang.Subject
 

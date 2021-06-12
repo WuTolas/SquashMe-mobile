@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import pl.pjatk.squashme.R;
-import pl.pjatk.squashme.fragment.HistoryOptionsFragment;
+import pl.pjatk.squashme.fragment.history.HistoryOptionsFragment;
 
 /**
  * History activity class. Basic entry point for setting history fragment.

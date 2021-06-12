@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import pl.pjatk.squashme.di.module.ServiceModule;
-import pl.pjatk.squashme.fragment.QuickMatchHistoryFragment;
+import pl.pjatk.squashme.fragment.history.QuickMatchHistoryFragment;
 import pl.pjatk.squashme.service.MatchService;
 
 /**

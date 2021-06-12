@@ -6,7 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:id="@+id/tournament_matches_container"
-    tools:context=".fragment.TournamentResultsFragment">
+    tools:context=".fragment.common.TournamentResultsFragment">
 
     <ScrollView
         android:layout_width="match_parent"

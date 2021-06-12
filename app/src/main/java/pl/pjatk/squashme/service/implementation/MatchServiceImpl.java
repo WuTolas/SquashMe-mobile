@@ -1,4 +1,4 @@
-package pl.pjatk.squashme.service;
+package pl.pjatk.squashme.service.implementation;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,7 @@ import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.model.custom.MatchHistory;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
+import pl.pjatk.squashme.service.MatchService;
 
 /**
  * Implementation class for MatchService interface.
