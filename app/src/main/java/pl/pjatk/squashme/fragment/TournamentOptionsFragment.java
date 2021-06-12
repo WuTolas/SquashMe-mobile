@@ -63,7 +63,7 @@ public class TournamentOptionsFragment extends Fragment {
 
     private final OnClickListener endTournamentDialogListener = v -> new MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.end_tournament)
-            .setMessage("Are you sure you want to end the tournament?")
+            .setMessage(R.string.tournament_close_prompt)
             .setNeutralButton(R.string.cancel, null)
             .setPositiveButton(R.string.confirm, (dialog, which) -> disposables.add(Single.just(tournamentId)
                     .subscribeOn(Schedulers.io())

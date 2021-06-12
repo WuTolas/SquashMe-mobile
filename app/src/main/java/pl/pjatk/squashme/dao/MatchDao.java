@@ -26,7 +26,33 @@ public interface MatchDao extends BaseDao<Match> {
     Optional<MatchWithPlayers> getMatchWithResults(long id);
 
     @Transaction
-    @Query("SELECT * FROM `Match` WHERE tournament_id = :tournamentId ORDER BY tournament_round ASC")
+    @Query("SELECT " +
+            "    m.id                   AS matchId " +
+            "   , m.finished            AS finished " +
+            "   , m.referee_mode        AS refereeMode " +
+            "   , m.tournament_round    AS tournamentRound " +
+            "   , p1.name               AS player1 " +
+            "   , p2.name               AS player2 " +
+            "   , COALESCE(r.sets1, 0)  AS sets1 " +
+            "   , COALESCE(r.sets2, 0)  AS sets2 " +
+            "FROM `Match` m " +
+            "INNER JOIN Player p1 ON p1.id = m.player1 " +
+            "INNER JOIN Player p2 ON p2.id = m.player2 " +
+            "LEFT JOIN ( " +
+            "                SELECT " +
+            "                    mi1.id    as matchId  " +
+            "                    , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN ri1.playerOneSet + 1 ELSE ri1.playerOneSet END AS sets1  " +
+            "                    , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN ri1.playerTwoSet + 1 ELSE ri1.playerTwoSet END AS sets2  " +
+            "                FROM `Match` mi1 " +
+            "                INNER JOIN Result ri1 ON ri1.match_id = mi1.id " +
+            "                WHERE  " +
+            "                mi1.tournament_id = :tournamentId " +
+            "                AND mi1.finished = 1 " +
+            "                AND ri1.id IN (SELECT MAX(ID) FROM Result GROUP BY match_id) " +
+            ") as r ON r.matchId = m.id " +
+            "WHERE " +
+            "   m.tournament_id = :tournamentId " +
+            "ORDER BY m.tournament_round ASC")
     Single<List<TournamentMatchSimple>> searchTournamentMatches(Long tournamentId);
 
     @Transaction

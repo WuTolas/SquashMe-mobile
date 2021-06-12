@@ -35,13 +35,13 @@
     <string name="next_set">Następny set</string>
     <string name="playerOne">Zawodnik 1</string>
     <string name="playerTwo">Zawodnik 2</string>
-    <string name="round">Round</string>
+    <string name="round">Runda</string>
     <string name="confirm">Potwierdź</string>
     <string name="provide_score_mode">Tryb ręcznego wprowadzania</string>
     <string name="title_notifications">Powiadomienia</string>
     <string name="games">Mecze</string>
     <string name="leaderboard">Tablica wyników</string>
-    <string name="close">Close</string>
+    <string name="close">Zamknij</string>
     <string name="end_tournament">Zakończ turniej</string>
     <string name="name">Imię</string>
     <string name="sets">Sety</string>
@@ -58,5 +58,6 @@
     <string name="history">Historia</string>
     <string name="versus_shortcut">vs</string>
     <string name="error_best_of_games_positive">Liczba setów musi być liczbą dodatnią</string>
-
+    <string name="result">Wynik</string>
+    <string name="tournament_close_prompt">Czy na pewno chcesz zakończyć turniej?</string>
 </resources>
