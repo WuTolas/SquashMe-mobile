@@ -12,6 +12,9 @@ import android.widget.Button;
 
 import pl.pjatk.squashme.R;
 
+/**
+ * Fragment class responsible for choosing which history one wants to display.
+ */
 public class HistoryOptionsFragment extends Fragment {
 
     @Override
@@ -27,6 +30,11 @@ public class HistoryOptionsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Initializes view components.
+     *
+     * @param view View
+     */
     private void initializeComponents(View view) {
         Button quickMatchHistoryButton = view.findViewById(R.id.btn_quickmatch_history);
         quickMatchHistoryButton.setOnClickListener(v -> loadFragment(new QuickMatchHistoryFragment()));
@@ -35,6 +43,12 @@ public class HistoryOptionsFragment extends Fragment {
         tournamentHistoryButton.setOnClickListener(v -> loadFragment(new TournamentHistoryFragment()));
     }
 
+
+    /**
+     * Puts provided fragment in the container.
+     *
+     * @param fragment Fragment
+     */
     private void loadFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_history, fragment);

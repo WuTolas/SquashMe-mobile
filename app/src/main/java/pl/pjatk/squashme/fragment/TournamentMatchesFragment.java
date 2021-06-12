@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -41,6 +39,9 @@ import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.model.custom.TournamentMatchSimple;
 import pl.pjatk.squashme.service.MatchService;
 
+/**
+ * Fragment class responsible for tournament matches table.
+ */
 public class TournamentMatchesFragment extends Fragment {
 
     private static final String TAG = TournamentMatchesFragment.class.getSimpleName();
@@ -72,6 +73,12 @@ public class TournamentMatchesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tournament_matches, container, false);
     }
 
+    /**
+     * Gets tournament matches from match service.
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,6 +91,12 @@ public class TournamentMatchesFragment extends Fragment {
                 }));
     }
 
+    /**
+     * Prepares matches table.
+     *
+     * @param matches matches in the tournament
+     * @param view View
+     */
     private void prepareMatchesTable(List<TournamentMatchSimple> matches, View view) {
         TableLayout tl = view.findViewById(R.id.tbl_tournament_matches);
         ViewGroup container = getRootContainer();
@@ -94,6 +107,12 @@ public class TournamentMatchesFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates table header.
+     *
+     * @param tableLayout TableLayout
+     * @param container ViewGroup
+     */
     private void addTableHeader(TableLayout tableLayout, ViewGroup container) {
         TableRow headerRow = new TableRow(getContext());
 
@@ -120,6 +139,15 @@ public class TournamentMatchesFragment extends Fragment {
         tableLayout.addView(headerRow);
     }
 
+    /**
+     * Creates table row.
+     *
+     * @param tableLayout TableLayout
+     * @param match match data needed for the row
+     * @param rowId row id
+     * @param container ViewGroup
+     * @param currentRound current round - matches in the current round can be managed
+     */
     private void addTableRow(TableLayout tableLayout, TournamentMatchSimple match, int rowId, ViewGroup container, Integer currentRound) {
         TableRow tr;
 
@@ -167,11 +195,19 @@ public class TournamentMatchesFragment extends Fragment {
         tableLayout.addView(tr);
     }
 
+    /**
+     * Gets root container.
+     *
+     * @return ViewGroup
+     */
     private ViewGroup getRootContainer() {
         int rootId = ((ViewGroup) requireView().getParent()).getId();
         return (ViewGroup) requireView().findViewById(rootId);
     }
 
+    /**
+     * Listener responsible for showing confirmation dialog regarding match start.
+     */
     private final OnClickListener startMatchDialogListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -199,6 +235,9 @@ public class TournamentMatchesFragment extends Fragment {
         }
     };
 
+    /**
+     * Listener responsible for resuming ongoing match.
+     */
     private final OnClickListener resumeMatchListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -218,6 +257,12 @@ public class TournamentMatchesFragment extends Fragment {
         }
     };
 
+    /**
+     * Gets selected match data.
+     *
+     * @param v View
+     * @return tournament match data
+     */
     private TournamentMatchSimple getMatchFromRow(View v) {
         TableRow row = (TableRow) v.getParent();
         TextView tv = (TextView) row.getChildAt(0);
@@ -225,6 +270,11 @@ public class TournamentMatchesFragment extends Fragment {
         return matches.get(index);
     }
 
+    /**
+     * Prepares fragment responsible for providing score in the match.
+     *
+     * @param match with players and results data
+     */
     private void prepareMatchFragment(MatchWithPlayers match) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();

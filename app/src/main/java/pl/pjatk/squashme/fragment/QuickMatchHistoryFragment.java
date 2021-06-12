@@ -25,6 +25,9 @@ import pl.pjatk.squashme.di.component.DaggerQuickMatchHistoryFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.service.MatchService;
 
+/**
+ * Fragment class responsible for quick match history.
+ */
 public class QuickMatchHistoryFragment extends Fragment {
 
     @Inject
@@ -43,6 +46,14 @@ public class QuickMatchHistoryFragment extends Fragment {
         disposables = new CompositeDisposable();
     }
 
+    /**
+     * Instantiates recycler view for quick match history list.
+     *
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +67,12 @@ public class QuickMatchHistoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Gets quick match history from the match service and puts result in recycler view.
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

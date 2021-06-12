@@ -26,6 +26,9 @@ import pl.pjatk.squashme.di.component.DaggerTournamentOptionsFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Fragment class responsible for tournament options view.
+ */
 public class TournamentOptionsFragment extends Fragment {
 
     @Inject
@@ -56,11 +59,19 @@ public class TournamentOptionsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Initializes view components.
+     *
+     * @param view View
+     */
     private void initializeComponents(View view) {
         Button endTournamentButton = view.findViewById(R.id.btn_tournament_end);
         endTournamentButton.setOnClickListener(endTournamentDialogListener);
     }
 
+    /**
+     * Listener responsible for displaying confirmation dialog and finishing current tournament.
+     */
     private final OnClickListener endTournamentDialogListener = v -> new MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.end_tournament)
             .setMessage(R.string.tournament_close_prompt)

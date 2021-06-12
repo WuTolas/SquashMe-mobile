@@ -26,6 +26,9 @@ import pl.pjatk.squashme.di.component.DaggerTournamentHistoryFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Fragment class responsible for displaying finished tournaments.
+ */
 public class TournamentHistoryFragment extends Fragment {
 
     @Inject
@@ -44,6 +47,14 @@ public class TournamentHistoryFragment extends Fragment {
         disposables = new CompositeDisposable();
     }
 
+    /**
+     * Instantiates recycler view for tournament history list.
+     *
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,6 +68,12 @@ public class TournamentHistoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Gets tournament history from the tournament service and puts result in recycler view.
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

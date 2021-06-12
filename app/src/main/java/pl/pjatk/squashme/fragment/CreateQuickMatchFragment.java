@@ -64,7 +64,7 @@ public class CreateQuickMatchFragment extends Fragment {
     }
 
     /**
-     * Handles quick match creation.
+     * Handles quick match creation. Calls match service.
      */
     private void handleCreateQuickMatch() {
         if (isValidated()) {

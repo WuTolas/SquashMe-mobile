@@ -31,6 +31,9 @@ import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.model.custom.TournamentResults;
 import pl.pjatk.squashme.service.TournamentService;
 
+/**
+ * Fragment class responsible for displaying leaderboard in the tournament.
+ */
 public class TournamentResultsFragment extends Fragment {
 
     @Inject
@@ -59,6 +62,12 @@ public class TournamentResultsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tournament_results, container, false);
     }
 
+    /**
+     * Gets tournament results from tournament service.
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,6 +77,12 @@ public class TournamentResultsFragment extends Fragment {
                 .subscribe(r -> prepareResultsTable(r, view)));
     }
 
+    /**
+     * Prepares results table.
+     *
+     * @param results tournament results data needed for leaderboard
+     * @param view View
+     */
     private void prepareResultsTable(List<TournamentResults> results, View view) {
         TableLayout tl = view.findViewById(R.id.tbl_tournament_results);
         ViewGroup container = getRootContainer();
@@ -77,6 +92,12 @@ public class TournamentResultsFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates table header.
+     *
+     * @param tableLayout TableLayout
+     * @param container ViewGroup
+     */
     private void addTableHeader(TableLayout tableLayout, ViewGroup container) {
         TableRow headerRow = new TableRow(getContext());
 
@@ -103,6 +124,14 @@ public class TournamentResultsFragment extends Fragment {
         tableLayout.addView(headerRow);
     }
 
+    /**
+     * Creates table row.
+     *
+     * @param tableLayout TableLayout
+     * @param result tournament result data needed for leaderboard row
+     * @param rowId row id
+     * @param container ViewGroup
+     */
     private void addTableRow(TableLayout tableLayout, TournamentResults result, int rowId, ViewGroup container) {
         TableRow tr;
 
@@ -135,6 +164,11 @@ public class TournamentResultsFragment extends Fragment {
         tableLayout.addView(tr);
     }
 
+    /**
+     * Gets root container.
+     *
+     * @return ViewGroup
+     */
     private ViewGroup getRootContainer() {
         int rootId = ((ViewGroup) requireView().getParent()).getId();
         return (ViewGroup) requireView().findViewById(rootId);
