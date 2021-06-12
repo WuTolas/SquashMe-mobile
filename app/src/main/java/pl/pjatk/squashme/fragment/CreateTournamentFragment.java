@@ -87,6 +87,7 @@ public class CreateTournamentFragment extends Fragment {
 
     private Tournament prepareTournament() {
         Tournament tournament = new Tournament();
+        tournament.setName(tournamentName.getText().toString());
         tournament.setType(TournamentType.getByName(tournamentType.getSelectedItem().toString()));
         tournament.setMaxPlayers(Integer.parseInt(maxPlayers.getText().toString()));
         tournament.setBestOf(Integer.parseInt(bestOf.getText().toString()));
