@@ -13,5 +13,5 @@ data class Result(
         val playerOneSet: Int,
         val playerTwoSet: Int,
         val match_id: Long,
-        @PrimaryKey(autoGenerate = true) val id: Long = 0
+        @PrimaryKey(autoGenerate = true) var id: Long = 0
 ) : Serializable

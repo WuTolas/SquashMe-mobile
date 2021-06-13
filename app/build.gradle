@@ -42,7 +42,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.dagger:dagger:2.16'
@@ -65,10 +65,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
-    testImplementation("org.codehaus.groovy:groovy-all:${groovyVersion}")
     testImplementation("org.spockframework:spock-core:${spockVersion}")
-    testImplementation("org.spockframework:spock-spring:${spockVersion}")
     androidTestImplementation 'org.mockito:mockito-core:2.7.15'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espressoVersion")

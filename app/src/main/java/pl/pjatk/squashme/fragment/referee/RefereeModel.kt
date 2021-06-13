@@ -31,6 +31,6 @@ class RefereeModel(savedResults: MutableList<Result>) : ViewModel() {
     }
 
     private fun updateList() {
-        _results.value = _results.value
+        _results.postValue(results.value)
     }
 }

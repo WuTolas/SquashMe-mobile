@@ -92,12 +92,13 @@ class RefereeModeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initModel()
         init(view)
 
         setsToWin = (match.bestOf?.plus(1))?.div(2) ?: -1
         playerOneNameHolder.text = playerOne.name
         playerTwoNameHolder.text = playerTwo.name
+
+        initModel()
     }
 
     private fun initModel() {
@@ -144,6 +145,10 @@ class RefereeModeFragment : Fragment() {
         playerOneSetNumber.text = playerOneSet.toString()
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
+
+        if (checkIfSetEnded()) {
+            endSet(lastResult)
+        }
     }
 
     private fun scoreButtonListener(player: Int) {
@@ -154,7 +159,7 @@ class RefereeModeFragment : Fragment() {
         } else {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
-        saveResult(result).run { checkIfSetEnded(result) }
+        saveResult(result)
     }
 
     private fun setSide(player: Int): String {
@@ -181,29 +186,32 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun saveResult(result: Result) {
-        model.addPoint(result)
         runBlocking {
             launch(Dispatchers.IO) {
-                resultService.addPoint(result)
+                resultService.addPoint(result).also {
+                    model.addPoint(it)
+                }
             }
         }
     }
 
-    private fun checkIfSetEnded(result: Result) {
+    private fun checkIfSetEnded(): Boolean {
+        var ended = false;
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
             if (match.isTwoPointsAdvantage) {
                 if (abs(playerOneScore - playerTwoScore) >= 2) {
-                    endSet(result)
+                    ended = true
                 }
             } else {
-                endSet(result)
+                ended = true
             }
         }
+        return ended
     }
 
-    private fun endSet(result: Result) {
-        if ((result.serve == 1 && playerOneSet.plus(1) == setsToWin)
-                || (result.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
+    private fun endSet(result: Result?) {
+        if ((result?.serve == 1 && playerOneSet.plus(1) == setsToWin)
+                || (result?.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
             val popupDialogFragment = PopupDialogFragment(false)
