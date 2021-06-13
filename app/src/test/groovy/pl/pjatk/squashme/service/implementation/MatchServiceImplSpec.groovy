@@ -1,10 +1,10 @@
-package pl.pjatk.squashme.service
+package pl.pjatk.squashme.service.implementation
 
 import pl.pjatk.squashme.dao.MatchDao
 import pl.pjatk.squashme.model.Match
 import pl.pjatk.squashme.model.Player
 import pl.pjatk.squashme.model.custom.MatchWithPlayers
-import pl.pjatk.squashme.service.implementation.MatchServiceImpl
+import pl.pjatk.squashme.service.MatchService
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -139,5 +139,14 @@ class MatchServiceImplSpec extends Specification {
             sut.searchMatchHistory()
         then:
             1 * matchDao.searchMatchHistory()
+    }
+
+    def "searchTournamentMatches should call search tournament matches in database with appropriate id"() {
+        given:
+            long tournamentId = 2L
+        when:
+            sut.searchTournamentMatches(tournamentId)
+        then:
+            1 * matchDao.searchTournamentMatches(tournamentId)
     }
 }
