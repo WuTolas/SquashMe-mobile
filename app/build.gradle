@@ -68,8 +68,9 @@ dependencies {
     testImplementation("org.codehaus.groovy:groovy-all:${groovyVersion}")
     testImplementation("org.spockframework:spock-core:${spockVersion}")
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
-
+    androidTestImplementation 'org.mockito:mockito-core:2.7.15'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espressoVersion")
+    androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
 }
