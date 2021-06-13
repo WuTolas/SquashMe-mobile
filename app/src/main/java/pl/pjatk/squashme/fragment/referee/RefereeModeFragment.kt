@@ -64,7 +64,6 @@ class RefereeModeFragment : Fragment() {
     private lateinit var playerOneSidesGroup: RadioGroup
     private lateinit var playerOneLeftSide: RadioButton
     private lateinit var playerOneRightSide: RadioButton
-    private lateinit var playerTwoSidesGroup: RadioGroup
     private lateinit var playerTwoLeftSide: RadioButton
     private lateinit var playerTwoRightSide: RadioButton
 
@@ -121,10 +120,9 @@ class RefereeModeFragment : Fragment() {
         endGameButton = view.findViewById(R.id.end_game_btn)
         nextSetButton = view.findViewById(R.id.next_set_btn)
         revertPointButton = view.findViewById(R.id.revert_point_btn)
-        playerOneSidesGroup = view.findViewById(R.id.player_one_sides)
+        playerOneSidesGroup = view.findViewById(R.id.player_sides)
         playerOneLeftSide = view.findViewById(R.id.player_one_left_side_radio)
         playerOneRightSide = view.findViewById(R.id.player_one_right_side_radio)
-        playerTwoSidesGroup = view.findViewById(R.id.player_two_sides)
         playerTwoLeftSide = view.findViewById(R.id.player_two_left_side_btn)
         playerTwoRightSide = view.findViewById(R.id.player_two_right_side_btn)
 
@@ -169,16 +167,14 @@ class RefereeModeFragment : Fragment() {
                 playerOneRightSide.isChecked = true
                 playerOneRightSide.text.toString()
             } else {
-                playerTwoSidesGroup.clearCheck()
                 playerOneLeftSide.isChecked = true
                 playerOneLeftSide.text.toString()
             }
         } else {
-            if (playerTwoSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
+            if (playerOneSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
                 playerTwoRightSide.isChecked = true
                 playerTwoRightSide.text.toString()
             } else {
-                playerOneSidesGroup.clearCheck()
                 playerTwoLeftSide.isChecked = true
                 playerTwoLeftSide.text.toString()
             }
@@ -291,7 +287,6 @@ class RefereeModeFragment : Fragment() {
         val lastResult = getLastResult()
 
         playerOneSidesGroup.clearCheck()
-        playerTwoSidesGroup.clearCheck()
 
         if (lastResult?.serve == 1) {
             if (lastResult.side == getString(R.string.right_side)) {
@@ -310,9 +305,9 @@ class RefereeModeFragment : Fragment() {
 
     private fun nextSetListener() {
         val result = if (playerOneScore > playerTwoScore) {
-            Result(0, 0, "L", 1, ++playerOneSet, playerTwoSet, match.id)
+            Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
         } else {
-            Result(0, 0, "L", 1, playerOneSet, ++playerTwoSet, match.id)
+            Result(0, 0, getString(R.string.left_side), 1, playerOneSet, ++playerTwoSet, match.id)
         }
         saveResult(result)
         changeToStandardVisibility()
