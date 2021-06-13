@@ -148,7 +148,7 @@
 
 
     <LinearLayout
-        android:id="@+id/player_two_wrapper"
+        android:id="@+id/score_buttons_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
