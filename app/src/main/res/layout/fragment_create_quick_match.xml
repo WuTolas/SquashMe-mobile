@@ -36,7 +36,6 @@
             android:digits="@string/allowed_characters"
             android:hint="@string/player_one_name_hint"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
             android:maxLength="40" />
 
         <TextView
@@ -58,7 +57,6 @@
             android:digits="@string/allowed_characters"
             android:hint="@string/player_two_name_hint"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
             android:maxLength="40" />
 
         <LinearLayout
@@ -73,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingHorizontal="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -100,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingHorizontal="5dp"
                 android:orientation="vertical">
 
                 <CheckBox
@@ -138,7 +138,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:layout_weight="1"
+                style="@style/SquashMeOutlinedButton"
                 android:text="@string/cancel"
+                android:textColor="@color/main_color"
                 tools:ignore="ButtonStyle" />
 
             <Button
@@ -149,7 +151,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:layout_weight="1"
+                style="@style/SquashMeOutlinedButton"
                 android:text="@string/create"
+                android:textColor="@color/main_color"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>

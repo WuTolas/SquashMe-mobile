@@ -64,4 +64,6 @@
     <string name="start_match_prompt">Czy na pewno chcesz wystartować wybrany mecz?</string>
     <string name="player_one_name_hint">Podaj imię pierwszego zawodnika</string>
     <string name="player_two_name_hint">Podaj imię drugiego zawodnika</string>
+    <string name="tournament_name_input">Podaj nazwę turnieju</string>
+    <string name="number_of_players_input">Podaj liczbę zawodników</string>
 </resources>

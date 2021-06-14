@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.tournament.CreateTournamentFragment">
 
     <ScrollView
@@ -14,10 +14,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="UselessParent">
 
@@ -32,101 +32,150 @@
             <EditText
                 android:id="@+id/inp_tournament_name"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="0"
+                android:hint="@string/tournament_name_input"
+                android:digits="@string/allowed_characters"
                 android:ems="10"
                 android:gravity="start"
                 android:importantForAutofill="no"
                 android:inputType="text" />
 
-            <TextView
-                android:id="@+id/text_tournament_spinner_type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:labelFor="@id/spinner_tournament_type"
-                android:text="@string/tournament_type" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:baselineAligned="false">
 
-            <Spinner
-                android:id="@+id/spinner_tournament_type"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_tournament_bestOf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/inp_tournament_bestOf"
+                        android:text="@string/best_of" />
+
+                    <EditText
+                        android:id="@+id/inp_tournament_bestOf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:gravity="start"
+                        android:hint="@string/best_of_not_null_hint"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:paddingHorizontal="10dp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_tournament_players_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/inp_tournament_max_players"
+                        android:text="@string/player_number" />
+
+                    <EditText
+                        android:id="@+id/inp_tournament_max_players"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/number_of_players_input"
+                        android:ems="10"
+                        android:gravity="start"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_tournament_players_number"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_tournament_spinner_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/spinner_tournament_type"
+                        android:text="@string/tournament_type" />
+
+                    <Spinner
+                        android:id="@+id/spinner_tournament_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/chk_tournament_twoPointsAdvantage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                    android:gravity="start|center_vertical"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/two_points_advantage_rule" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:labelFor="@id/inp_tournament_max_players"
-                android:text="@string/player_number" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <EditText
-                android:id="@+id/inp_tournament_max_players"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="0"
-                android:ems="10"
-                android:gravity="start"
-                android:inputType="number"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/btn_tournament_cancel"
+                    style="@style/SquashMeOutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    android:text="@string/cancel"
+                    android:textColor="@color/main_color"
+                    tools:ignore="ButtonStyle" />
 
-            <TextView
-                android:id="@+id/text_tournament_bestOf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:labelFor="@id/inp_tournament_bestOf"
-                android:text="@string/best_of" />
+                <Button
+                    android:id="@+id/btn_tournament_create"
+                    style="@style/SquashMeOutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    android:text="@string/create"
+                    android:textColor="@color/main_color"
+                    tools:ignore="ButtonStyle" />
 
-            <EditText
-                android:id="@+id/inp_tournament_bestOf"
-                android:hint="@string/best_of_not_null_hint"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="0"
-                android:ems="10"
-                android:gravity="start"
-                android:inputType="number"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor" />
-
-            <CheckBox
-                android:id="@+id/chk_tournament_twoPointsAdvantage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/two_points_advantage_rule"
-                android:checked="false"
-                android:button="@null"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:gravity="start|center_vertical"/>
-
-            <Button
-                android:id="@+id/btn_tournament_create"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:text="@string/create"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/btn_tournament_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="center"
-                android:text="@string/cancel"
-                tools:ignore="ButtonStyle" />
-
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
