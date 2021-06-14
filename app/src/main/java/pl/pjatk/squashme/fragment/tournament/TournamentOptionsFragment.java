@@ -1,5 +1,6 @@
 package pl.pjatk.squashme.fragment.tournament;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,9 +15,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
@@ -76,11 +79,15 @@ public class TournamentOptionsFragment extends Fragment {
             .setTitle(R.string.end_tournament)
             .setMessage(R.string.tournament_close_prompt)
             .setNeutralButton(R.string.cancel, null)
-            .setPositiveButton(R.string.confirm, (dialog, which) -> disposables.add(Single.just(tournamentId)
+            .setPositiveButton(R.string.confirm, (dialog, which) -> disposables.add(Observable.just(tournamentId)
+                    .throttleFirst(1, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .subscribe(tournamentId -> {
                         tournamentService.endTournament(tournamentId);
-                        requireActivity().finish();
+                        Activity activity = getActivity();
+                        if (activity != null) {
+                            activity.finish();
+                        }
                     })))
             .show();
 

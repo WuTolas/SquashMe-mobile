@@ -6,6 +6,7 @@ import androidx.room.Relation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.Player;
@@ -67,5 +68,21 @@ public class MatchWithPlayers implements Serializable {
 
     public void setResults(List<Result> results) {
         this.results = results;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MatchWithPlayers that = (MatchWithPlayers) o;
+        return Objects.equals(match, that.match) &&
+                Objects.equals(player1, that.player1) &&
+                Objects.equals(player2, that.player2) &&
+                Objects.equals(results, that.results);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(match, player1, player2, results);
     }
 }

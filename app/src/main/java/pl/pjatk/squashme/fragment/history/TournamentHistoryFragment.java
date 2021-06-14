@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -78,6 +80,7 @@ public class TournamentHistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         disposables.add(Observable.fromSingle(tournamentService.searchTournamentHistory())
+                .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(items -> recyclerView.setAdapter(new MyTournamentHistoryRecyclerViewAdapter(items, getParentFragmentManager(), (HistoryActivity) requireActivity()))));

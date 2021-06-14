@@ -22,12 +22,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
@@ -68,10 +68,11 @@ public class TournamentMatchesFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tournament_matches, container, false);
         if (requireActivity() instanceof TournamentDashboardNavigation) {
             ((TournamentDashboardNavigation) requireActivity()).showBottomNavigation();
         }
-        return inflater.inflate(R.layout.fragment_tournament_matches, container, false);
+        return view;
     }
 
     /**
@@ -100,7 +101,7 @@ public class TournamentMatchesFragment extends Fragment {
      */
     private void prepareMatchesTable(List<TournamentMatchSimple> matches, View view) {
         TableLayout tl = view.findViewById(R.id.tbl_tournament_matches);
-        ViewGroup container = getRootContainer();
+        ViewGroup container = null;
         addTableHeader(tl, container);
         Integer currentRound = matches.stream().filter(m -> !m.isFinished()).map(TournamentMatchSimple::getTournamentRound).findFirst().orElse(null);
         for (int i = 0; i < matches.size(); i++) {
@@ -197,16 +198,6 @@ public class TournamentMatchesFragment extends Fragment {
     }
 
     /**
-     * Gets root container.
-     *
-     * @return ViewGroup
-     */
-    private ViewGroup getRootContainer() {
-        int rootId = ((ViewGroup) requireView().getParent()).getId();
-        return (ViewGroup) requireView().findViewById(rootId);
-    }
-
-    /**
      * Listener responsible for showing confirmation dialog regarding match start.
      */
     private final OnClickListener startMatchDialogListener = new OnClickListener() {
@@ -219,7 +210,7 @@ public class TournamentMatchesFragment extends Fragment {
                         .setMessage(R.string.start_match_prompt)
                         .setNeutralButton(R.string.cancel, null)
                         .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                            disposables.add(Single.just(selectedMatch)
+                            disposables.add(Observable.just(selectedMatch)
                                     .subscribeOn(Schedulers.io())
                                     .subscribe(tournamentMatch -> {
                                         matchService.updateRefereeMode(tournamentMatch.getMatchId(), true);
@@ -244,7 +235,8 @@ public class TournamentMatchesFragment extends Fragment {
         public void onClick(View v) {
             try {
                 TournamentMatchSimple selectedMatch = getMatchFromRow(v);
-                disposables.add(Single.just(selectedMatch)
+                disposables.add(Observable.just(selectedMatch)
+                        .throttleFirst(1, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .subscribe(tournamentMatch -> {
                             MatchWithPlayers matchWithPlayers = matchService.getMatchWithResults(tournamentMatch.getMatchId());
@@ -277,14 +269,16 @@ public class TournamentMatchesFragment extends Fragment {
      * @param match with players and results data
      */
     private void prepareMatchFragment(MatchWithPlayers match) {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("match", match);
-        if (match.getMatch().isRefereeMode()) {
-            fragmentTransaction.replace(R.id.fragment_tournament, RefereeModeFragment.class, bundle);
+        if (isAdded()) {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("match", match);
+            if (match.getMatch().isRefereeMode()) {
+                fragmentTransaction.replace(R.id.fragment_tournament, RefereeModeFragment.class, bundle);
+            }
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
     @Override

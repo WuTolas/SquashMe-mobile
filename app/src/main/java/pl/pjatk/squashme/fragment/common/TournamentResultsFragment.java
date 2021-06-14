@@ -56,10 +56,11 @@ public class TournamentResultsFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tournament_results, container, false);
         if (requireActivity() instanceof TournamentDashboardNavigation) {
             ((TournamentDashboardNavigation) requireActivity()).showBottomNavigation();
         }
-        return inflater.inflate(R.layout.fragment_tournament_results, container, false);
+        return view;
     }
 
     /**
@@ -85,7 +86,7 @@ public class TournamentResultsFragment extends Fragment {
      */
     private void prepareResultsTable(List<TournamentResults> results, View view) {
         TableLayout tl = view.findViewById(R.id.tbl_tournament_results);
-        ViewGroup container = getRootContainer();
+        ViewGroup container = null;
         addTableHeader(tl, container);
         for (int i = 0; i < results.size(); i++) {
             addTableRow(tl, results.get(i), i, container);
@@ -162,16 +163,6 @@ public class TournamentResultsFragment extends Fragment {
         tr.addView(tv4);
 
         tableLayout.addView(tr);
-    }
-
-    /**
-     * Gets root container.
-     *
-     * @return ViewGroup
-     */
-    private ViewGroup getRootContainer() {
-        int rootId = ((ViewGroup) requireView().getParent()).getId();
-        return (ViewGroup) requireView().findViewById(rootId);
     }
 
     @Override
