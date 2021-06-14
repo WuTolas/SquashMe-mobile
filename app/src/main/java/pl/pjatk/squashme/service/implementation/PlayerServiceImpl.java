@@ -23,6 +23,8 @@ public class PlayerServiceImpl implements PlayerService {
      */
     @Override
     public long getIdWithSave(String name) {
+        System.out.println("NAME");
+        System.out.println(name);
         long id = playerDao.getId(name);
         if (id == 0) {
             Player player = new Player();

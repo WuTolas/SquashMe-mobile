@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
@@ -71,7 +71,7 @@ public class CreateTournamentFragment extends Fragment {
     private void handleCreateTournament() {
         if (isValidated()) {
             Tournament tournament = prepareTournament();
-            disposables.add(Single.just(tournament)
+            disposables.add(Observable.just(tournament)
                     .subscribeOn(Schedulers.io())
                     .subscribe(t -> {
                         Tournament saved = tournamentService.save(t);
@@ -87,13 +87,15 @@ public class CreateTournamentFragment extends Fragment {
      * @param tournament tournament data
      */
     private void prepareFragment(Tournament tournament) {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putLong("tournamentId", tournament.getId());
-        bundle.putSerializable("tournamentType", tournament.getType());
-        bundle.putInt("maxPlayers", tournament.getMaxPlayers());
-        fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
-        fragmentTransaction.commit();
+        if (isAdded()) {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putLong("tournamentId", tournament.getId());
+            bundle.putSerializable("tournamentType", tournament.getType());
+            bundle.putInt("maxPlayers", tournament.getMaxPlayers());
+            fragmentTransaction.replace(R.id.fragment_tournament, SignPlayersFragment.class, bundle);
+            fragmentTransaction.commit();
+        }
     }
 
     /**

@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -79,7 +81,8 @@ public class SignPlayersFragment extends Fragment {
      */
     private void handleAddPlayers() {
         if (isValidated()) {
-            disposables.add(Single.just(playerNames)
+            disposables.add(Observable.just(playerNames)
+                    .throttleFirst(1, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .subscribe(players -> {
                         tournamentService.generateRoundRobinMatches(tournamentId, players);
@@ -94,9 +97,11 @@ public class SignPlayersFragment extends Fragment {
      * Prepares and puts new fragment in the container.
      */
     private void prepareFragment() {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, null);
-        fragmentTransaction.commit();
+        if (isAdded()) {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_tournament, TournamentMatchesFragment.class, null);
+            fragmentTransaction.commit();
+        }
     }
 
     /**
@@ -166,7 +171,7 @@ public class SignPlayersFragment extends Fragment {
     private final View.OnClickListener cancelTournament = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            disposables.add(Single.just(tournamentId)
+            disposables.add(Observable.just(tournamentId)
                     .subscribeOn(Schedulers.io())
                     .subscribe(tId -> {
                         tournamentService.removeTournament(tId);

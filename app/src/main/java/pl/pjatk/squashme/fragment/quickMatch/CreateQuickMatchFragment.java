@@ -11,9 +11,11 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
@@ -70,7 +72,8 @@ public class CreateQuickMatchFragment extends Fragment {
     private void handleCreateQuickMatch() {
         if (isValidated()) {
             Match match = prepareMatch();
-            disposables.add(Single.just(match)
+            disposables.add(Observable.just(match)
+                    .throttleFirst(1, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .subscribe(m -> {
                         String p1Name = p1FullName.getText().toString().trim();
@@ -91,13 +94,15 @@ public class CreateQuickMatchFragment extends Fragment {
      * @param match match with players info
      */
     private void prepareFragment(MatchWithPlayers match) {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("match", match);
-        if (match.getMatch().isRefereeMode()) {
-            fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
+        if (isAdded()) {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("match", match);
+            if (match.getMatch().isRefereeMode()) {
+                fragmentTransaction.replace(R.id.fragment_quick_match, RefereeModeFragment.class, bundle);
+            }
+            fragmentTransaction.commit();
         }
-        fragmentTransaction.commit();
     }
 
     /**

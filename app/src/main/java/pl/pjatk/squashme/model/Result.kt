@@ -2,6 +2,7 @@ package pl.pjatk.squashme.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class Result(
@@ -13,4 +14,4 @@ data class Result(
         val playerTwoSet: Int,
         val match_id: Long,
         @PrimaryKey(autoGenerate = true) val id: Long = 0
-)
+) : Serializable
