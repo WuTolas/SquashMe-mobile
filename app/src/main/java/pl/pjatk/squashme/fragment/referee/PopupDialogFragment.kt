@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment
 import pl.pjatk.squashme.R
 
 class PopupDialogFragment(
-        private val endingMatch: Boolean
+        private val option: PopupOption
 ) : DialogFragment() {
 
     private lateinit var counter: TextView
@@ -33,10 +33,12 @@ class PopupDialogFragment(
         progressBar = view.findViewById(R.id.popup_progress_bar)
         closeButton.setOnClickListener { this.dismiss() }
 
-        title = if (endingMatch) {
-            progressBar.visibility = View.GONE
+        title = if (option == PopupOption.END_GAME) {
             "Match finished"
+        } else if (option == PopupOption.WALKOVER) {
+            "Choose who won" // todo add buttons to choose who won the game
         } else {
+            progressBar.visibility = View.VISIBLE
             object : CountDownTimer(90000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val currentValue: Int = (millisUntilFinished / 1000).toInt()

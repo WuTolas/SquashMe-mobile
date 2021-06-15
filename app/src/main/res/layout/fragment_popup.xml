@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:max="90"
-        android:progress="90" />
+        android:progress="90"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/close_popup_btn"
