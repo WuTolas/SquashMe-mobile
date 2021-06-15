@@ -64,7 +64,6 @@ class RefereeModeFragment : Fragment() {
     private lateinit var playerOneSidesGroup: RadioGroup
     private lateinit var playerOneLeftSide: RadioButton
     private lateinit var playerOneRightSide: RadioButton
-    private lateinit var playerTwoSidesGroup: RadioGroup
     private lateinit var playerTwoLeftSide: RadioButton
     private lateinit var playerTwoRightSide: RadioButton
 
@@ -92,12 +91,13 @@ class RefereeModeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initModel()
         init(view)
 
         setsToWin = (match.bestOf?.plus(1))?.div(2) ?: -1
         playerOneNameHolder.text = playerOne.name
         playerTwoNameHolder.text = playerTwo.name
+
+        initModel()
     }
 
     private fun initModel() {
@@ -120,10 +120,9 @@ class RefereeModeFragment : Fragment() {
         endGameButton = view.findViewById(R.id.end_game_btn)
         nextSetButton = view.findViewById(R.id.next_set_btn)
         revertPointButton = view.findViewById(R.id.revert_point_btn)
-        playerOneSidesGroup = view.findViewById(R.id.player_one_sides)
+        playerOneSidesGroup = view.findViewById(R.id.player_sides)
         playerOneLeftSide = view.findViewById(R.id.player_one_left_side_radio)
         playerOneRightSide = view.findViewById(R.id.player_one_right_side_radio)
-        playerTwoSidesGroup = view.findViewById(R.id.player_two_sides)
         playerTwoLeftSide = view.findViewById(R.id.player_two_left_side_btn)
         playerTwoRightSide = view.findViewById(R.id.player_two_right_side_btn)
 
@@ -144,6 +143,10 @@ class RefereeModeFragment : Fragment() {
         playerOneSetNumber.text = playerOneSet.toString()
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
+
+        if (checkIfSetEnded()) {
+            endSet(lastResult)
+        }
     }
 
     private fun scoreButtonListener(player: Int) {
@@ -154,7 +157,7 @@ class RefereeModeFragment : Fragment() {
         } else {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
-        saveResult(result).run { checkIfSetEnded(result) }
+        saveResult(result)
     }
 
     private fun setSide(player: Int): String {
@@ -164,16 +167,14 @@ class RefereeModeFragment : Fragment() {
                 playerOneRightSide.isChecked = true
                 playerOneRightSide.text.toString()
             } else {
-                playerTwoSidesGroup.clearCheck()
                 playerOneLeftSide.isChecked = true
                 playerOneLeftSide.text.toString()
             }
         } else {
-            if (playerTwoSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
+            if (playerOneSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
                 playerTwoRightSide.isChecked = true
                 playerTwoRightSide.text.toString()
             } else {
-                playerOneSidesGroup.clearCheck()
                 playerTwoLeftSide.isChecked = true
                 playerTwoLeftSide.text.toString()
             }
@@ -181,29 +182,32 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun saveResult(result: Result) {
-        model.addPoint(result)
         runBlocking {
             launch(Dispatchers.IO) {
-                resultService.addPoint(result)
+                resultService.addPoint(result).also {
+                    model.addPoint(it)
+                }
             }
         }
     }
 
-    private fun checkIfSetEnded(result: Result) {
+    private fun checkIfSetEnded(): Boolean {
+        var ended = false;
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
             if (match.isTwoPointsAdvantage) {
                 if (abs(playerOneScore - playerTwoScore) >= 2) {
-                    endSet(result)
+                    ended = true
                 }
             } else {
-                endSet(result)
+                ended = true
             }
         }
+        return ended
     }
 
-    private fun endSet(result: Result) {
-        if ((result.serve == 1 && playerOneSet.plus(1) == setsToWin)
-                || (result.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
+    private fun endSet(result: Result?) {
+        if ((result?.serve == 1 && playerOneSet.plus(1) == setsToWin)
+                || (result?.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
             val popupDialogFragment = PopupDialogFragment(false)
@@ -283,7 +287,6 @@ class RefereeModeFragment : Fragment() {
         val lastResult = getLastResult()
 
         playerOneSidesGroup.clearCheck()
-        playerTwoSidesGroup.clearCheck()
 
         if (lastResult?.serve == 1) {
             if (lastResult.side == getString(R.string.right_side)) {
@@ -302,9 +305,9 @@ class RefereeModeFragment : Fragment() {
 
     private fun nextSetListener() {
         val result = if (playerOneScore > playerTwoScore) {
-            Result(0, 0, "L", 1, ++playerOneSet, playerTwoSet, match.id)
+            Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
         } else {
-            Result(0, 0, "L", 1, playerOneSet, ++playerTwoSet, match.id)
+            Result(0, 0, getString(R.string.left_side), 1, playerOneSet, ++playerTwoSet, match.id)
         }
         saveResult(result)
         changeToStandardVisibility()

@@ -13,7 +13,9 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="40dp"
+            style="@style/SquashMeOutlinedButton"
             android:text="@string/quick_match_history"
+            android:textColor="@color/main_color"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -24,7 +26,9 @@
             android:layout_marginTop="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            style="@style/SquashMeOutlinedButton"
             android:text="@string/tournament_history"
+            android:textColor="@color/main_color"
             tools:ignore="ButtonStyle" />
 
 </FrameLayout>

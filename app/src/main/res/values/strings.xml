@@ -69,6 +69,11 @@
     <string name="tournament_close_prompt">Are you sure you want to end the tournament?</string>
     <string name="tournament_name">Tournament name</string>
     <string name="start_match_prompt">Are you sure you want to start selected match?</string>
+    <string name="player_one_name_hint">Type player one full name</string>
+    <string name="player_two_name_hint">Type player two full name</string>
+    <string name="allowed_characters" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -</string>
+    <string name="tournament_name_input">Type tournament name</string>
+    <string name="number_of_players_input">Type number of players</string>
 
     <string-array name="languages">
         <item>English</item>

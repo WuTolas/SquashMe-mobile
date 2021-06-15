@@ -34,7 +34,7 @@ class PopupDialogFragment(
         closeButton.setOnClickListener { this.dismiss() }
 
         title = if (endingMatch) {
-            progressBar.visibility = View.INVISIBLE
+            progressBar.visibility = View.GONE
             "Match finished"
         } else {
             object : CountDownTimer(90000, 1000) {

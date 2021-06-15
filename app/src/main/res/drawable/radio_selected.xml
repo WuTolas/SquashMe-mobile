@@ -2,6 +2,9 @@
 <shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/dark_green"/>
     <stroke
-        android:width="1dp"
-        android:color="@color/main_color" />
+        android:width="2dp"
+        android:color="@color/primary_light_border" />
+    <corners android:radius="2dp"/>
+    <padding android:left="@dimen/mtrl_btn_padding_left"/>
+    <padding android:right="@dimen/mtrl_btn_padding_right"/>
 </shape>

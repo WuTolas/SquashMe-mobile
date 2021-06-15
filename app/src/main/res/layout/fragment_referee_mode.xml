@@ -1,201 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
+        android:id="@+id/player_names"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <LinearLayout
-            android:id="@+id/player_names"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/player_one_name"
-                style="@style/SquashMeOutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.9"
-                android:textAlignment="center"
-                android:textColor="@color/main_color"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeMaxTextSize="20sp"
-                android:autoSizeStepGranularity="2sp"/>
-
-            <Button
-                android:id="@+id/player_one_set"
-                style="@style/SquashMeOutlinedButton"
-                android:clickable="false"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:gravity="center"
-                android:textColor="@color/main_color" />
-
-            <Button
-                android:id="@+id/player_two_set"
-                style="@style/SquashMeOutlinedButton"
-                android:clickable="false"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:gravity="center"
-                android:textColor="@color/main_color" />
-
-            <Button
-                android:id="@+id/player_two_name"
-                style="@style/SquashMeOutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.9"
-                android:textAlignment="center"
-                android:textColor="@color/main_color"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeMaxTextSize="20sp"
-                android:autoSizeStepGranularity="2sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/end_game_btn"
-                style="@style/SquashMeOutlinedButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/end_game"
-                android:textColor="@color/main_color" />
-
-            <Button
-                android:id="@+id/next_set_btn"
-                style="@style/SquashMeOutlinedButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/next_set"
-                android:textColor="@color/main_color"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/revert_point_btn"
-                style="@style/SquashMeOutlinedButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/revert_point"
-                android:textColor="@color/main_color" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/players_wrapper"
-            android:layout_width="match_parent"
-            android:layout_marginTop="-46dp"
+        <Button
+            android:id="@+id/player_one_name"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_weight="0.9"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/main_color" />
 
-            <LinearLayout
-                android:id="@+id/player_one_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        <Button
+            android:id="@+id/player_one_set"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="0.1"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/main_color" />
 
-                <RadioGroup
-                    android:id="@+id/player_one_sides"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="start"
-                    android:orientation="horizontal">
+        <Button
+            android:id="@+id/player_two_set"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="0.1"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/main_color" />
 
-                    <RadioButton
-                        android:id="@+id/player_one_left_side_radio"
-                        android:layout_width="36sp"
-                        android:layout_height="36sp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/left_side"
-                        android:textColor="@color/main_color" />
-
-                    <RadioButton
-                        android:id="@+id/player_one_right_side_radio"
-                        android:layout_width="36sp"
-                        android:layout_height="36sp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="@string/right_side"
-                        android:textColor="@color/main_color" />
-                </RadioGroup>
-
-                <Button
-                    android:id="@+id/player_one_add_point_btn"
-                    style="@style/SquashMeOutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/main_color"
-                    android:textSize="150sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/player_two_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <RadioGroup
-                    android:id="@+id/player_two_sides"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="end"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/player_two_left_side_btn"
-                        android:layout_width="36sp"
-                        android:layout_height="36sp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="@string/left_side"
-                        android:textColor="@color/main_color" />
-
-                    <RadioButton
-                        android:id="@+id/player_two_right_side_btn"
-                        android:layout_width="36sp"
-                        android:layout_height="36sp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="@string/right_side"
-                        android:textColor="@color/main_color" />
-                </RadioGroup>
-
-                <Button
-                    android:id="@+id/player_two_add_point_btn"
-                    style="@style/SquashMeOutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/main_color"
-                    android:textSize="150sp" />
-            </LinearLayout>
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/player_two_name"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/main_color" />
     </LinearLayout>
 
-</FrameLayout>
+    <RadioGroup
+        android:id="@+id/player_sides"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/player_one_left_side_radio"
+            android:layout_width="40sp"
+            android:layout_height="36sp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/left_side"
+            android:textColor="@color/main_color" />
+
+        <RadioButton
+            android:id="@+id/player_one_right_side_radio"
+            android:layout_width="40sp"
+            android:layout_height="36sp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/right_side"
+            android:textColor="@color/main_color" />
+
+        <Button
+            android:id="@+id/end_game_btn"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:text="@string/end_game"
+            android:textColor="@color/main_color" />
+
+        <Button
+            android:id="@+id/next_set_btn"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:text="@string/next_set"
+            android:textColor="@color/main_color"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/revert_point_btn"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="@string/revert_point"
+            android:textColor="@color/main_color" />
+
+        <RadioButton
+            android:id="@+id/player_two_left_side_btn"
+            android:layout_width="40sp"
+            android:layout_height="36sp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/left_side"
+            android:textColor="@color/main_color" />
+
+        <RadioButton
+            android:id="@+id/player_two_right_side_btn"
+            android:layout_width="40sp"
+            android:layout_height="36sp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:text="@string/right_side"
+            android:textColor="@color/main_color" />
+    </RadioGroup>
+
+
+    <LinearLayout
+        android:id="@+id/score_buttons_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/player_one_add_point_btn"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:textColor="@color/main_color"
+            android:textSize="150sp" />
+
+        <Button
+            android:id="@+id/player_two_add_point_btn"
+            style="@style/SquashMeOutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:textColor="@color/main_color"
+            android:textSize="150sp" />
+    </LinearLayout>
+
+</LinearLayout>
