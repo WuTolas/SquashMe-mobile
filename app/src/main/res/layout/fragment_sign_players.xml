@@ -41,7 +41,9 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
+            style="@style/SquashMeOutlinedButton"
             android:text="@string/add_players"
+            android:textColor="@color/main_color"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -52,7 +54,9 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
+            style="@style/SquashMeOutlinedButton"
             android:text="@string/cancel"
+            android:textColor="@color/main_color"
             tools:ignore="ButtonStyle" />
 
     </LinearLayout>
