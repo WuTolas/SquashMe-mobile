@@ -145,8 +145,8 @@ class RefereeModeFragment : Fragment() {
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
 
-        if (!match.isFinished && checkIfSetEnded()) {
-            endSet(lastResult)
+        if (checkIfSetEnded()) {
+            changeFinishedSetVisibility()
         }
     }
 
@@ -159,6 +159,10 @@ class RefereeModeFragment : Fragment() {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
         saveResult(result)
+
+        if (!match.isFinished && checkIfSetEnded()) {
+            endSet(result)
+        }
     }
 
     private fun setSide(player: Int): String {
@@ -211,7 +215,6 @@ class RefereeModeFragment : Fragment() {
                 || (result?.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
-            // todo show this popup only when point added
             val popupDialogFragment = PopupDialogFragment(END_SET)
             popupDialogFragment.show(parentFragmentManager, TAG)
             changeFinishedSetVisibility()
