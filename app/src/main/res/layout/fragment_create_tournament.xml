@@ -4,43 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     tools:context=".fragment.tournament.CreateTournamentFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="UselessParent">
+            android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_tournament_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:labelFor="@id/inp_tournament_name"
-                android:text="@string/tournament_name" />
+                app:errorEnabled="true"
+                android:hint="@string/tournament_name">
 
-            <EditText
-                android:id="@+id/inp_tournament_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="0"
-                android:hint="@string/tournament_name_input"
-                android:digits="@string/allowed_characters"
-                android:ems="10"
-                android:gravity="start"
-                android:importantForAutofill="no"
-                android:inputType="text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inp_tournament_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:digits="@string/allowed_characters"
+                    android:importantForAutofill="no"
+                    android:maxLength="64"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,28 +53,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_tournament_bestOf"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:labelFor="@id/inp_tournament_bestOf"
-                        android:text="@string/best_of" />
+                        app:errorEnabled="true"
+                        android:hint="@string/best_of_not_null_hint">
 
-                    <EditText
-                        android:id="@+id/inp_tournament_bestOf"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:ems="10"
-                        android:gravity="start"
-                        android:hint="@string/best_of_not_null_hint"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:paddingHorizontal="10dp"
-                        tools:ignore="LabelFor" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inp_tournament_bestOf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ems="10"
+                            android:background="@android:color/transparent"
+                            android:gravity="start"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLength="2"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -83,25 +83,26 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_tournament_players_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:labelFor="@id/inp_tournament_max_players"
-                        android:text="@string/player_number" />
+                        app:errorEnabled="true"
+                        android:hint="@string/player_number">
 
-                    <EditText
-                        android:id="@+id/inp_tournament_max_players"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:hint="@string/number_of_players_input"
-                        android:ems="10"
-                        android:gravity="start"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        tools:ignore="LabelFor" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inp_tournament_max_players"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ems="10"
+                            android:background="@android:color/transparent"
+                            android:gravity="start"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLength="2"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </LinearLayout>
 

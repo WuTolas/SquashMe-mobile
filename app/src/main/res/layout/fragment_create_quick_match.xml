@@ -7,154 +7,162 @@
     android:paddingBottom="10dp"
     tools:context=".fragment.quickMatch.CreateQuickMatchFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UselessParent">
 
-        <TextView
-            android:id="@+id/text_player1_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:labelFor="@id/inp_player1_fullName"
-            android:text="@string/player1_full_name_nick_name" />
-
-        <EditText
-            android:id="@+id/inp_player1_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:gravity="start"
-            android:digits="@string/allowed_characters"
-            android:hint="@string/player_one_name_hint"
-            android:importantForAutofill="no"
-            android:maxLength="40" />
-
-        <TextView
-            android:id="@+id/text_player2_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:labelFor="@id/inp_player2_fullName"
-            android:text="@string/player2_full_name_nick_name" />
-
-        <EditText
-            android:id="@+id/inp_player2_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:gravity="start"
-            android:digits="@string/allowed_characters"
-            android:hint="@string/player_two_name_hint"
-            android:importantForAutofill="no"
-            android:maxLength="40" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:baselineAligned="false"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_player1_fullName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingHorizontal="5dp"
-                android:orientation="vertical">
+                app:errorEnabled="true"
+                android:hint="@string/player1_full_name_nick_name">
 
-                <TextView
-                    android:id="@+id/text_match_bestOf"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inp_player1_fullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:labelFor="@id/inp_match_bestOf"
-                    android:text="@string/best_of" />
-
-                <EditText
-                    android:id="@+id/inp_match_bestOf"
-                    android:layout_width="match_parent"
-                    android:layout_height="57dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0"
                     android:ems="10"
+                    android:background="@android:color/transparent"
                     android:gravity="start"
-                    android:hint="@string/best_of_hint"
+                    android:digits="@string/allowed_characters"
                     android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    tools:ignore="LabelFor" />
+                    android:maxLength="40"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_player2_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="@string/player2_full_name_nick_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inp_player2_fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:digits="@string/allowed_characters"
+                    android:importantForAutofill="no"
+                    android:maxLength="40"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_match_bestOf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:hint="@string/best_of_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inp_match_bestOf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:ems="10"
+                            android:background="@android:color/transparent"
+                            android:gravity="start"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLength="2"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="5dp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chk_match_twoPointsAdvantage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="false"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/two_points_advantage_rule" />
+
+                    <CheckBox
+                        android:id="@+id/chk_match_refereeMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:enabled="false"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/referee_mode" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingHorizontal="5dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/chk_match_twoPointsAdvantage"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_match_cancel"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:checked="false"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/two_points_advantage_rule" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    style="@style/SquashMeOutlinedButton"
+                    android:text="@string/cancel"
+                    android:textColor="@color/main_color"
+                    tools:ignore="ButtonStyle" />
 
-                <CheckBox
-                    android:id="@+id/chk_match_refereeMode"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_match_create"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:enabled="false"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/referee_mode" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    style="@style/SquashMeOutlinedButton"
+                    android:text="@string/create"
+                    android:textColor="@color/main_color"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    </ScrollView>
 
-            <Button
-                android:id="@+id/btn_match_cancel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_weight="1"
-                style="@style/SquashMeOutlinedButton"
-                android:text="@string/cancel"
-                android:textColor="@color/main_color"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/btn_match_create"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_weight="1"
-                style="@style/SquashMeOutlinedButton"
-                android:text="@string/create"
-                android:textColor="@color/main_color"
-                tools:ignore="ButtonStyle" />
-        </LinearLayout>
-    </LinearLayout>
 </FrameLayout>

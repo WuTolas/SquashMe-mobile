@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.tournament.SignPlayersFragment">
 
     <LinearLayout
@@ -32,32 +31,40 @@
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/btn_tournament_players_add"
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            style="@style/SquashMeOutlinedButton"
-            android:text="@string/add_players"
-            android:textColor="@color/main_color"
-            tools:ignore="ButtonStyle" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_tournament_players_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            style="@style/SquashMeOutlinedButton"
-            android:text="@string/cancel"
-            android:textColor="@color/main_color"
-            tools:ignore="ButtonStyle" />
+            <Button
+                android:id="@+id/btn_tournament_players_cancel"
+                style="@style/SquashMeOutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:textColor="@color/main_color"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_tournament_players_add"
+                style="@style/SquashMeOutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_weight="1"
+                android:text="@string/add_players"
+                android:textColor="@color/main_color"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

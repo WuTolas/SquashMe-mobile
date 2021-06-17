@@ -11,6 +11,8 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -22,6 +24,7 @@ import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.di.component.DaggerCreateQuickMatchFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
 import pl.pjatk.squashme.fragment.referee.RefereeModeFragment;
+import pl.pjatk.squashme.helper.GenericTextWatcher;
 import pl.pjatk.squashme.model.Match;
 import pl.pjatk.squashme.model.custom.MatchWithPlayers;
 import pl.pjatk.squashme.service.MatchService;
@@ -38,13 +41,14 @@ public class CreateQuickMatchFragment extends Fragment {
     public PlayerService playerService;
     private CompositeDisposable disposables;
 
+    private TextInputLayout textP1FullName;
+    private TextInputLayout textP2FullName;
+    private TextInputLayout textBestOf;
     private EditText p1FullName;
     private EditText p2FullName;
     private EditText bestOf;
     private CheckBox twoPointsAdvantage;
     private CheckBox refereeMode;
-    private Button createButton;
-    private Button cancelButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +65,6 @@ public class CreateQuickMatchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_quick_match, container, false);
         initializeComponents(view);
         disposables = new CompositeDisposable();
-        createButton.setOnClickListener(V -> handleCreateQuickMatch());
-        cancelButton.setOnClickListener(V -> requireActivity().finish());
         return view;
     }
 
@@ -111,13 +113,23 @@ public class CreateQuickMatchFragment extends Fragment {
      * @param view View
      */
     private void initializeComponents(View view) {
+        textP1FullName = view.findViewById(R.id.text_player1_fullName);
+        textP2FullName = view.findViewById(R.id.text_player2_fullName);
+        textBestOf = view.findViewById(R.id.text_match_bestOf);
         p1FullName = view.findViewById(R.id.inp_player1_fullName);
         p2FullName = view.findViewById(R.id.inp_player2_fullName);
         bestOf = view.findViewById(R.id.inp_match_bestOf);
         twoPointsAdvantage = view.findViewById(R.id.chk_match_twoPointsAdvantage);
         refereeMode = view.findViewById(R.id.chk_match_refereeMode);
-        createButton = view.findViewById(R.id.btn_match_create);
-        cancelButton = view.findViewById(R.id.btn_match_cancel);
+
+        p1FullName.addTextChangedListener(new GenericTextWatcher(textP1FullName));
+        p2FullName.addTextChangedListener(new GenericTextWatcher(textP2FullName));
+        bestOf.addTextChangedListener(new GenericTextWatcher(textBestOf));
+
+        Button createButton = view.findViewById(R.id.btn_match_create);
+        Button cancelButton = view.findViewById(R.id.btn_match_cancel);
+        createButton.setOnClickListener(V -> handleCreateQuickMatch());
+        cancelButton.setOnClickListener(V -> requireActivity().finish());
     }
 
     /**
@@ -145,23 +157,23 @@ public class CreateQuickMatchFragment extends Fragment {
         String p2Name = p2FullName.getText().toString().trim();
 
         if (p1Name.isEmpty()) {
-            p1FullName.setError(getString(R.string.error_name_empty));
+            textP1FullName.setError(getString(R.string.error_name_empty));
             errorsCount++;
-        } else if (p1Name.length() > 64) {
-            p1FullName.setError(getString(R.string.error_max_length, 64));
+        } else if (p1Name.length() > 40) {
+            textP1FullName.setError(getString(R.string.error_max_length, 40));
             errorsCount++;
         }
 
         if (p2Name.isEmpty()) {
-            p2FullName.setError(getString(R.string.error_name_empty));
+            textP2FullName.setError(getString(R.string.error_name_empty));
             errorsCount++;
-        } else if (p2Name.length() > 64) {
-            p2FullName.setError(getString(R.string.error_max_length, 64));
+        } else if (p2Name.length() > 40) {
+            textP2FullName.setError(getString(R.string.error_max_length, 40));
             errorsCount++;
         }
 
         if (!p1Name.isEmpty() && !p2Name.isEmpty() && p1Name.equals(p2Name)) {
-            p2FullName.setError(getString(R.string.error_player_exists));
+            textP2FullName.setError(getString(R.string.error_player_exists));
             errorsCount++;
         }
 
@@ -169,18 +181,18 @@ public class CreateQuickMatchFragment extends Fragment {
             if (!bestOf.getText().toString().isEmpty()) {
                 int bestOfValue = Integer.parseInt(bestOf.getText().toString());
                 if (bestOfValue <= 0) {
-                    bestOf.setError(getString(R.string.error_best_of_games));
+                    textBestOf.setError(getString(R.string.error_best_of_games));
                     errorsCount++;
                 } else if (bestOfValue % 2 == 0) {
-                    bestOf.setError(getString(R.string.error_best_of_must_be_odd));
+                    textBestOf.setError(getString(R.string.error_best_of_must_be_odd));
                     errorsCount++;
                 } else if (bestOfValue > 11) {
-                    bestOf.setError(getString(R.string.error_max_number, 11));
+                    textBestOf.setError(getString(R.string.error_max_number, 11));
                     errorsCount++;
                 }
             }
         } catch (NumberFormatException ex) {
-            bestOf.setError(getString(R.string.error_not_a_number));
+            textBestOf.setError(getString(R.string.error_not_a_number));
             errorsCount++;
         }
 

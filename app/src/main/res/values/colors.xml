@@ -20,6 +20,7 @@
     <color name="text_dark_disabled">#61000000</color>
     <color name="odd_row">#F3F3F3</color>
     <color name="transparent">#80FFFFFF</color>
+    <color name="full_transparent">#99FFFFFF</color>
     <color name="losing_score">#b81919</color>
     <color name="winning_score">#6b9f06</color>
     <color name="main_color">#DE000000</color>
