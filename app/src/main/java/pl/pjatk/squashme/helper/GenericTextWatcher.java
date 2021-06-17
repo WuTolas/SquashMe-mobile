@@ -24,6 +24,7 @@ public class GenericTextWatcher implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         inputLayout.setErrorEnabled(false);
+        inputLayout.setErrorEnabled(true);
     }
 
     @Override

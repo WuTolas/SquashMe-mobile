@@ -1,8 +1,6 @@
 package pl.pjatk.squashme.fragment.quickMatch;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +49,6 @@ public class CreateQuickMatchFragment extends Fragment {
     private EditText bestOf;
     private CheckBox twoPointsAdvantage;
     private CheckBox refereeMode;
-    private Button createButton;
-    private Button cancelButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,12 +121,13 @@ public class CreateQuickMatchFragment extends Fragment {
         bestOf = view.findViewById(R.id.inp_match_bestOf);
         twoPointsAdvantage = view.findViewById(R.id.chk_match_twoPointsAdvantage);
         refereeMode = view.findViewById(R.id.chk_match_refereeMode);
-        createButton = view.findViewById(R.id.btn_match_create);
-        cancelButton = view.findViewById(R.id.btn_match_cancel);
 
         p1FullName.addTextChangedListener(new GenericTextWatcher(textP1FullName));
         p2FullName.addTextChangedListener(new GenericTextWatcher(textP2FullName));
         bestOf.addTextChangedListener(new GenericTextWatcher(textBestOf));
+
+        Button createButton = view.findViewById(R.id.btn_match_create);
+        Button cancelButton = view.findViewById(R.id.btn_match_cancel);
         createButton.setOnClickListener(V -> handleCreateQuickMatch());
         cancelButton.setOnClickListener(V -> requireActivity().finish());
     }

@@ -26,6 +26,7 @@
                 android:id="@+id/text_player1_fullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 android:hint="@string/player1_full_name_nick_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -72,8 +73,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:paddingHorizontal="5dp"
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
