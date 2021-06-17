@@ -122,9 +122,10 @@ public class SignPlayersFragment extends Fragment {
      */
     private void addPlayerInputs(View view) {
         LinearLayout layout = view.findViewById(R.id.sign_players_container);
-
+        ViewGroup container = null;
+        
         for (int i = 0; i < maxPlayers; i++) {
-            TextInputLayout ti = (TextInputLayout) getLayoutInflater().inflate(R.layout.player_input, null, false);
+            TextInputLayout ti = (TextInputLayout) getLayoutInflater().inflate(R.layout.player_input, container, false);
             ti.setHint(String.format("%s " + (i + 1), getString(R.string.player)));
             if (ti.getEditText() != null) {
                 ti.getEditText().addTextChangedListener(new GenericTextWatcher(ti));
