@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import pl.pjatk.squashme.R;
 import pl.pjatk.squashme.activity.TournamentInfo;
 import pl.pjatk.squashme.di.component.DaggerSignPlayersFragmentComponent;
 import pl.pjatk.squashme.di.module.RoomModule;
+import pl.pjatk.squashme.helper.GenericTextWatcher;
 import pl.pjatk.squashme.service.TournamentService;
 
 /**
@@ -47,7 +47,7 @@ public class SignPlayersFragment extends Fragment {
     private long tournamentId;
     private int maxPlayers;
 
-    private final List<EditText> playerNameEditList = new ArrayList<>();
+    private final List<TextInputLayout> playerNameEditList = new ArrayList<>();
     private final List<String> playerNames = new ArrayList<>();
     private Button addButton;
     private Button cancelButton;
@@ -122,17 +122,15 @@ public class SignPlayersFragment extends Fragment {
      */
     private void addPlayerInputs(View view) {
         LinearLayout layout = view.findViewById(R.id.sign_players_container);
-        TextView nameLabel;
-        EditText nameInput;
 
         for (int i = 0; i < maxPlayers; i++) {
-            nameLabel = new TextView(getContext());
-            nameLabel.setText(String.format("%s " + (i + 1), getString(R.string.player)));
-            nameInput = new EditText(getContext());
-            nameInput.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            playerNameEditList.add(nameInput);
-            layout.addView(nameLabel);
-            layout.addView(nameInput);
+            TextInputLayout ti = (TextInputLayout) getLayoutInflater().inflate(R.layout.player_input, null, false);
+            ti.setHint(String.format("%s " + (i + 1), getString(R.string.player)));
+            if (ti.getEditText() != null) {
+                ti.getEditText().addTextChangedListener(new GenericTextWatcher(ti));
+            }
+            playerNameEditList.add(ti);
+            layout.addView(ti);
         }
     }
 
@@ -145,17 +143,17 @@ public class SignPlayersFragment extends Fragment {
         AtomicInteger errorCount = new AtomicInteger(0);
         playerNames.clear();
 
-        playerNameEditList.forEach(e -> {
-            String playerName = e.getText().toString().trim();
+        playerNameEditList.forEach(ti -> {
+            String playerName = ti.getEditText() != null ? ti.getEditText().getText().toString().trim() : "";
 
             if (playerName.isEmpty()) {
-                e.setError(getString(R.string.error_name_empty));
+                ti.setError(getString(R.string.error_name_empty));
                 errorCount.incrementAndGet();
-            } else if (playerName.length() > 64) {
-                e.setError(getString(R.string.error_max_length, 64));
+            } else if (playerName.length() > 40) {
+                ti.setError(getString(R.string.error_max_length, 40));
                 errorCount.incrementAndGet();
             } else if (playerNames.contains(playerName)) {
-                e.setError(getString(R.string.error_player_exists));
+                ti.setError(getString(R.string.error_player_exists));
                 errorCount.incrementAndGet();
             } else {
                 playerNames.add(playerName);
