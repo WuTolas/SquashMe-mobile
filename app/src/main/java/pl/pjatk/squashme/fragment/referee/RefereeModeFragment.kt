@@ -145,7 +145,7 @@ class RefereeModeFragment : Fragment() {
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
 
-        if (checkIfSetEnded()) {
+        if (!match.isFinished && checkIfSetEnded()) {
             changeFinishedSetVisibility()
         }
     }
