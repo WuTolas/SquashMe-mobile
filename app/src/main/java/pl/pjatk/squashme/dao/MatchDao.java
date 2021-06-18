@@ -43,8 +43,8 @@ public interface MatchDao extends BaseDao<Match> {
             "LEFT JOIN ( " +
             "                SELECT " +
             "                    mi1.id    as matchId  " +
-            "                    , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN ri1.playerOneSet + 1 ELSE ri1.playerOneSet END AS sets1  " +
-            "                    , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN ri1.playerTwoSet + 1 ELSE ri1.playerTwoSet END AS sets2  " +
+            "                    , ri1.playerOneSet AS sets1  " +
+            "                    , ri1.playerTwoSet AS sets2  " +
             "                FROM `Match` mi1 " +
             "                INNER JOIN Result ri1 ON ri1.match_id = mi1.id " +
             "                WHERE  " +
@@ -66,8 +66,8 @@ public interface MatchDao extends BaseDao<Match> {
             "    m.id AS id " +
             "    , p1.name AS player1 " +
             "    , p2.name AS player2 " +
-            "    , CASE WHEN r.playerOneScore > r.playerTwoScore THEN r.playerOneSet + 1 ELSE r.playerOneSet END AS sets1 " +
-            "    , CASE WHEN r.playerOneScore < r.playerTwoScore THEN r.playerTwoSet + 1 ELSE r.playerTwoSet END AS sets2 " +
+            "    , r.playerOneSet AS sets1 " +
+            "    , r.playerTwoSet AS sets2 " +
             "FROM Result r " +
             "INNER JOIN `Match` m ON m.id = r.match_id " +
             "INNER JOIN Player p1 ON p1.id = m.player1 " +

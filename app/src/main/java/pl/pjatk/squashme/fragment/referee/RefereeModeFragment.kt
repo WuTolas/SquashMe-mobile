@@ -17,10 +17,11 @@ import pl.pjatk.squashme.R
 import pl.pjatk.squashme.activity.TournamentDashboardNavigation
 import pl.pjatk.squashme.di.component.DaggerRefereeFragmentComponent
 import pl.pjatk.squashme.di.module.RoomModule
+import pl.pjatk.squashme.fragment.referee.PopupOption.*
 import pl.pjatk.squashme.model.Match
-import pl.pjatk.squashme.model.custom.MatchWithPlayers
 import pl.pjatk.squashme.model.Player
 import pl.pjatk.squashme.model.Result
+import pl.pjatk.squashme.model.custom.MatchWithPlayers
 import pl.pjatk.squashme.service.MatchService
 import pl.pjatk.squashme.service.ResultService
 import javax.inject.Inject
@@ -61,7 +62,7 @@ class RefereeModeFragment : Fragment() {
     private lateinit var endGameButton: Button
     private lateinit var nextSetButton: Button
     private lateinit var revertPointButton: Button
-    private lateinit var playerOneSidesGroup: RadioGroup
+    private lateinit var playerSidesGroup: RadioGroup
     private lateinit var playerOneLeftSide: RadioButton
     private lateinit var playerOneRightSide: RadioButton
     private lateinit var playerTwoLeftSide: RadioButton
@@ -120,7 +121,7 @@ class RefereeModeFragment : Fragment() {
         endGameButton = view.findViewById(R.id.end_game_btn)
         nextSetButton = view.findViewById(R.id.next_set_btn)
         revertPointButton = view.findViewById(R.id.revert_point_btn)
-        playerOneSidesGroup = view.findViewById(R.id.player_sides)
+        playerSidesGroup = view.findViewById(R.id.player_sides)
         playerOneLeftSide = view.findViewById(R.id.player_one_left_side_radio)
         playerOneRightSide = view.findViewById(R.id.player_one_right_side_radio)
         playerTwoLeftSide = view.findViewById(R.id.player_two_left_side_btn)
@@ -144,8 +145,8 @@ class RefereeModeFragment : Fragment() {
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
 
-        if (checkIfSetEnded()) {
-            endSet(lastResult)
+        if (!match.isFinished && checkIfSetEnded()) {
+            changeFinishedSetVisibility()
         }
     }
 
@@ -158,12 +159,16 @@ class RefereeModeFragment : Fragment() {
             Result(playerOneScore, ++playerTwoScore, side, player, playerOneSet, playerTwoSet, match.id)
         }
         saveResult(result)
+
+        if (!match.isFinished && checkIfSetEnded()) {
+            endSet(result)
+        }
     }
 
     private fun setSide(player: Int): String {
 
         return if (player == 1) {
-            if (playerOneSidesGroup.checkedRadioButtonId == playerOneLeftSide.id) {
+            if (playerSidesGroup.checkedRadioButtonId == playerOneLeftSide.id) {
                 playerOneRightSide.isChecked = true
                 playerOneRightSide.text.toString()
             } else {
@@ -171,7 +176,7 @@ class RefereeModeFragment : Fragment() {
                 playerOneLeftSide.text.toString()
             }
         } else {
-            if (playerOneSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
+            if (playerSidesGroup.checkedRadioButtonId == playerTwoLeftSide.id) {
                 playerTwoRightSide.isChecked = true
                 playerTwoRightSide.text.toString()
             } else {
@@ -210,7 +215,7 @@ class RefereeModeFragment : Fragment() {
                 || (result?.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
             endGame()
         } else {
-            val popupDialogFragment = PopupDialogFragment(false)
+            val popupDialogFragment = PopupDialogFragment(END_SET)
             popupDialogFragment.show(parentFragmentManager, TAG)
             changeFinishedSetVisibility()
         }
@@ -234,12 +239,28 @@ class RefereeModeFragment : Fragment() {
         playerOneScoreBtn.isEnabled = false
         playerTwoScoreBtn.isEnabled = false
         finishMatch(true)
-        val popupDialogFragment = PopupDialogFragment(true)
+        val popupDialogFragment = PopupDialogFragment(END_GAME)
         popupDialogFragment.show(parentFragmentManager, TAG)
     }
 
     private fun endGameListener() {
-        finishMatch(true)
+        if (match.isFinished) {
+            val result = if (playerOneScore > playerTwoScore) {
+                Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
+            } else {
+                Result(0, 0, getString(R.string.left_side), 1, playerOneSet, ++playerTwoSet, match.id)
+            }
+            saveResult(result)
+            exitRefereeMode()
+        } else {
+            val popupDialogFragment = PopupDialogFragment(WALKOVER)
+            popupDialogFragment.show(parentFragmentManager, TAG)
+            finishMatch(true)
+            exitRefereeMode()
+        }
+    }
+
+    private fun exitRefereeMode() {
         if (parentFragmentManager.backStackEntryCount > 0) {
             parentFragmentManager.popBackStackImmediate()
         } else {
@@ -286,7 +307,7 @@ class RefereeModeFragment : Fragment() {
     private fun checkSides() {
         val lastResult = getLastResult()
 
-        playerOneSidesGroup.clearCheck()
+        playerSidesGroup.clearCheck()
 
         if (lastResult?.serve == 1) {
             if (lastResult.side == getString(R.string.right_side)) {

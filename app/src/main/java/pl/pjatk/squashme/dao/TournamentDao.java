@@ -67,10 +67,10 @@ public interface TournamentDao extends BaseDao<Tournament> {
             "INNER JOIN ( " +
             "    SELECT  " +
             "            mi1.id as match_id " +
-            "            , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN 1 ELSE 0 END AS winning " +
-            "            , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN 1 ELSE 0 END AS losing " +
-            "            , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN ri1.playerOneSet + 1 ELSE ri1.playerOneSet END AS sets_winning " +
-            "            , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN ri1.playerTwoSet + 1 ELSE ri1.playerTwoSet END AS sets_losing " +
+            "            , CASE WHEN ri1.playerOneSet > ri1.playerTwoSet THEN 1 ELSE 0 END AS winning " +
+            "            , CASE WHEN ri1.playerOneSet < ri1.playerTwoSet THEN 1 ELSE 0 END AS losing " +
+            "            , ri1.playerOneSet AS sets_winning " +
+            "            , ri1.playerTwoSet AS sets_losing " +
             "    FROM Result ri1 " +
             "    INNER JOIN `Match` mi1 ON mi1.id = ri1.match_id " +
             "    WHERE mi1.tournament_id =:tournamentId " +
@@ -110,10 +110,10 @@ public interface TournamentDao extends BaseDao<Tournament> {
             "INNER JOIN ( " +
             "    SELECT  " +
             "            mi1.id as match_id " +
-            "            , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN 1 ELSE 0 END AS winning " +
-            "            , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN 1 ELSE 0 END AS losing " +
-            "            , CASE WHEN ri1.playerOneScore < ri1.playerTwoScore THEN ri1.playerTwoSet + 1 ELSE ri1.playerTwoSet END AS sets_winning " +
-            "            , CASE WHEN ri1.playerOneScore > ri1.playerTwoScore THEN ri1.playerOneSet + 1 ELSE ri1.playerOneSet END AS sets_losing " +
+            "            , CASE WHEN ri1.playerOneSet < ri1.playerTwoSet THEN 1 ELSE 0 END AS winning " +
+            "            , CASE WHEN ri1.playerOneSet > ri1.playerTwoSet THEN 1 ELSE 0 END AS losing " +
+            "            , ri1.playerTwoSet AS sets_winning " +
+            "            , ri1.playerOneSet AS sets_losing " +
             "    FROM Result ri1 " +
             "    INNER JOIN `Match` mi1 ON mi1.id = ri1.match_id " +
             "    WHERE mi1.tournament_id =:tournamentId " +
