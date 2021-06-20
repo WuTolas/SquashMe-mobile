@@ -74,6 +74,11 @@
     <string name="allowed_characters" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -</string>
     <string name="tournament_name_input">Type tournament name</string>
     <string name="number_of_players_input">Type number of players</string>
+    <string name="match_finished">Match finished</string>
+    <string name="set_finished">Set finished</string>
+    <string name="walkover">WALKOVER</string>
+    <string name="answer_no">NO</string>
+    <string name="answer_yes">YES</string>
 
     <string-array name="languages">
         <item>English</item>
