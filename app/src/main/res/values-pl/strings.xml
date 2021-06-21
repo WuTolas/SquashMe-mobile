@@ -66,4 +66,9 @@
     <string name="player_two_name_hint">Podaj imię drugiego zawodnika</string>
     <string name="tournament_name_input">Podaj nazwę turnieju</string>
     <string name="number_of_players_input">Podaj liczbę zawodników</string>
+    <string name="match_finished">Mecz zakończony</string>
+    <string name="set_finished">Set zakończony</string>
+    <string name="walkover">WALKOWER</string>
+    <string name="answer_no">NIE</string>
+    <string name="answer_yes">TAK</string>
 </resources>

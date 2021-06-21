@@ -1,6 +1,7 @@
 package pl.pjatk.squashme.fragment.referee
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +33,8 @@ class RefereeModeFragment : Fragment() {
 
     companion object {
         private const val MATCH_PARAM = "match"
+        private const val WINNER_KEY = "winner"
+        private const val END_GAME_KEY = "confirmGameEnds"
         private const val TAG = "RefereeModeFragment"
     }
 
@@ -83,6 +87,14 @@ class RefereeModeFragment : Fragment() {
                 .roomModule(RoomModule(requireActivity().application))
                 .build()
                 .inject(this)
+        setFragmentResultListener(WINNER_KEY) { key, bundle ->
+            val winner = bundle.getInt(key)
+            setWinnerByWalkover(winner)
+        }
+        setFragmentResultListener(END_GAME_KEY) { key, bundle ->
+            val finishGame = bundle.getBoolean(key)
+            endGameEndless(finishGame)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -244,7 +256,9 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun endGameListener() {
+        Log.i(TAG, "endGameListener")
         if (match.isFinished) {
+            Log.i(TAG, "match finished")
             val result = if (playerOneScore > playerTwoScore) {
                 Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
             } else {
@@ -253,8 +267,41 @@ class RefereeModeFragment : Fragment() {
             saveResult(result)
             exitRefereeMode()
         } else {
-            val popupDialogFragment = PopupDialogFragment(WALKOVER)
-            popupDialogFragment.show(parentFragmentManager, TAG)
+            Log.i(TAG, "match not finished")
+            if (setsToWin == -1) {
+                Log.i(TAG, "sets to win -1")
+                val popupDialogFragment =
+                        PopupDialogFragment(END_ENDLESS_GAME)
+                popupDialogFragment.show(parentFragmentManager, TAG)
+            } else {
+                Log.i(TAG, "else")
+                val popupDialogFragment =
+                        PopupDialogFragment(WALKOVER, playerOne.name, playerTwo.name)
+                popupDialogFragment.show(parentFragmentManager, TAG)
+            }
+        }
+    }
+
+    private fun setWinnerByWalkover(winner: Int) {
+        Log.i(TAG, "Winner: $winner")
+        if (winner == 1) {
+            val remainingSets = setsToWin - playerOneSet
+            for (i in 0 until remainingSets) {
+                saveResult(Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id))
+            }
+        } else {
+            val remainingSets = setsToWin - playerTwoSet
+            for (i in 0 until remainingSets) {
+                saveResult(Result(0, 0, getString(R.string.left_side), 1, playerOneSet, ++playerTwoSet, match.id))
+            }
+        }
+        finishMatch(true)
+        exitRefereeMode()
+    }
+
+    private fun endGameEndless(finish: Boolean) {
+        if (finish) {
+            Log.i(TAG, "finish endless")
             finishMatch(true)
             exitRefereeMode()
         }
