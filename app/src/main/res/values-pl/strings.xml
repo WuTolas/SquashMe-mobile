@@ -71,4 +71,10 @@
     <string name="walkover">WALKOWER</string>
     <string name="answer_no">NIE</string>
     <string name="answer_yes">TAK</string>
+    <string name="time_is_up">Przerwa zakończona</string>
+    <string name="ninety_seconds_break">Przerwa 90 sekund</string>
+    <string name="confirm_ending_game">Na pewno chcesz zakończyć mecz?</string>
+    <string name="ending_game">Zakończenie gry</string>
+    <string name="choose_who_won">Kto zwyciężył:</string>
+    <string name="click_end_game">Wciśnij \'Zakończ mecz\' aby wyjść</string>
 </resources>

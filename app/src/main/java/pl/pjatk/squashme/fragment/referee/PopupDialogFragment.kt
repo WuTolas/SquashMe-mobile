@@ -22,6 +22,11 @@ class PopupDialogFragment(
         private var player2Name: String = ""
 ) : DialogFragment() {
 
+    companion object {
+        const val WINNER_KEY = "winner"
+        const val END_GAME_KEY = "confirmGameEnds"
+    }
+
     private lateinit var counter: TextView
     private lateinit var popupTitle: TextView
     private lateinit var popupAdditionalInfo: TextView
@@ -70,19 +75,19 @@ class PopupDialogFragment(
         when (option) {
             PopupOption.END_GAME -> {
                 title = getString(R.string.match_finished)
-                additionalInfo = "Click 'END GAME' to finish"
+                additionalInfo = getString(R.string.click_end_game)
             }
             PopupOption.WALKOVER -> {
                 playerOneButton.text = playerOneName
                 playerTwoButton.text = playerTwoName
                 playerNamesWrapper.visibility = View.VISIBLE
                 title = getString(R.string.walkover)
-                additionalInfo = "Choose who won the game:"
+                additionalInfo = getString(R.string.choose_who_won)
             }
             PopupOption.END_FRIENDLY_GAME -> {
                 endGameConfirm.visibility = View.VISIBLE
-                title = "Ending game"
-                additionalInfo = "Are you sure you want to end game?"
+                title = getString(R.string.ending_game)
+                additionalInfo = getString(R.string.confirm_ending_game)
             }
             else -> {
                 progressBar.visibility = View.VISIBLE
@@ -95,11 +100,11 @@ class PopupDialogFragment(
 
                     override fun onFinish() {
                         counter.setTextColor(Color.RED)
-                        counter.text = "0"
+                        counter.text = getString(R.string.time_is_up)
                     }
                 }.start()
                 title = getString(R.string.set_finished)
-                additionalInfo = "90 seconds break"
+                additionalInfo = getString(R.string.ninety_seconds_break)
             }
         }
 
@@ -108,12 +113,12 @@ class PopupDialogFragment(
     }
 
     private fun playerButtonListener(player: Int) {
-        setFragmentResult("winner", bundleOf("winner" to player))
+        setFragmentResult(WINNER_KEY, bundleOf(WINNER_KEY to player))
         dismiss()
     }
 
     private fun confirmEndGameListener(finish: Boolean) {
-        setFragmentResult("confirmGameEnds", bundleOf("confirmGameEnds" to finish))
+        setFragmentResult(END_GAME_KEY, bundleOf(END_GAME_KEY to finish))
         dismiss()
     }
 }
