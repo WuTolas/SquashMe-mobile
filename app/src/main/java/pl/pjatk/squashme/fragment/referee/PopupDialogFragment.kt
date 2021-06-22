@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import pl.pjatk.squashme.R
 
 class PopupDialogFragment(
@@ -54,6 +53,77 @@ class PopupDialogFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        init(view)
+
+        when (option) {
+            PopupOption.END_GAME -> {
+                showEndGameOption()
+            }
+            PopupOption.WALKOVER -> {
+                showWalkoverOption()
+            }
+            PopupOption.END_FRIENDLY_GAME -> {
+                showEndFriendlyGameOption()
+            }
+            PopupOption.END_SET -> {
+                showEndSetOption()
+            }
+        }
+        updatePopupDetails()
+    }
+
+    /**
+     * update title and additional info in popup window
+     * based on option
+     */
+    private fun updatePopupDetails() {
+        popupTitle.text = title
+        popupAdditionalInfo.text = additionalInfo
+    }
+
+    /**
+     * show 90 seconds counter
+     * to visualise break time
+     */
+    private fun showEndSetOption() {
+        progressBar.visibility = View.VISIBLE
+        object : CountDownTimer(90000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val currentValue: Int = (millisUntilFinished / 1000).toInt()
+                counter.text = "$currentValue"
+                progressBar.progress = currentValue
+            }
+
+            override fun onFinish() {
+                counter.setTextColor(Color.RED)
+                counter.text = getString(R.string.time_is_up)
+            }
+        }.start()
+        title = getString(R.string.set_finished)
+        additionalInfo = getString(R.string.ninety_seconds_break)
+    }
+
+    /**
+     * show buttons to confirm ending game
+     */
+    private fun showEndFriendlyGameOption() {
+        endGameConfirm.visibility = View.VISIBLE
+        title = getString(R.string.ending_game)
+        additionalInfo = getString(R.string.confirm_ending_game)
+    }
+
+    /**
+     * show buttons to manually choose winner
+     */
+    private fun showWalkoverOption() {
+        playerOneButton.text = playerOneName
+        playerTwoButton.text = playerTwoName
+        playerNamesWrapper.visibility = View.VISIBLE
+        title = getString(R.string.walkover)
+        additionalInfo = getString(R.string.choose_who_won)
+    }
+
+    private fun init(view: View) {
         popupTitle = view.findViewById(R.id.popup_title)
         popupAdditionalInfo = view.findViewById(R.id.popup_additional_info)
         counter = view.findViewById(R.id.counter)
@@ -71,52 +141,30 @@ class PopupDialogFragment(
         noButton.setOnClickListener { confirmEndGameListener(false) }
         yesButton.setOnClickListener { confirmEndGameListener(true) }
         closeButton.setOnClickListener { this.dismiss() }
-
-        when (option) {
-            PopupOption.END_GAME -> {
-                title = getString(R.string.match_finished)
-                additionalInfo = getString(R.string.click_end_game)
-            }
-            PopupOption.WALKOVER -> {
-                playerOneButton.text = playerOneName
-                playerTwoButton.text = playerTwoName
-                playerNamesWrapper.visibility = View.VISIBLE
-                title = getString(R.string.walkover)
-                additionalInfo = getString(R.string.choose_who_won)
-            }
-            PopupOption.END_FRIENDLY_GAME -> {
-                endGameConfirm.visibility = View.VISIBLE
-                title = getString(R.string.ending_game)
-                additionalInfo = getString(R.string.confirm_ending_game)
-            }
-            else -> {
-                progressBar.visibility = View.VISIBLE
-                object : CountDownTimer(90000, 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        val currentValue: Int = (millisUntilFinished / 1000).toInt()
-                        counter.text = "$currentValue"
-                        progressBar.progress = currentValue
-                    }
-
-                    override fun onFinish() {
-                        counter.setTextColor(Color.RED)
-                        counter.text = getString(R.string.time_is_up)
-                    }
-                }.start()
-                title = getString(R.string.set_finished)
-                additionalInfo = getString(R.string.ninety_seconds_break)
-            }
-        }
-
-        popupTitle.text = title
-        popupAdditionalInfo.text = additionalInfo
     }
 
+    /**
+     * change only title and additional info after finished game
+     */
+    private fun showEndGameOption() {
+        title = getString(R.string.match_finished)
+        additionalInfo = getString(R.string.click_end_game)
+    }
+
+
+    /**
+     * set winner to propagate result to another fragment
+     * @param player Int
+     */
     private fun playerButtonListener(player: Int) {
         setFragmentResult(WINNER_KEY, bundleOf(WINNER_KEY to player))
         dismiss()
     }
 
+    /**
+     * set decision to end game to propagate result to another fragment
+     * @param finish Boolean
+     */
     private fun confirmEndGameListener(finish: Boolean) {
         setFragmentResult(END_GAME_KEY, bundleOf(END_GAME_KEY to finish))
         dismiss()

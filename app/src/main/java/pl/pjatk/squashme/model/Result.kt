@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+/**
+ * Entity class which defines result structure in the database.
+ */
 @Entity
 data class Result(
         val playerOneScore: Int,
