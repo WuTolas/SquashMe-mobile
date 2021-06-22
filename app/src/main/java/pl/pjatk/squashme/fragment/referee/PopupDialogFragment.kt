@@ -41,6 +41,7 @@ class PopupDialogFragment(
     private lateinit var yesButton: Button
     private lateinit var playerOneName: String
     private lateinit var playerTwoName: String
+    private var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +88,7 @@ class PopupDialogFragment(
      */
     private fun showEndSetOption() {
         progressBar.visibility = View.VISIBLE
-        object : CountDownTimer(90000, 1000) {
+        timer = object : CountDownTimer(90000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val currentValue: Int = (millisUntilFinished / 1000).toInt()
                 counter.text = "$currentValue"
@@ -168,5 +169,10 @@ class PopupDialogFragment(
     private fun confirmEndGameListener(finish: Boolean) {
         setFragmentResult(END_GAME_KEY, bundleOf(END_GAME_KEY to finish))
         dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
     }
 }
