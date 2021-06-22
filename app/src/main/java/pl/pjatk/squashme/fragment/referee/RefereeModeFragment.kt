@@ -87,16 +87,7 @@ class RefereeModeFragment : Fragment() {
                 .roomModule(RoomModule(requireActivity().application))
                 .build()
                 .inject(this)
-        setFragmentResultListener(PopupDialogFragment.WINNER_KEY) { key, bundle ->
-            val winner = bundle.getInt(key)
-            setWinnerByWalkover(winner)
-        }
-        setFragmentResultListener(PopupDialogFragment.END_GAME_KEY) { key, bundle ->
-            val finishGame = bundle.getBoolean(key)
-            if (finishGame) {
-                endGameAndExit()
-            }
-        }
+        setFragmentResultsListeners()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -115,6 +106,26 @@ class RefereeModeFragment : Fragment() {
         initModel()
     }
 
+    /**
+     * fragment result listeners monitor result of popup fragment
+     * to take proper actions based on user's decision
+     */
+    private fun setFragmentResultsListeners() {
+        setFragmentResultListener(PopupDialogFragment.WINNER_KEY) { key, bundle ->
+            val winner = bundle.getInt(key)
+            setWinnerByWalkover(winner)
+        }
+        setFragmentResultListener(PopupDialogFragment.END_GAME_KEY) { key, bundle ->
+            val finishGame = bundle.getBoolean(key)
+            if (finishGame) {
+                endGameAndExit()
+            }
+        }
+    }
+
+    /**
+     * initializes model and sets up observer on scores
+     */
     private fun initModel() {
         model = ViewModelProvider(this, RefereeModelFactory(matchWithPlayers.results))
                 .get(RefereeModel::class.java)
@@ -148,6 +159,10 @@ class RefereeModeFragment : Fragment() {
         revertPointButton.setOnClickListener { revertPointListener() }
     }
 
+    /**
+     * prepare data based on last result or set default
+     * @param lastResult: Result?
+     */
     private fun resultObserver(lastResult: Result?) {
         playerOneScore = lastResult?.playerOneScore ?: 0
         playerOneSet = lastResult?.playerOneSet ?: 0
@@ -166,6 +181,10 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * keep track on scores
+     * @param player: Int
+     */
     private fun scoreButtonListener(player: Int) {
         val side = setSide(player)
 
@@ -181,8 +200,11 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * change color of side indicator to visualise which side and which player should serve
+     * @param player: Int
+     */
     private fun setSide(player: Int): String {
-
         return if (player == 1) {
             if (playerSidesGroup.checkedRadioButtonId == playerOneLeftSide.id) {
                 playerOneRightSide.isChecked = true
@@ -202,6 +224,11 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * use coroutines to update database and live data model
+     * with updated result (score)
+     * @param result: Result
+     */
     private fun saveResult(result: Result) {
         runBlocking {
             launch(Dispatchers.IO) {
@@ -212,6 +239,10 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * check if set ended based on players' score
+     * @return information if set is ended
+     */
     private fun checkIfSetEnded(): Boolean {
         var ended = false
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
@@ -226,6 +257,10 @@ class RefereeModeFragment : Fragment() {
         return ended
     }
 
+    /**
+     * check if match ended based on players' score
+     * @return information if match is ended
+     */
     private fun checkIfMatchEnded(): Boolean {
         var ended = false
         val setNumber = max(playerOneSet, playerTwoSet)
@@ -235,6 +270,11 @@ class RefereeModeFragment : Fragment() {
         return ended
     }
 
+    /**
+     * end set and show popup with 90 seconds break
+     * or end game if appropriate
+     * @param result Result?
+     */
     private fun endSet(result: Result?) {
         if ((result?.serve == 1 && playerOneSet.plus(1) == setsToWin)
                 || (result?.serve == 2 && playerTwoSet.plus(1) == setsToWin)) {
@@ -246,30 +286,50 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * disable score buttons
+     * show next set button
+     */
     private fun changeFinishedSetVisibility() {
         endGameButton.visibility = View.GONE
         nextSetButton.visibility = View.VISIBLE
-        changeScoreButtonsVisibility(false)
+        changeScoreButtonsAccessibility(false)
     }
 
+    /**
+     * enable score buttons
+     * hide next set button
+     */
     private fun changeToStandardVisibility() {
         endGameButton.visibility = View.VISIBLE
         nextSetButton.visibility = View.GONE
-        changeScoreButtonsVisibility(true)
+        changeScoreButtonsAccessibility(true)
     }
 
-    private fun changeScoreButtonsVisibility(visible: Boolean) {
+    /**
+     * enable / disable score buttons
+     * @param visible Boolean
+     */
+    private fun changeScoreButtonsAccessibility(visible: Boolean) {
         playerOneScoreBtn.isEnabled = visible
         playerTwoScoreBtn.isEnabled = visible
     }
 
+    /**
+     * disable score buttons
+     * show popup with end game info
+     */
     private fun endGame() {
-        changeScoreButtonsVisibility(false)
+        changeScoreButtonsAccessibility(false)
         matchToFinish = true
         val popupDialogFragment = PopupDialogFragment(END_GAME)
         popupDialogFragment.show(parentFragmentManager, TAG)
     }
 
+    /**
+     * add last point when match is finished
+     * show popup to end game or walkover
+     */
     private fun endGameListener() {
         if (matchToFinish) {
             Log.i(TAG, "match to finish")
@@ -295,6 +355,10 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * add remaining sets to winner's score on walkover
+     * @param winner Int
+     */
     private fun setWinnerByWalkover(winner: Int) {
         if (winner == 1) {
             val remainingSets = setsToWin - playerOneSet
@@ -310,6 +374,9 @@ class RefereeModeFragment : Fragment() {
         endGameAndExit()
     }
 
+    /**
+     * finish game and exit view
+     */
     private fun endGameAndExit() {
         finishMatch(true)
         exitRefereeMode()
@@ -323,6 +390,10 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * update match in database using coroutines
+     * @param finished Boolean
+     */
     private fun finishMatch(finished: Boolean) {
         matchToFinish = finished
         match.isFinished = finished
@@ -333,6 +404,9 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * revert point and change buttons visibility if applicable
+     */
     private fun revertPointListener() {
         if (matchToFinish) {
             playerOneScoreBtn.isEnabled = true
@@ -349,6 +423,9 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * delete reverted point from database and model
+     */
     private fun revertPoint(): Result? {
         return model.revertPoint().also {
             runBlocking {
@@ -360,6 +437,9 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * check player to serve and side L/R
+     */
     private fun checkSides() {
         val lastResult = getLastResult()
 
@@ -380,6 +460,9 @@ class RefereeModeFragment : Fragment() {
         }
     }
 
+    /**
+     * change set number and save result
+     */
     private fun nextSetListener() {
         val result = if (playerOneScore > playerTwoScore) {
             Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
