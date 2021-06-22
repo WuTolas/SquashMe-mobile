@@ -107,7 +107,7 @@ public class TournamentResultsFragment extends Fragment {
         headerRow.addView(tv0);
 
         TextView tv1 = (TextView) getLayoutInflater().inflate(R.layout.header_col, container, false);
-        tv1.setText(R.string.name);
+        tv1.setText(R.string.player);
         headerRow.addView(tv1);
 
         TextView tv2 = (TextView) getLayoutInflater().inflate(R.layout.header_col, container, false);
