@@ -34,8 +34,6 @@ class RefereeModeFragment : Fragment() {
 
     companion object {
         private const val MATCH_PARAM = "match"
-        private const val WINNER_KEY = "winner"
-        private const val END_GAME_KEY = "confirmGameEnds"
         private const val TAG = "RefereeModeFragment"
     }
 
@@ -89,11 +87,11 @@ class RefereeModeFragment : Fragment() {
                 .roomModule(RoomModule(requireActivity().application))
                 .build()
                 .inject(this)
-        setFragmentResultListener(WINNER_KEY) { key, bundle ->
+        setFragmentResultListener(PopupDialogFragment.WINNER_KEY) { key, bundle ->
             val winner = bundle.getInt(key)
             setWinnerByWalkover(winner)
         }
-        setFragmentResultListener(END_GAME_KEY) { key, bundle ->
+        setFragmentResultListener(PopupDialogFragment.END_GAME_KEY) { key, bundle ->
             val finishGame = bundle.getBoolean(key)
             if (finishGame) {
                 endGameAndExit()
@@ -273,7 +271,6 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun endGameListener() {
-        Log.i(TAG, "endGameListener")
         if (matchToFinish) {
             Log.i(TAG, "match to finish")
             finishMatch(true)
@@ -285,14 +282,12 @@ class RefereeModeFragment : Fragment() {
             saveResult(result)
             exitRefereeMode()
         } else {
-            Log.i(TAG, "match not finished")
+            Log.i(TAG, "ending not finished match")
             if (setsToWin == -1) {
-                Log.i(TAG, "sets to win -1")
                 val popupDialogFragment =
                         PopupDialogFragment(END_FRIENDLY_GAME)
                 popupDialogFragment.show(parentFragmentManager, TAG)
             } else {
-                Log.i(TAG, "else")
                 val popupDialogFragment =
                         PopupDialogFragment(WALKOVER, playerOne.name, playerTwo.name)
                 popupDialogFragment.show(parentFragmentManager, TAG)
@@ -301,7 +296,6 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun setWinnerByWalkover(winner: Int) {
-        Log.i(TAG, "Winner: $winner")
         if (winner == 1) {
             val remainingSets = setsToWin - playerOneSet
             for (i in 0 until remainingSets) {

@@ -79,6 +79,12 @@
     <string name="walkover">WALKOVER</string>
     <string name="answer_no">NO</string>
     <string name="answer_yes">YES</string>
+    <string name="time_is_up">Time is up</string>
+    <string name="ninety_seconds_break">90 seconds break</string>
+    <string name="confirm_ending_game">Are you sure you want to end game?</string>
+    <string name="ending_game">Ending game</string>
+    <string name="choose_who_won">Choose who won the game:</string>
+    <string name="click_end_game">Click \'END GAME\' to exit</string>
 
     <string-array name="languages">
         <item>English</item>
