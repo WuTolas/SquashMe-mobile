@@ -79,7 +79,7 @@ class PopupDialogFragment(
                 title = getString(R.string.walkover)
                 additionalInfo = "Choose who won the game:"
             }
-            PopupOption.END_ENDLESS_GAME -> {
+            PopupOption.END_FRIENDLY_GAME -> {
                 endGameConfirm.visibility = View.VISIBLE
                 title = "Ending game"
                 additionalInfo = "Are you sure you want to end game?"

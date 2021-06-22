@@ -28,6 +28,7 @@ import pl.pjatk.squashme.service.MatchService
 import pl.pjatk.squashme.service.ResultService
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlin.math.max
 
 class RefereeModeFragment : Fragment() {
 
@@ -57,6 +58,7 @@ class RefereeModeFragment : Fragment() {
     private var playerTwoScore: Int = 0
     private var playerOneSet: Int = 0
     private var playerTwoSet: Int = 0
+    private var matchToFinish: Boolean = false
     private lateinit var playerOneNameHolder: Button
     private lateinit var playerTwoNameHolder: Button
     private lateinit var playerOneScoreBtn: Button
@@ -93,7 +95,9 @@ class RefereeModeFragment : Fragment() {
         }
         setFragmentResultListener(END_GAME_KEY) { key, bundle ->
             val finishGame = bundle.getBoolean(key)
-            endGameEndless(finishGame)
+            if (finishGame) {
+                endGameAndExit()
+            }
         }
     }
 
@@ -157,7 +161,9 @@ class RefereeModeFragment : Fragment() {
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
 
-        if (!match.isFinished && checkIfSetEnded()) {
+        matchToFinish = checkIfMatchEnded()
+
+        if (!matchToFinish && checkIfSetEnded()) {
             changeFinishedSetVisibility()
         }
     }
@@ -172,7 +178,7 @@ class RefereeModeFragment : Fragment() {
         }
         saveResult(result)
 
-        if (!match.isFinished && checkIfSetEnded()) {
+        if (!matchToFinish && checkIfSetEnded()) {
             endSet(result)
         }
     }
@@ -209,7 +215,7 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun checkIfSetEnded(): Boolean {
-        var ended = false;
+        var ended = false
         if (playerOneScore >= 11 || playerTwoScore >= 11) {
             if (match.isTwoPointsAdvantage) {
                 if (abs(playerOneScore - playerTwoScore) >= 2) {
@@ -218,6 +224,15 @@ class RefereeModeFragment : Fragment() {
             } else {
                 ended = true
             }
+        }
+        return ended
+    }
+
+    private fun checkIfMatchEnded(): Boolean {
+        var ended = false
+        val setNumber = max(playerOneSet, playerTwoSet)
+        if (checkIfSetEnded() && setNumber == setsToWin - 1) {
+            ended = true
         }
         return ended
     }
@@ -236,29 +251,32 @@ class RefereeModeFragment : Fragment() {
     private fun changeFinishedSetVisibility() {
         endGameButton.visibility = View.GONE
         nextSetButton.visibility = View.VISIBLE
-        playerOneScoreBtn.isEnabled = false
-        playerTwoScoreBtn.isEnabled = false
+        changeScoreButtonsVisibility(false)
     }
 
     private fun changeToStandardVisibility() {
         endGameButton.visibility = View.VISIBLE
         nextSetButton.visibility = View.GONE
-        playerOneScoreBtn.isEnabled = true
-        playerTwoScoreBtn.isEnabled = true
+        changeScoreButtonsVisibility(true)
+    }
+
+    private fun changeScoreButtonsVisibility(visible: Boolean) {
+        playerOneScoreBtn.isEnabled = visible
+        playerTwoScoreBtn.isEnabled = visible
     }
 
     private fun endGame() {
-        playerOneScoreBtn.isEnabled = false
-        playerTwoScoreBtn.isEnabled = false
-        finishMatch(true)
+        changeScoreButtonsVisibility(false)
+        matchToFinish = true
         val popupDialogFragment = PopupDialogFragment(END_GAME)
         popupDialogFragment.show(parentFragmentManager, TAG)
     }
 
     private fun endGameListener() {
         Log.i(TAG, "endGameListener")
-        if (match.isFinished) {
-            Log.i(TAG, "match finished")
+        if (matchToFinish) {
+            Log.i(TAG, "match to finish")
+            finishMatch(true)
             val result = if (playerOneScore > playerTwoScore) {
                 Result(0, 0, getString(R.string.left_side), 1, ++playerOneSet, playerTwoSet, match.id)
             } else {
@@ -271,7 +289,7 @@ class RefereeModeFragment : Fragment() {
             if (setsToWin == -1) {
                 Log.i(TAG, "sets to win -1")
                 val popupDialogFragment =
-                        PopupDialogFragment(END_ENDLESS_GAME)
+                        PopupDialogFragment(END_FRIENDLY_GAME)
                 popupDialogFragment.show(parentFragmentManager, TAG)
             } else {
                 Log.i(TAG, "else")
@@ -295,16 +313,12 @@ class RefereeModeFragment : Fragment() {
                 saveResult(Result(0, 0, getString(R.string.left_side), 1, playerOneSet, ++playerTwoSet, match.id))
             }
         }
-        finishMatch(true)
-        exitRefereeMode()
+        endGameAndExit()
     }
 
-    private fun endGameEndless(finish: Boolean) {
-        if (finish) {
-            Log.i(TAG, "finish endless")
-            finishMatch(true)
-            exitRefereeMode()
-        }
+    private fun endGameAndExit() {
+        finishMatch(true)
+        exitRefereeMode()
     }
 
     private fun exitRefereeMode() {
@@ -316,6 +330,7 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun finishMatch(finished: Boolean) {
+        matchToFinish = finished
         match.isFinished = finished
         runBlocking {
             launch(Dispatchers.IO) {
@@ -325,7 +340,7 @@ class RefereeModeFragment : Fragment() {
     }
 
     private fun revertPointListener() {
-        if (match.isFinished) {
+        if (matchToFinish) {
             playerOneScoreBtn.isEnabled = true
             playerTwoScoreBtn.isEnabled = true
             finishMatch(false)
