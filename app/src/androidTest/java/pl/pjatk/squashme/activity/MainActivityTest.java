@@ -1,6 +1,5 @@
 package pl.pjatk.squashme.activity;
 
-
 import android.app.Activity;
 import android.widget.Button;
 
