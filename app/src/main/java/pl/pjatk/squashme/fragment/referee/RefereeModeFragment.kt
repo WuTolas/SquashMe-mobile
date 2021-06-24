@@ -433,7 +433,6 @@ class RefereeModeFragment : Fragment() {
                 launch(Dispatchers.IO) {
                     resultService.revertPoint(it)
                 }
-//                checkSides()
             }
         }
     }
