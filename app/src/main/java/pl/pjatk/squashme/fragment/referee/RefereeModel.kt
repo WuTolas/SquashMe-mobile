@@ -29,10 +29,6 @@ class RefereeModel(savedResults: MutableList<Result>) : ViewModel() {
                 }
     }
 
-    fun getLastResult(): Result? {
-        return _results.value?.lastOrNull()
-    }
-
     private fun updateList() {
         _results.postValue(results.value)
     }

@@ -174,6 +174,7 @@ class RefereeModeFragment : Fragment() {
         playerTwoScoreBtn.text = playerTwoScore.toString()
         playerTwoSetNumber.text = playerTwoSet.toString()
 
+        checkSides(lastResult)
         matchToFinish = checkIfMatchEnded()
 
         if (!matchToFinish && checkIfSetEnded()) {
@@ -432,17 +433,16 @@ class RefereeModeFragment : Fragment() {
                 launch(Dispatchers.IO) {
                     resultService.revertPoint(it)
                 }
-                checkSides()
+//                checkSides()
             }
         }
     }
 
     /**
-     * check player to serve and side L/R
+     * mark set side for player to serve (left/right)
+     * @param lastResult Result
      */
-    private fun checkSides() {
-        val lastResult = getLastResult()
-
+    private fun checkSides(lastResult: Result?) {
         playerSidesGroup.clearCheck()
 
         if (lastResult?.serve == 1) {
@@ -471,9 +471,5 @@ class RefereeModeFragment : Fragment() {
         }
         saveResult(result)
         changeToStandardVisibility()
-    }
-
-    private fun getLastResult(): Result? {
-        return model.getLastResult()
     }
 }
