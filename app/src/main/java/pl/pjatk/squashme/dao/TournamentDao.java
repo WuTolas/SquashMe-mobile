@@ -141,6 +141,6 @@ public interface TournamentDao extends BaseDao<Tournament> {
             ") scores ON scores.player_id = pt.player_id " +
             "WHERE pt.tournament_id =:tournamentId " +
             "GROUP BY p.id " +
-            "ORDER BY winning DESC, sets_winning DESC, points_winning DESC, losing ASC, sets_losing ASC, points_losing ASC")
+            "ORDER BY winning DESC, setsWinning DESC, pointsWinning DESC, losing ASC, setsLosing ASC, pointsLosing ASC")
     Single<List<TournamentResults>> searchTournamentResults(long tournamentId);
 }
