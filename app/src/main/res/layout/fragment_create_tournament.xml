@@ -37,7 +37,7 @@
                     android:ems="10"
                     android:background="@android:color/transparent"
                     android:gravity="start"
-                    android:digits="@string/allowed_characters"
+                    android:digits="@string/allowed_characters_with_digits"
                     android:importantForAutofill="no"
                     android:maxLength="64"/>
             </com.google.android.material.textfield.TextInputLayout>
